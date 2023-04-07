@@ -1,7 +1,5 @@
 import 'package:authentication_repository/authentication_repository.dart';
 
-import 'authentication_state.dart';
-
 abstract class AuthenticationEvent {
   const AuthenticationEvent();
 }

@@ -32,11 +32,13 @@ dependencies:
     path: packages/authentication_repository
   user_repository:
     path : packages/user_repository
+  service_locator:
+    path: packages/service_locator_repository
   bloc: ^8.1.0
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  formz: ^0.6.0
+  formz: ^0.4.0
   http: ^0.13.5
 
 
