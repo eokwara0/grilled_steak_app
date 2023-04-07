@@ -8,23 +8,30 @@ import 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
+  // Initialize the repositories
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
+  late StreamSubscription<AuthenticationStatus>
+      _authenticationStatusSubscription;
+  // Constructor
   AuthenticationBloc({
+    //
     required AuthenticationRepository authenticationRepository,
     required UserRepository userRepository,
+
+    //
   })  : _authenticationRepository = authenticationRepository,
         _userRepository = userRepository,
         super(const AuthenticationState.unknown()) {
+    // Event handlers
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequest>(_onAuthenticationLogoutRequest);
+
+    // Stream subscription handler
     _authenticationStatusSubscription = _authenticationRepository.status.listen(
       (AuthenticationStatus status) => add(AuthenticationStatusChanged(status)),
     );
   }
-
-  late StreamSubscription<AuthenticationStatus>
-      _authenticationStatusSubscription;
 
   FutureOr<void> _onAuthenticationLogoutRequest(
       AuthenticationLogoutRequest event, Emitter<AuthenticationState> emit) {
