@@ -1,6 +1,6 @@
 import 'package:formz/formz.dart';
 
-enum PasswordValidatorError { empty }
+enum PasswordValidatorError { empty, invalid }
 
 class Password extends FormzInput<String, PasswordValidatorError> {
   // formz data handling
@@ -9,7 +9,11 @@ class Password extends FormzInput<String, PasswordValidatorError> {
 
   @override
   PasswordValidatorError? validator(String value) {
+    final regex =
+        RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$');
     if (value.isEmpty) return PasswordValidatorError.empty;
+    if (!regex.hasMatch(value)) return PasswordValidatorError.invalid;
+
     return null;
   }
 }

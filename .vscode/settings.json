@@ -1,0 +1,6 @@
+{
+    "conventionalCommits.scopes": [
+        "Adding user login feature "
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
