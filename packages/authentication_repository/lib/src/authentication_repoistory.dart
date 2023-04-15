@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:ui';
-
-import 'package:http/http.dart' as http;
+import 'package:authentication_repository/src/domain/models/request_model/post_request.dart';
+import 'package:authentication_repository/src/domain/models/request_model/request_model.dart';
+import 'package:authentication_repository/src/domain/models/response_model/response.dart';
 import 'package:service_locator/service_locator.dart';
 
 // Authentication Statuses
@@ -24,25 +23,33 @@ class AuthenticationRepository {
     required String username,
     required String password,
   }) async {
-    // making request to server to signin
-    final response = await http.post(
-      Uri.parse('http://localhost:3000/auth/login'),
+    print('got here...');
+
+    // request object
+    final request = Post(
+      uri: Uri.parse('http://localhost:3000/auth/login'),
+      headers: {},
       body: {
         "username": username,
         "password": password,
       },
     );
 
+    // response Object
+    final Response res = await request.request();
+
+    // print(res.statucode);
+    // print(res.resBody);
+
     // checking for status code.
-    switch (response.statusCode) {
-      case 201:
+    switch (res.statucode) {
+      case 200:
+        print(' Authentication Repository ${res.resBody['access_token']}');
         _controller.add(AuthenticationStatus.authenticated);
-        final body = jsonDecode(response.body);
-        print(' Authentication Repository ${body['access_token']}');
         fss.writeAll({
           "username": username,
           "password": password,
-          "access_token": body['access_token'],
+          "access_token": res.resBody['access_token'],
         });
         break;
 
@@ -57,14 +64,25 @@ class AuthenticationRepository {
     }
   }
 
+  Future<dynamic> forgotPassword({
+    required String email,
+  }) async {
+    Request request = Post(
+      uri: Uri.parse('http://localhost:3000/auth/forgot/${email}'),
+      headers: {},
+      body: {},
+    );
+    Response res = await request.request();
+    if (res.statucode == 201) {
+      return true;
+    }
+    return false;
+  }
+
   void logOut() {
     _controller.add(AuthenticationStatus.unauthenticated);
+    fss.writeValue('access_token', '');
   }
 
   void dispose() => _controller.close();
 }
-
-// void main(List<String> args) async {
-//   AuthenticationRepository repo = AuthenticationRepository();
-//   repo.login(username: 'jamie', password: 'P@\$\$123w0rD#01');
-// }

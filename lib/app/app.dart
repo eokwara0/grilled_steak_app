@@ -1,14 +1,12 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:grilled_steak_app/bloc_auth/authentication/bloc/authentication_bloc.dart';
-import 'package:grilled_steak_app/bloc_auth/authentication/bloc/authentication_state.dart';
+import 'package:grilled_steak_app/app/routes.dart';
+import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
 import 'package:service_locator/service_locator.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../home/view/home_page.dart';
-import '../login/view/login_page.dart';
-import '../splash/view/splash_page.dart';
+import '../authentication/authentication.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -34,18 +32,24 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      // repository provider
-      create: (context) => _authenticationRepository,
-
-      // bloc providers
-      child: BlocProvider(
-        create: (context) => AuthenticationBloc(
-          authenticationRepository: _authenticationRepository,
-          userRepository: _userRepository,
-        ),
-
-        // child view
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (context) => _authenticationRepository),
+        RepositoryProvider(create: (context) => _userRepository),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthenticationBloc(
+                authenticationRepository: _authenticationRepository,
+                userRepository: _userRepository),
+          ),
+          BlocProvider(
+            create: (context) => ForgotPasswordCubit(
+              authRepo: _authenticationRepository,
+            ),
+          )
+        ],
         child: const AppView(),
       ),
     );
@@ -60,35 +64,28 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
-
-  NavigatorState get _navigator => _navigatorKey.currentState!;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: _navigatorKey,
+    return MaterialApp.router(
+      routerConfig: Routers.router,
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(),
-                  (route) => false,
-                );
+                Routers.router.push('/');
                 break;
               case AuthenticationStatus.unauthenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                    LoginPage.route(), (route) => false);
+                Routers.router.push('/login');
                 break;
               case AuthenticationStatus.unknown:
+                Routers.router.push('/splash');
                 break;
             }
           },
           child: child,
         );
       },
-      onGenerateRoute: (_) => SplashPage.route(),
     );
   }
 }

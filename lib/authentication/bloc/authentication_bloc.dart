@@ -33,17 +33,24 @@ class AuthenticationBloc
     );
   }
 
+  // logout event handler
   FutureOr<void> _onAuthenticationLogoutRequest(
       AuthenticationLogoutRequest event, Emitter<AuthenticationState> emit) {
     _authenticationRepository.logOut();
   }
 
+  // OnStatus change
   FutureOr<void> _onAuthenticationStatusChanged(
       AuthenticationStatusChanged event,
       Emitter<AuthenticationState> emit) async {
+    // check for the current state
     switch (event.status) {
+      // if unauthenticated emit unauthenticatedstate
       case AuthenticationStatus.unauthenticated:
         return emit(const AuthenticationState.unauthenticated());
+
+      // if authenticated find user and emit authenticated state
+      // with user .
       case AuthenticationStatus.authenticated:
         final user = await _tryGetUser();
         return emit(
@@ -51,11 +58,14 @@ class AuthenticationBloc
               ? AuthenticationState.authenticated(user)
               : const AuthenticationState.unauthenticated(),
         );
+
+      // if state is unkonwn emit unknown state.
       case AuthenticationStatus.unknown:
         return emit(const AuthenticationState.unknown());
     }
   }
 
+  // try retrieving user
   Future<User?> _tryGetUser() async {
     try {
       final user = await _userRepository.getUser();
@@ -65,6 +75,7 @@ class AuthenticationBloc
     }
   }
 
+  // close subscriptions
   @override
   Future<void> close() {
     _authenticationStatusSubscription.cancel();
