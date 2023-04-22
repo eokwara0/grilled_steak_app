@@ -17,49 +17,53 @@ class _ForgotState extends State<Forgot> {
     // Forgot Password page
     return SafeArea(
       child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: true,
+            leading: Icon(Icons.arrow_back),
+          ),
           body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Lottie.network(
-              'https://assets10.lottiefiles.com/packages/lf20_C67qsN3hAk.json',
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Forgot',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Ubuntu Mono',
-                    ),
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // Lottie.network(
+                //   'https://assets10.lottiefiles.com/packages/lf20_C67qsN3hAk.json',
+                // ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Forgot',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Ubuntu Mono',
+                        ),
+                      ),
+                      Text(
+                        'Password',
+                        style: TextStyle(
+                          color: Colors.red.shade300,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Ubuntu Mono',
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Password',
-                    style: TextStyle(
-                      color: Colors.red.shade300,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Ubuntu Mono',
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                const Padding(padding: EdgeInsets.all(20)),
+                const EmailForm(),
+                const Padding(
+                  padding: EdgeInsets.all(20),
+                ),
+                const SubmitButton(),
+              ],
             ),
-            const Padding(padding: EdgeInsets.all(20)),
-            const EmailForm(),
-            const Padding(
-              padding: EdgeInsets.all(20),
-            ),
-            const SubmitButton(),
-          ],
-        ),
-      )),
+          )),
     );
   }
 }

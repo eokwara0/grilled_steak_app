@@ -14,7 +14,7 @@ class AuthenticationRepository {
   final _controller = StreamController<AuthenticationStatus>();
 
   Stream<AuthenticationStatus> get status async* {
-    yield AuthenticationStatus.unauthenticated;
+    yield AuthenticationStatus.unknown;
     yield* _controller.stream;
   }
 
@@ -82,6 +82,10 @@ class AuthenticationRepository {
   void logOut() {
     _controller.add(AuthenticationStatus.unauthenticated);
     fss.writeValue('access_token', '');
+  }
+
+  void addStatus(AuthenticationStatus status) {
+    _controller.add(status);
   }
 
   void dispose() => _controller.close();

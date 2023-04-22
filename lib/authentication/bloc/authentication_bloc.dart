@@ -9,6 +9,7 @@ import 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   // Initialize the repositories
+
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
   late StreamSubscription<AuthenticationStatus>
@@ -24,6 +25,8 @@ class AuthenticationBloc
         _userRepository = userRepository,
         super(const AuthenticationState.unknown()) {
     // Event handlers
+
+    _checkUserLoginState();
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequest>(_onAuthenticationLogoutRequest);
 
@@ -80,5 +83,14 @@ class AuthenticationBloc
   Future<void> close() {
     _authenticationStatusSubscription.cancel();
     return super.close();
+  }
+
+  Future<void> _checkUserLoginState() async {
+    final result = await _userRepository.makeRequest();
+    if (result != null) {
+      _authenticationRepository.addStatus(AuthenticationStatus.authenticated);
+    } else {
+      _authenticationRepository.addStatus(AuthenticationStatus.unauthenticated);
+    }
   }
 }

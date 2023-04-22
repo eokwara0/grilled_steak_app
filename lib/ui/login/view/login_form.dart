@@ -40,10 +40,10 @@ class _LoginFormState extends State<LoginForm> {
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Lottie.network(
-              'https://assets10.lottiefiles.com/packages/lf20_C67qsN3hAk.json',
-            ),
+          children: const <Widget>[
+            // Lottie.network(
+            //   'https://assets10.lottiefiles.com/packages/lf20_C67qsN3hAk.json',
+            // ),
             const UsernameInput(),
             const Padding(padding: EdgeInsets.all(12)),
             const PasswordInput(),
