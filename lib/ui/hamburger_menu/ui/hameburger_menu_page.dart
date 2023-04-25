@@ -1,6 +1,4 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class HamBurgerMenuPage extends StatefulWidget {
   const HamBurgerMenuPage({super.key});
@@ -18,9 +16,9 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage> {
           return Material(
             color: Colors.white30,
             child: ListView(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               children: [
-                Text(
+                const Text(
                   'Menu',
                   style: TextStyle(
                     fontSize: 40,
@@ -30,7 +28,7 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage> {
                 Align(
                   widthFactor: MediaQuery.of(context).size.width,
                   alignment: Alignment.bottomLeft,
-                  child: ListTile(
+                  child: const ListTile(
                     tileColor: Colors.white,
                     title: Text('Hi how are we doing'),
                     subtitle: Text('orders'),

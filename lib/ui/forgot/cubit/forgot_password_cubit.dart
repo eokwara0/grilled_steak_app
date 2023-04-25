@@ -14,7 +14,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     required this.authRepo,
   }) : super(const ForgotPasswordInitial(
           email: Email.dirty(''),
-          status: FormzStatus.pure,
+          status: FormzStatus.invalid,
         ));
 
   void onEmailChanged(String value) {
@@ -25,6 +25,12 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   }
 
   Future<void> submit() async {
+    emit(
+      ForgotPasswordSubmissionInProgress(
+        email: state.email,
+        status: FormzStatus.submissionInProgress,
+      ),
+    );
     try {
       final res = await authRepo.forgotPassword(
         email: state.email.value,
@@ -33,22 +39,22 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       if (res) {
         return emit(
           const ForgotPasswordLoaded(
-            email: Email.pure(),
+            email: Email.dirty(''),
             status: FormzStatus.submissionSuccess,
           ),
         );
+      } else {
+        emit(
+          const ForgotPasswordInitial(
+            email: Email.dirty(''),
+            status: FormzStatus.submissionFailure,
+          ),
+        );
       }
-
-      emit(
-        const ForgotPasswordError(
-          email: Email.pure(),
-          status: FormzStatus.submissionFailure,
-        ),
-      );
     } catch (e) {
       return emit(
         ForgotPasswordError(
-          email: Email.pure(),
+          email: const Email.dirty(''),
           status: state.status,
         ),
       );

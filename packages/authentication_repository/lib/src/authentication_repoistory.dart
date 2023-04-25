@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:authentication_repository/src/domain/models/request_model/post_request.dart';
-import 'package:authentication_repository/src/domain/models/request_model/request_model.dart';
-import 'package:authentication_repository/src/domain/models/response_model/response.dart';
 import 'package:service_locator/service_locator.dart';
+
+import 'domain/models/models.dart';
 
 // Authentication Statuses
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
