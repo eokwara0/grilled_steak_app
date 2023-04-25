@@ -27,6 +27,7 @@ class AuthenticationBloc
     // Event handlers
 
     _checkUserLoginState();
+
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequest>(_onAuthenticationLogoutRequest);
 
@@ -86,11 +87,21 @@ class AuthenticationBloc
   }
 
   Future<void> _checkUserLoginState() async {
-    final result = await _userRepository.makeRequest();
-    if (result != null) {
-      _authenticationRepository.addStatus(AuthenticationStatus.authenticated);
-    } else {
-      _authenticationRepository.addStatus(AuthenticationStatus.unauthenticated);
+    try {
+      final result = await _userRepository.makeRequest();
+      if (result != null) {
+        _authenticationRepository.addStatus(
+          AuthenticationStatus.authenticated,
+        );
+      } else {
+        _authenticationRepository.addStatus(
+          AuthenticationStatus.unauthenticated,
+        );
+      }
+    } on Exception {
+      _authenticationRepository.addStatus(
+        AuthenticationStatus.unauthenticated,
+      );
     }
   }
 }

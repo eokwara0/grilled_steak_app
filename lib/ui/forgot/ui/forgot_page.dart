@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
-import 'package:lottie/lottie.dart';
 
 class Forgot extends StatefulWidget {
   const Forgot({super.key});
@@ -14,56 +14,58 @@ class Forgot extends StatefulWidget {
 class _ForgotState extends State<Forgot> {
   @override
   Widget build(BuildContext context) {
-    // Forgot Password page
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: true,
-            leading: Icon(Icons.arrow_back),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  context.go('/login');
+                },
+                child: const Icon(
+                  Icons.arrow_back,
+                ),
+              ),
+              Image.asset('images/logo.jpg'),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Forgot',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Ubuntu Mono',
+                      ),
+                    ),
+                    Text(
+                      'Password',
+                      style: TextStyle(
+                        color: Colors.red.shade300,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Ubuntu Mono',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Padding(padding: EdgeInsets.all(20)),
+              const EmailForm(),
+              const Padding(
+                padding: EdgeInsets.all(20),
+              ),
+              const SubmitButton(),
+            ],
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                // Lottie.network(
-                //   'https://assets10.lottiefiles.com/packages/lf20_C67qsN3hAk.json',
-                // ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Forgot',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Ubuntu Mono',
-                        ),
-                      ),
-                      Text(
-                        'Password',
-                        style: TextStyle(
-                          color: Colors.red.shade300,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Ubuntu Mono',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(20)),
-                const EmailForm(),
-                const Padding(
-                  padding: EdgeInsets.all(20),
-                ),
-                const SubmitButton(),
-              ],
-            ),
-          )),
+        ),
+      ),
     );
   }
 }
@@ -153,37 +155,49 @@ class SubmitButton extends StatelessWidget {
           );
         }
       },
-      child: ElevatedButton(
-        onPressed: () {
-          context.read<ForgotPasswordCubit>().submit();
-        },
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(12),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-        child: Row(
-          children: const <Widget>[
-            Icon(
-              Icons.send_rounded,
-              color: Colors.white,
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
-            ),
-            Text(
-              'Submit',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+      child: BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+        builder: (context, state) {
+          if (state is ForgotPasswordSubmissionInProgress) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return ElevatedButton(
+              onPressed: () {
+                if (state.status.isValidated) {
+                  context.read<ForgotPasswordCubit>().submit();
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(12),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
               ),
-            ),
-          ],
-        ),
+              child: Row(
+                children: const <Widget>[
+                  Icon(
+                    Icons.send_rounded,
+                    color: Colors.white,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                  ),
+                  Text(
+                    'Submit',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }

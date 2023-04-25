@@ -29,6 +29,11 @@ class ForgotPasswordInitial extends ForgotPasswordState {
   const ForgotPasswordInitial({required super.email, required super.status});
 }
 
+class ForgotPasswordSubmissionInProgress extends ForgotPasswordState {
+  const ForgotPasswordSubmissionInProgress(
+      {required super.email, required super.status});
+}
+
 class ForgotPasswordLoaded extends ForgotPasswordState {
   const ForgotPasswordLoaded({required super.email, required super.status});
 }

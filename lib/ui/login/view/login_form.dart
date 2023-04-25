@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:lottie/lottie.dart';
 import '../bloc/login_bloc.dart';
 import 'widgets/forgot_password.dart';
 import 'widgets/login_button.dart';
@@ -40,10 +39,8 @@ class _LoginFormState extends State<LoginForm> {
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            // Lottie.network(
-            //   'https://assets10.lottiefiles.com/packages/lf20_C67qsN3hAk.json',
-            // ),
+          children: <Widget>[
+            Image.asset('images/logo.jpg'),
             const UsernameInput(),
             const Padding(padding: EdgeInsets.all(12)),
             const PasswordInput(),
