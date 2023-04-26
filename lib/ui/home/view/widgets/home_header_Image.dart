@@ -18,7 +18,7 @@ class HeaderBackGroundImage extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             opacity: .9,
-            image: AssetImage('images/bag.jpg'),
+            image: NetworkImage('http://localhost:3000/oy.webp'),
             fit: BoxFit.cover,
           ),
         ),

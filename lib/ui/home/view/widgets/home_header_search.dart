@@ -22,6 +22,7 @@ class _MenuSearchState extends State<MenuSearch> {
       // height: 80,
       child: TextField(
         enabled: true,
+        autocorrect: false,
         onSubmitted: (value) {
           if (value.isNotEmpty) {
             context.read<SearchBottomSheetCubit>().onSubmit(value);
