@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:grilled_steak_app/ui/hamburger_menu/ui/hameburger_menu_page.dart';
-import 'package:grilled_steak_app/ui/home/view/widgets/home_page_body.dart';
+
+import '../../hamburger_menu/ui/hameburger_menu_page.dart';
+import 'widgets/home_body/home_page_body.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,40 +40,38 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawerEnableOpenDragGesture: true,
+      backgroundColor: Colors.grey.shade50,
+      // endDrawerEnableOpenDragGesture: true,
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
         items: const [
           BottomNavigationBarItem(
-            label: 'home',
+            label: '',
             icon: Icon(
               Icons.home_rounded,
-              size: 30,
+              // size: 25,
             ),
           ),
           BottomNavigationBarItem(
-            tooltip: 'orders',
-            label: 'orders',
+            label: '',
             icon: Icon(
               Icons.shopping_bag,
-              size: 30,
+              // size: 25,
             ),
           ),
           BottomNavigationBarItem(
-            tooltip: 'menu',
-            label: 'menu',
+            label: '',
             icon: Icon(
               Icons.menu,
-              size: 30,
+              // size: 25,
             ),
           ),
         ],
         type: BottomNavigationBarType.fixed,
-        // showSelectedLabels: false,
         showUnselectedLabels: false,
         unselectedItemColor: Colors.grey.withOpacity(.5),
-        selectedItemColor:
-            Theme.of(context).colorScheme.primary.withOpacity(.9),
+        selectedItemColor: Colors.amberAccent,
         onTap: _onTap,
         currentIndex: _currentIndex,
       ),

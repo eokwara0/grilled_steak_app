@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 part 'menu_item_state.dart';

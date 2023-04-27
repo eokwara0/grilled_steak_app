@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_item_cubit.dart';
-import 'package:grilled_steak_app/ui/widgets/drag_icon.dart';
 import 'package:grilled_steak_app/ui/widgets/persistant_header_drag.dart';
 
 import '../../../../../authentication/authentication.dart';
 import '../cubit/search_bottom_sheet_cubit.dart';
-import 'asset_image.dart';
 import 'edit_icon.dart';
 
 class ResultView extends StatelessWidget {
@@ -33,14 +31,18 @@ class ResultView extends StatelessWidget {
               pinned: true,
               delegate: PersistanceHeaderDragDelegate(),
             ),
+
+            // list
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 childCount: state.result.length,
                 (context, index) => Column(
                   children: [
                     ListTile(
-                      isThreeLine: true,
-                      leading: Image.network('http://localhost:3000/oy.webp'),
+                      leading: Image.network(
+                        'http://localhost:3000/oy.webp',
+                        fit: BoxFit.cover,
+                      ),
                       title: Text(state.result[index].item.title),
                       subtitle: Text(state.result[index].item.summary),
                       trailing: role ? const EditIcon() : null,

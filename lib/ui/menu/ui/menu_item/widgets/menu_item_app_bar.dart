@@ -14,8 +14,8 @@ class MenuItemAppBar extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: Colors.white,
       stretch: true,
-      expandedHeight: 380,
-      collapsedHeight: 200,
+      expandedHeight: 280,
+      collapsedHeight: 100,
       leading: Padding(
         padding: const EdgeInsets.all(10.0),
         child: CircleAvatar(

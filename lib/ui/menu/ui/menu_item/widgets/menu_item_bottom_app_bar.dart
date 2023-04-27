@@ -24,8 +24,8 @@ class MenuItemBottomAppBar extends StatelessWidget {
           shape: const StadiumBorder(),
         ),
         child: Text(
-          'Add to Order R${quantity * price}',
-          style: TextStyle(color: Colors.white),
+          'Add to Order R${(quantity * price).toStringAsFixed(2)}',
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );

@@ -5,7 +5,7 @@ import 'package:grilled_steak_app/ui/menu/cubit/menu_item_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
-import '../ui/home/view/home_page.dart';
+import '../ui/home/ui/home_page.dart';
 import '../ui/login/view/login_page.dart';
 import '../ui/splash/view/splash_page.dart';
 

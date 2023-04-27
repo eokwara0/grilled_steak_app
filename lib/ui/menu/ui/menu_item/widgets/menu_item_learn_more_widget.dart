@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grilled_steak_app/ui/menu/ui/menu_item/widgets/learn_more_page_nutriton.dart';
 import 'package:grilled_steak_app/ui/widgets/persistant_header_drag.dart';
 import 'package:menu_repository/menu_repository.dart';
 
@@ -51,14 +52,14 @@ class _MenuItemLearnMoreState extends State<MenuItemLearnMore>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.menuItem.item.title,
+                            widget.menuItem.item.summary,
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.grey.shade700,
                             ),
                           ),
                           Text(
-                            widget.menuItem.item.summary,
+                            widget.menuItem.item.title,
                             style: TextStyle(
                               fontSize: 23,
                               fontWeight: FontWeight.bold,
@@ -83,7 +84,8 @@ class _MenuItemLearnMoreState extends State<MenuItemLearnMore>
                   shape: const StadiumBorder(),
                   toolbarHeight: 0,
                   bottom: TabBar(
-                    labelColor: Colors.black38,
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.black54,
                     indicatorPadding: const EdgeInsets.all(4),
                     labelPadding: const EdgeInsets.all(3),
                     indicator: BoxDecoration(
@@ -112,15 +114,15 @@ class _MenuItemLearnMoreState extends State<MenuItemLearnMore>
             controller: _controller,
             children: [
               ListView(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(30),
                 children: [
-                  Text('hi'),
+                  ...tileInstructions(widget.menuItem.item.instructions)
                 ],
               ),
               ListView(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(30),
                 children: [
-                  Text('hi'),
+                  ...tileIngredients(widget.menuItem.item.recipe),
                 ],
               ),
             ],
@@ -129,161 +131,53 @@ class _MenuItemLearnMoreState extends State<MenuItemLearnMore>
       },
     );
   }
-}
 
-class NutritionGrid extends StatelessWidget {
-  const NutritionGrid({
-    super.key,
-    required this.menuItem,
-  });
+  List<Widget> tileInstructions(String instructions) {
+    List<String> lOfInstructions = instructions.split('\n');
+    return lOfInstructions
+        .where((element) => element != "")
+        .map(
+          (e) => Column(
+            children: [
+              ListTile(
+                title: Text(e),
+                textColor: Colors.grey.shade700,
+              ),
+              const Divider()
+            ],
+          ),
+        )
+        .toList();
+  }
 
-  final MenuItem menuItem;
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPadding(
-      sliver: SliverGrid.count(
-        mainAxisSpacing: 10,
-        childAspectRatio: 3,
-        crossAxisCount: 2,
-        children: [
-          Row(
+  List<Widget> tileIngredients(List<Recipe> recipes) {
+    return recipes
+        .map(
+          (e) => Column(
             children: [
-              Row(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(10),
+              ListTile(
+                splashColor: Colors.blue,
+                title: Text(
+                  e.title!,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 19,
                   ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Icon(
-                      Icons.local_florist_sharp,
-                      color: Colors.amber.shade600,
-                      size: 30,
-                    ),
+                ),
+                subtitle: Text(
+                  e.summary!,
+                  style: TextStyle(
+                    color: Colors.grey.shade500,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(3),
-                  ),
-                  Text(
-                    '${menuItem.item.nutrition.carbs} carbs',
-                    style: TextStyle(
-                      color: Colors.grey.shade700,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                ],
+                ),
+                trailing: Text(
+                  '${e.quantity?.toStringAsPrecision(2)} ${e.unit}',
+                ),
               ),
+              const Divider(),
             ],
           ),
-          Row(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Icon(
-                      Icons.sentiment_neutral_outlined,
-                      color: Colors.amber.shade600,
-                      size: 30,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(3),
-                  ),
-                  Text(
-                    '${menuItem.item.nutrition.protein} protein',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade700,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Row(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Icon(
-                      Icons.local_fire_department_outlined,
-                      color: Colors.amber.shade600,
-                      size: 30,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(3),
-                  ),
-                  Text(
-                    '${menuItem.item.nutrition.calories} Kal',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade700,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Icon(
-                      Icons.egg_alt_outlined,
-                      color: Colors.amber.shade600,
-                      size: 30,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(3),
-                  ),
-                  Text(
-                    '${menuItem.item.nutrition.fat} fat',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade700,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(20),
-    );
+        )
+        .toList();
   }
 }
