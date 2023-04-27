@@ -1,9 +1,10 @@
-import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:grilled_steak_app/ui/home/ui/recommendation_section/ui/home_menu_item_recommendation.dart';
 
-import 'home_header_Image.dart';
-import 'home_header_profile.dart';
-import 'home_header_search.dart';
+import '../home_header/home_header_Image.dart';
+import '../home_header/home_header_profile.dart';
+import '../home_header/home_header_search.dart';
+import '../home_menu_section/home_menu_section.dart';
 
 class HomePageBody extends StatefulWidget {
   const HomePageBody({super.key});
@@ -31,35 +32,25 @@ class _HomePageBodyState extends State<HomePageBody> {
           bottom: PreferredSize(
             preferredSize: Size(
               double.infinity,
-              50,
+              100,
             ),
             child: MenuSearch(),
           ),
 
           // flexible space
           flexibleSpace: HeaderBackGroundImage(),
-          expandedHeight: 200,
-          collapsedHeight: 150,
+          expandedHeight: 300,
+          collapsedHeight: 200,
         ),
-
-        // sliver list
         SliverPadding(
           padding: const EdgeInsets.all(20),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => Column(
-                children: [
-                  ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    title: const Text('item'),
-                  ),
-                  Divider(
-                    color: Colors.grey.shade300,
-                  )
-                ],
-              ),
+            delegate: SliverChildListDelegate(
+              [
+                const HomeMenuSection(),
+                const Padding(padding: EdgeInsets.all(20)),
+                const HomeRecommendedMenuItems(),
+              ],
             ),
           ),
         )

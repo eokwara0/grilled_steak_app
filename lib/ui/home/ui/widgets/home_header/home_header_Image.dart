@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:blur/blur.dart';
+import 'package:flutter/material.dart';
 
 class HeaderBackGroundImage extends StatelessWidget {
   const HeaderBackGroundImage({
@@ -9,7 +9,7 @@ class HeaderBackGroundImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Blur(
-      blur: 1,
+      blur: 2,
       colorOpacity: .3,
       blurColor: Colors.black,
       child: Container(
@@ -18,7 +18,7 @@ class HeaderBackGroundImage extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             opacity: .9,
-            image: AssetImage('images/bag.jpg'),
+            image: NetworkImage('http://localhost:3000/mush.webp'),
             fit: BoxFit.cover,
           ),
         ),

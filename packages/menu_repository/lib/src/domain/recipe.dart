@@ -60,11 +60,11 @@ class Recipe extends Equatable {
     );
   }
 
-  get title => _title;
-  get unit => _unit;
-  get summary => _summary;
-  get instructions => _instructions;
-  get quantity => _quantity;
+  String? get title => _title;
+  String? get unit => _unit;
+  String? get summary => _summary;
+  String? get instructions => _instructions;
+  double? get quantity => _quantity;
 
   @override
   List<Object?> get props =>

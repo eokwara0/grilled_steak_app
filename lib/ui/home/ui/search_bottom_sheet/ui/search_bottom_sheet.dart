@@ -12,8 +12,7 @@ class SearchBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      maxChildSize: 0.8,
-      initialChildSize: 0.4,
+      initialChildSize: 1,
       expand: false,
       builder: (context, scroll) =>
           BlocBuilder<SearchBottomSheetCubit, SearchBottomSheetState>(

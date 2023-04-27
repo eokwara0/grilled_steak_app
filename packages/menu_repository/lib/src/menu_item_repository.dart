@@ -79,6 +79,30 @@ class MenuItemRepository {
     return null;
   }
 
+  Future<List<MenuItem>?> getRecommendedItems() async {
+    List<MenuItem> items = [];
+
+    final response = await http.get(
+      Uri.parse('http://localhost:3000/menuItem/recommended'),
+      headers: {
+        "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
+        "Content-Type": 'application/json',
+      },
+    );
+
+    try {
+      if (response.statusCode == HttpStatus.accepted) {
+        final List<dynamic> decoded = List.of(jsonDecode(response.body));
+        decoded.forEach((el) {
+          items.add(MenuItem.fromJson(el));
+        });
+        return items;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// returns a list of menu items based on the word search
   Future<List<MenuItem>?> getItemsByMenuId(String id) async {
     List<MenuItem> items = [];
@@ -103,9 +127,6 @@ class MenuItemRepository {
         return items;
       } catch (err) {
         return null;
-        // throw Exception(
-        //   'An error occurred while decoding the response ==> MenuItemRepository.getItemsBySearch',
-        // );
       }
     }
     return null;
