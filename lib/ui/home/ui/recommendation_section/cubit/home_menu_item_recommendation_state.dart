@@ -5,6 +5,14 @@ abstract class HomeMenuItemRecommendationState extends Equatable {
       : _menuItems = menuItems;
 
   final List<MenuItem> _menuItems;
+
+  List<MenuItem> get menuItem => _menuItems;
+
+  // validations
+  bool get isInitial => this is HomeMenuItemRecommendationInitial;
+  bool get isLoaded => this is HomeMenuItemRecommendationLoaded;
+  bool get isError => this is HomeMenuItemRecommendationError;
+
   @override
   List<Object> get props => [_menuItems];
 }

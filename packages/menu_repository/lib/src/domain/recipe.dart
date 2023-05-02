@@ -3,7 +3,6 @@ part of 'menu_item_model.dart';
 
 class Recipe extends Equatable {
   final String? _title;
-
   final String? _summary;
   final String? _instructions;
   final String? _unit;
@@ -12,7 +11,6 @@ class Recipe extends Equatable {
   const Recipe({
     String? title,
     String? summary,
-    String? description,
     String? instructions,
     double? quantity,
     final String? units,
@@ -50,10 +48,10 @@ class Recipe extends Equatable {
   /// returns recipe from json string
   static Recipe fromJson(Map<dynamic, dynamic> data) {
     return Recipe(
-      title: '${data["title"]}',
+      title: '${data['title']}',
       units: '${data['unit']}',
       summary: '${data["summary"]}',
-      instructions: '${data["instructions"]}',
+      instructions: '${data['instructions']}',
       quantity: double.tryParse(
         '${data['quantity']}',
       ),

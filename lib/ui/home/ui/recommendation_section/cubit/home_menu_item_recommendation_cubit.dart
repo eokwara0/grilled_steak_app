@@ -18,7 +18,6 @@ class HomeMenuItemRecommendationCubit
   void _load() async {
     try {
       List<MenuItem>? items = await _menuItemRepo.getRecommendedItems();
-
       if (items == null) {
         return emit(
           const HomeMenuItemRecommendationError(
@@ -26,7 +25,9 @@ class HomeMenuItemRecommendationCubit
           ),
         );
       }
-      return emit(HomeMenuItemRecommendationLoaded(menuItems: items));
+      return emit(
+        HomeMenuItemRecommendationLoaded(menuItems: items),
+      );
     } on Exception {
       return emit(
         const HomeMenuItemRecommendationError(

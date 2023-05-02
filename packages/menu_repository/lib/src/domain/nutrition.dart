@@ -47,10 +47,10 @@ class Nutrition extends Equatable {
   /// returns recipe from json string
   static Nutrition fromJson(Map<dynamic, dynamic> data) {
     return Nutrition(
-      fat: data["fat"],
-      carbs: data["carbs"],
-      protein: data["protein"],
-      calories: data["calories"],
+      fat: '${data["fat"]}',
+      carbs: '${data["carbs"]}',
+      protein: '${data["protein"]}',
+      calories: '${data["calories"]}',
     );
   }
 

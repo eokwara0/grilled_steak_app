@@ -52,14 +52,14 @@ class _MenuItemLearnMoreState extends State<MenuItemLearnMore>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.menuItem.item.summary,
+                            widget.menuItem.item!.summary!,
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.grey.shade700,
                             ),
                           ),
                           Text(
-                            widget.menuItem.item.title,
+                            widget.menuItem.item!.title!,
                             style: TextStyle(
                               fontSize: 23,
                               fontWeight: FontWeight.bold,
@@ -116,13 +116,13 @@ class _MenuItemLearnMoreState extends State<MenuItemLearnMore>
               ListView(
                 padding: const EdgeInsets.all(30),
                 children: [
-                  ...tileInstructions(widget.menuItem.item.instructions)
+                  ...tileInstructions(widget.menuItem.item!.instructions!)
                 ],
               ),
               ListView(
                 padding: const EdgeInsets.all(30),
                 children: [
-                  ...tileIngredients(widget.menuItem.item.recipe),
+                  ...tileIngredients(widget.menuItem.item!.recipe!),
                 ],
               ),
             ],

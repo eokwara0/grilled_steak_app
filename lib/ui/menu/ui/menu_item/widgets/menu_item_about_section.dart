@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:menu_repository/menu_repository.dart';
 
@@ -61,7 +60,7 @@ class MenuItemAbout extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                '${menuItem.item.content}'
+                '${menuItem.item?.content}'
                     .replaceAll('\n', '')
                     .replaceAll('  ', '')
                   ..trim(),

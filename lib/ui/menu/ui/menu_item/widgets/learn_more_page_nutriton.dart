@@ -41,7 +41,7 @@ class NutritionGrid extends StatelessWidget {
                     padding: EdgeInsets.all(3),
                   ),
                   Text(
-                    '${menuItem.item.nutrition.carbs} carbs',
+                    '${menuItem.item?.nutrition?.carbs} carbs',
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: 15,
@@ -73,7 +73,7 @@ class NutritionGrid extends StatelessWidget {
                     padding: EdgeInsets.all(3),
                   ),
                   Text(
-                    '${menuItem.item.nutrition.protein} protein',
+                    '${menuItem.item?.nutrition?.protein} protein',
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade700,
@@ -108,7 +108,7 @@ class NutritionGrid extends StatelessWidget {
                     padding: EdgeInsets.all(3),
                   ),
                   Text(
-                    '${menuItem.item.nutrition.calories} Kal',
+                    '${menuItem.item?.nutrition?.calories} Kal',
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade700,
@@ -140,7 +140,7 @@ class NutritionGrid extends StatelessWidget {
                     padding: EdgeInsets.all(3),
                   ),
                   Text(
-                    '${menuItem.item.nutrition.fat} fat',
+                    '${menuItem.item?.nutrition?.fat} fat',
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade700,

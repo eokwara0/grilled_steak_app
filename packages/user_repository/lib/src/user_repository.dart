@@ -18,7 +18,7 @@ class UserRepository {
   Future<User?> getUser() async {
     if (_user != null) return _user;
     _user = User.fromJson(await makeRequest());
-    print(_user?.id.toString());
+    // print(_user?.id.toString());
     return _user;
   }
 

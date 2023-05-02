@@ -40,12 +40,16 @@ class ResultView extends StatelessWidget {
                   children: [
                     ListTile(
                       leading: Image.network(
-                        'http://localhost:3000/oy.webp',
+                        state.result[index].imageUrl!,
                         fit: BoxFit.cover,
                       ),
-                      title: Text(state.result[index].item.title),
-                      subtitle: Text(state.result[index].item.summary),
-                      trailing: role ? const EditIcon() : null,
+                      title: Text(state.result[index].item!.title!),
+                      subtitle: Text(state.result[index].item!.summary!),
+                      trailing: role
+                          ? EditIcon(
+                              onPressed: () {},
+                            )
+                          : null,
                       onTap: () {
                         context
                             .read<MenuItemCubit>()

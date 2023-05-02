@@ -26,7 +26,7 @@ class MenuItemInfo extends StatelessWidget {
                 padding: EdgeInsets.all(3),
               ),
               Text(
-                menuItem.item.prep,
+                menuItem.item!.prep!,
                 style: TextStyle(
                   color: Colors.grey.shade800,
                 ),
@@ -48,7 +48,7 @@ class MenuItemInfo extends StatelessWidget {
                 color: Colors.grey,
               ),
               Text(
-                '${menuItem.item.nutrition.calories}Kal',
+                '${menuItem.item?.nutrition?.calories}Kal',
                 style: TextStyle(
                   color: Colors.grey.shade800,
                 ),

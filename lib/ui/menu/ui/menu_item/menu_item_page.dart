@@ -30,8 +30,8 @@ class _MenuItemPageState extends State<MenuItemPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const MenuItemAppBar(
-            imageUrl: 'http://localhost:3000/oy.webp',
+          MenuItemAppBar(
+            imageUrl: widget.item!.imageUrl!,
           ),
           SliverPadding(
             sliver: SliverList(
@@ -44,7 +44,7 @@ class _MenuItemPageState extends State<MenuItemPage> {
                         menuItem: widget.item!,
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 1,
                       ),
                       MenuItemInfo(
                         menuItem: widget.item!,
@@ -76,7 +76,7 @@ class _MenuItemPageState extends State<MenuItemPage> {
       ),
       bottomNavigationBar: MenuItemBottomAppBar(
         quantity: quantity,
-        price: widget.item?.item.price,
+        price: widget.item!.item!.price!,
       ),
     );
   }

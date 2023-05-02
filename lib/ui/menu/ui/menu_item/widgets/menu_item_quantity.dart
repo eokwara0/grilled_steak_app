@@ -15,7 +15,7 @@ class MenuItemQuantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(2.0),
       child: Row(
         children: [
           // item price sections start
@@ -24,19 +24,20 @@ class MenuItemQuantity extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'R${menuItem.item.price}',
-                    style: const TextStyle(
+                    'R${menuItem.item?.price}',
+                    style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade800,
                     ),
                   ),
                   Column(
                     children: [
                       Text(
-                        'R${(menuItem.item.price + 4.99).round()}.99',
+                        'R${(menuItem.item!.price! + 4.99).round()}.99',
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.grey,
+                          color: Colors.grey.shade400,
                           decoration: TextDecoration.combine(
                             [
                               TextDecoration.lineThrough,
