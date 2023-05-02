@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import 'cubit/home_menu_section_cubit.dart';
+import 'home_menu_bottom_sheet.dart';
 
 class HomeMenuSection extends StatelessWidget {
   const HomeMenuSection({
@@ -23,22 +24,35 @@ class HomeMenuSection extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       'Categories',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
                       ),
                     ),
                     const Spacer(),
                     InkWell(
                       child: Text(
-                        'see all',
+                        'see more',
                         style: TextStyle(
-                          color: Colors.amber.shade400,
+                          color: Colors.amber.shade500,
                         ),
                       ),
-                      onTap: () {/** */},
+                      onTap: () {
+                        /** */
+
+                        showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          context: context,
+                          builder: (context) {
+                            return HomeMenuSectionBottomSheet(
+                              menus: state.menus,
+                            );
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -68,7 +82,8 @@ class HomeMenuSection extends StatelessWidget {
                                 FractionallySizedBox(
                                   widthFactor: .4,
                                   child: Image.network(
-                                      state.menus[index].imageUrl!),
+                                    state.menus[index].imageUrl!,
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -90,7 +105,9 @@ class HomeMenuSection extends StatelessWidget {
               ],
             );
           }
-          return const CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

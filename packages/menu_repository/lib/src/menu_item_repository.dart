@@ -68,12 +68,10 @@ class MenuItemRepository {
             MenuItem.fromJson(e),
           );
         });
+        // print(items);
         return items;
       } catch (err) {
         return null;
-        // throw Exception(
-        //   'An error occurred while decoding the response ==> MenuItemRepository.getItemsBySearch',
-        // );
       }
     }
     return null;
@@ -91,14 +89,20 @@ class MenuItemRepository {
     );
 
     try {
-      if (response.statusCode == HttpStatus.accepted) {
+      if (response.statusCode == HttpStatus.ok) {
+        print('got here ');
         final List<dynamic> decoded = List.of(jsonDecode(response.body));
+        // print(decoded);
         decoded.forEach((el) {
+          // print('Geneniva ===> ${el.title}');
           items.add(MenuItem.fromJson(el));
         });
+        // print('other side');
         return items;
       }
+      return null;
     } catch (e) {
+      // print('an error occured');
       return null;
     }
   }
@@ -130,5 +134,22 @@ class MenuItemRepository {
       }
     }
     return null;
+  }
+
+  Future<bool> replaceMenuItem(MenuItem item) async {
+    // print(jsonEncode(item.toJson()));
+    final response = await http.post(
+        Uri.parse('http://localhost:3000/menuItem/replace/${item.id}'),
+        headers: {
+          "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
+          "Content-Type": 'application/json',
+        },
+        body: jsonEncode(item.toJson()));
+
+    // print(response.statusCode);
+    if (response.statusCode == HttpStatus.accepted) {
+      return true;
+    }
+    return false;
   }
 }

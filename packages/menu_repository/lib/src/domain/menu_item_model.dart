@@ -12,6 +12,7 @@ class MenuItem extends Equatable {
   final String? _userId;
   final String? _menuId;
   final Item? _item;
+  final String? _imageUrl;
 
   const MenuItem({
     required String id,
@@ -19,18 +20,21 @@ class MenuItem extends Equatable {
     String? userId,
     String? menuId,
     Item? item,
+    String? imageUrl,
   })  : _id = id,
         _active = active,
         _userId = userId,
         _item = item,
-        _menuId = menuId;
+        _menuId = menuId,
+        _imageUrl = imageUrl;
 
   // Getters
-  get id => _id;
-  get active => _active;
-  get userId => _userId;
-  get menuId => _menuId;
-  get item => _item;
+  String get id => _id;
+  bool? get active => _active;
+  String? get userId => _userId;
+  String? get menuId => _menuId;
+  Item? get item => _item;
+  String? get imageUrl => _imageUrl;
 
   @override
   List<Object?> get props => [
@@ -39,13 +43,15 @@ class MenuItem extends Equatable {
         _userId,
         _menuId,
         _item,
+        _imageUrl,
       ];
 
   Map<String, dynamic> toJson() => {
-        'active': _active,
-        'userId': _userId,
-        'menuId': _menuId,
-        'item': _item?.toJson(),
+        "active": _active,
+        "userId": _userId,
+        "menuId": _menuId,
+        "item": _item?.toJson(),
+        'imageUrl': _imageUrl,
       };
 
   static empty() {
@@ -54,16 +60,37 @@ class MenuItem extends Equatable {
 
   static fromJson(Map<dynamic, dynamic> props) {
     return MenuItem(
-      id: props['_id'],
+      id: '${props['_id']}',
       active: props['active'],
-      userId: props['userId'],
-      menuId: props['menuId'],
+      userId: '${props['userId']}',
+      menuId: '${props['menuId']}',
+      imageUrl: '${props['imageUrl']}',
       item: Item.fromJson(
         props['item'],
       ),
     );
   }
+
+  copyWith({
+    bool? active,
+    String? imageUrl,
+    Item? item,
+  }) {
+    return MenuItem(
+      id: _id,
+      userId: _userId,
+      menuId: _menuId,
+      item: item ?? _item,
+      active: active ?? _active,
+      imageUrl: imageUrl ?? _imageUrl,
+    );
+  }
+
+  @override
+  String toString() => toJson().toString();
 }
+
+
 
 // items
 

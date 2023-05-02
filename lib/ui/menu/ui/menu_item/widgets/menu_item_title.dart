@@ -15,7 +15,7 @@ class MenuItemHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          menuItem.item.title,
+          menuItem.item!.title!,
           style: TextStyle(
             color: Colors.grey.shade600,
           ),
@@ -24,10 +24,11 @@ class MenuItemHeader extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                menuItem.item.summary,
-                style: const TextStyle(
+                menuItem.item!.summary!,
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 23,
+                  color: Colors.grey.shade800,
                 ),
               ),
             ),

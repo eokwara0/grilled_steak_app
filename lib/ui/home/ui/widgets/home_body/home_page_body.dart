@@ -48,7 +48,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             delegate: SliverChildListDelegate(
               [
                 const HomeMenuSection(),
-                const Padding(padding: EdgeInsets.all(20)),
+                const Padding(padding: EdgeInsets.all(10)),
                 const HomeRecommendedMenuItems(),
               ],
             ),

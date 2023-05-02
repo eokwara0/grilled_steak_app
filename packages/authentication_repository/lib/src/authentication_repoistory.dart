@@ -18,11 +18,11 @@ class AuthenticationRepository {
   }
 
   // Login method
-  Future<dynamic> logIn({
+  Future<bool> logIn({
     required String username,
     required String password,
   }) async {
-    print('got here...');
+    // print('got here...');
 
     // request object
     final request = Post(
@@ -50,16 +50,16 @@ class AuthenticationRepository {
           "password": password,
           "access_token": res.resBody['access_token'],
         });
-        break;
+        return true;
 
       case 401:
         _controller.add(AuthenticationStatus.unauthenticated);
         fss.writeValue('access_token', '');
-        break;
+        return false;
       default:
-        _controller.add(AuthenticationStatus.unknown);
+        _controller.add(AuthenticationStatus.unauthenticated);
         fss.writeValue('access_token', '');
-        break;
+        return false;
     }
   }
 

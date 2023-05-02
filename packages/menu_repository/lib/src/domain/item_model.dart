@@ -13,6 +13,33 @@ class Item extends Equatable {
   final Nutrition? _nutrition;
   final String? _instructions;
 
+  copyWith({
+    String? unit,
+    String? prep,
+    double? price,
+    String? title,
+    String? summary,
+    String? content,
+    double? quantity,
+    List<Recipe>? recipe,
+    Nutrition? nutrition,
+    String? instructions,
+  }) {
+    return Item(
+      cooking: _cooking,
+      unit: unit ?? _unit,
+      prep: prep ?? _prep,
+      price: price ?? _price,
+      title: title ?? _title,
+      recipe: recipe ?? _recipe,
+      summary: summary ?? _summary,
+      content: content ?? _content,
+      quantity: quantity ?? _quantity,
+      nutrition: nutrition ?? _nutrition,
+      instructions: instructions ?? _instructions,
+    );
+  }
+
   const Item({
     String? unit,
     String? prep,
@@ -65,20 +92,20 @@ class Item extends Equatable {
         _instructions
       ];
 
-  get unit => _unit;
-  get price => _price;
-  get prep => _prep;
-  get title => _title;
-  get cooking => _cooking;
-  get summary => _summary;
-  get content => _content;
-  get quantity => _quantity;
-  get recipe => _recipe;
-  get nutrition => _nutrition;
-  get instructions => _instructions;
+  String? get unit => _unit;
+  double? get price => _price;
+  String? get prep => _prep;
+  String? get title => _title;
+  bool? get cooking => _cooking;
+  String? get summary => _summary;
+  String? get content => _content;
+  double? get quantity => _quantity;
+  List<Recipe>? get recipe => _recipe;
+  Nutrition? get nutrition => _nutrition;
+  String? get instructions => _instructions;
 
   static fromJson(Map<dynamic, dynamic> json) {
-    final res = List.of(json['recipe']);
+    final res = List.of(json['recipe'] ??= []);
     final recipeList_ = res
         .map(
           (el) => Recipe.fromJson(
@@ -87,21 +114,21 @@ class Item extends Equatable {
         )
         .toList();
     final Nutrition nut = Nutrition.fromJson(
-      json['nutrition'],
+      json['nutrition'] ??= {},
     );
 
     return Item(
-      title: json['title'],
-      summary: json['summary'],
-      cooking: json['cooking'],
+      title: '${json['title']}',
+      summary: '${json['summary']}',
+      cooking: json['cooking'] ?? "",
       price: double.tryParse('${json['price']}'),
-      quantity: double.tryParse('${json['quantity']}'),
-      unit: json['unit'],
-      prep: json['prep'],
+      quantity: double.tryParse('${json['quantity']}') ?? 0.0,
+      unit: '${json['unit']}',
+      prep: '${json['prep']}',
       recipe: recipeList_,
       nutrition: nut,
-      content: json['content'],
-      instructions: json['instructions'],
+      content: '${json['content']}',
+      instructions: '${json['instructions']}',
     );
   }
 }
