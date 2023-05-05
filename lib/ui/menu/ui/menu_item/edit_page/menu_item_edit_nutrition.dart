@@ -1,95 +1,113 @@
 import 'package:flutter/material.dart';
-import 'package:menu_repository/menu_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/menu_item_edit_bloc.dart';
 import 'text_field_edit.dart';
 
-class MenuItemEditNutrition extends StatefulWidget {
+class MenuItemEditNutrition extends StatelessWidget {
   const MenuItemEditNutrition({
     super.key,
-    required this.nutrition,
-    this.onChange,
   });
-
-  final Nutrition nutrition;
-  final Function(Nutrition value)? onChange;
-
-  @override
-  State<MenuItemEditNutrition> createState() => _MenuItemEditNutritionState();
-}
-
-class _MenuItemEditNutritionState extends State<MenuItemEditNutrition> {
-  late Nutrition nut;
-
-  @override
-  void initState() {
-    super.initState();
-    nut = widget.nutrition;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      textColor: Colors.amber,
-      shape: const RoundedRectangleBorder(
-        side: BorderSide.none,
-      ),
-      title: Container(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'Nutrition',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey.shade500,
+    return BlocBuilder<MenuItemEditBloc, MenuItemEditState>(
+      builder: (context, state) {
+        return ExpansionTile(
+          textColor: Colors.amber,
+          shape: const RoundedRectangleBorder(
+            side: BorderSide.none,
           ),
-        ),
-      ),
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: EditTextField(
-            onChanged: (value) {
-              nut = nut.copyWith(calories: value);
-              widget.onChange!(nut);
-            },
-            label: 'Calories',
-            hint: '${nut.calories}',
+          title: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Nutrition',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade500,
+              ),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: EditTextField(
-            onChanged: (value) {
-              nut = nut.copyWith(carbs: value);
-              widget.onChange!(nut);
-            },
-            label: 'Carbs',
-            hint: '${nut.carbs}',
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: EditTextField(
-            onChanged: (value) {
-              nut = nut.copyWith(protein: value);
-              widget.onChange!(nut);
-            },
-            label: 'Protein',
-            hint: '${nut.protein}',
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: EditTextField(
-            onChanged: (value) {
-              nut = nut.copyWith(fat: value);
-              widget.onChange!(nut);
-            },
-            label: 'Fat',
-            hint: '${nut.fat}',
-          ),
-        ),
-      ],
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: EditTextField(
+                onChanged: (value) {
+                  final nutrition = state.menuItem.item!.nutrition!.copyWith(
+                    calories: value,
+                  );
+                  context.read<MenuItemEditBloc>().add(
+                        MenuItemNutritionChangedEvent(
+                          nutrition,
+                        ),
+                      );
+                },
+                maxLength: 20,
+                maxLines: 1,
+                label: 'Calories',
+                hint: '${state.menuItem.item!.nutrition!.calories}',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: EditTextField(
+                onChanged: (value) {
+                  final nutrition = state.menuItem.item!.nutrition!.copyWith(
+                    carbs: value,
+                  );
+                  context.read<MenuItemEditBloc>().add(
+                        MenuItemNutritionChangedEvent(
+                          nutrition,
+                        ),
+                      );
+                },
+                maxLength: 20,
+                maxLines: 1,
+                label: 'Carbs',
+                hint: '${state.menuItem.item!.nutrition!.carbs}',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: EditTextField(
+                onChanged: (value) {
+                  final nutrition = state.menuItem.item!.nutrition!.copyWith(
+                    protein: value,
+                  );
+                  context.read<MenuItemEditBloc>().add(
+                        MenuItemNutritionChangedEvent(
+                          nutrition,
+                        ),
+                      );
+                },
+                maxLength: 20,
+                maxLines: 1,
+                label: 'Protein',
+                hint: '${state.menuItem.item!.nutrition!.protein}',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: EditTextField(
+                onChanged: (value) {
+                  final nutrition = state.menuItem.item!.nutrition!.copyWith(
+                    fat: value,
+                  );
+                  context.read<MenuItemEditBloc>().add(
+                        MenuItemNutritionChangedEvent(
+                          nutrition,
+                        ),
+                      );
+                },
+                maxLength: 20,
+                maxLines: 1,
+                label: 'Fat',
+                hint: '${state.menuItem.item!.nutrition!.fat}',
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

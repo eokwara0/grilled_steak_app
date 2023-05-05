@@ -49,6 +49,11 @@ class MenuItemInstructionsChangedEvent extends MenuItemEditEvent {
   const MenuItemInstructionsChangedEvent(super.value);
 }
 
+class MenuItemDeleteEvent extends MenuItemEditEvent {
+  // MenuItem item;
+  const MenuItemDeleteEvent() : super('');
+}
+
 class MenuItemSubmitEvent extends MenuItemEditEvent {
   const MenuItemSubmitEvent(super.value);
 }

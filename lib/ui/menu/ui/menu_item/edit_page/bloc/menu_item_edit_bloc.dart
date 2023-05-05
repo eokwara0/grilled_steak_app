@@ -30,16 +30,51 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
       _onMenuItemSubmit,
     );
 
-    on<MenuItemSummaryChangedEvent>(_onMenuItemSummaryChanged);
-    on<MenuItemContentChangedEvent>(_onMenuItemContentChanged);
-    on<MenuItemQuantityChangedEvent>(_onMenuItemQuantityChanged);
-    on<MenuItemPriceChangedEVent>(_onMenuItemPriceChanged);
-    on<MenuItemNutritionChangedEvent>(_onMenuItemNutritionChanged);
-    on<MenuItemRecipeChangedEvent>(_onMenuItemRecipeChanged);
-    on<MenuItemInstructionsChangedEvent>(_onMenuItemInstructionsChanged);
+    on<MenuItemSummaryChangedEvent>(
+      _onMenuItemSummaryChanged,
+    );
+    on<MenuItemContentChangedEvent>(
+      _onMenuItemContentChanged,
+    );
+    on<MenuItemQuantityChangedEvent>(
+      _onMenuItemQuantityChanged,
+    );
+    on<MenuItemPriceChangedEVent>(
+      _onMenuItemPriceChanged,
+    );
+    on<MenuItemNutritionChangedEvent>(
+      _onMenuItemNutritionChanged,
+    );
+    on<MenuItemRecipeChangedEvent>(
+      _onMenuItemRecipeChanged,
+    );
+    on<MenuItemInstructionsChangedEvent>(
+      _onMenuItemInstructionsChanged,
+    );
+
+    on<MenuItemDeleteEvent>(_onMenuItemDeleted);
   }
 
   final MenuItemRepository _menuItemRepository;
+
+  _onMenuItemDeleted(
+    MenuItemDeleteEvent event,
+    emit,
+  ) async {
+    bool? response =
+        await _menuItemRepository.deleteItemById(state.menuItem.id);
+    if (response ?? false) {
+      return emit(
+        MenuItemDeletedState(
+          state.menuItem,
+          FormzStatus.submissionSuccess,
+        ),
+      );
+    }
+    return emit(
+      MenuItemEditError(state.menuItem, FormzStatus.submissionFailure),
+    );
+  }
 
   // event handlers
   _onMenuItemSummaryChanged(
@@ -62,7 +97,9 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   ) {
     emit(MenuItemChanged(
       state.menuItem.copyWith(
-        item: state.menuItem.item?.copyWith(content: event.value),
+        item: state.menuItem.item?.copyWith(
+          content: event.value,
+        ),
       ),
       FormzStatus.valid,
     ));
@@ -102,6 +139,7 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     event,
     emit,
   ) {
+    // print(event.value);
     emit(
       MenuItemChanged(
         state.menuItem.copyWith(
@@ -117,9 +155,10 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     emit,
   ) {
     emit(
-      MenuItemChanged(
+      MenuItemRecipeChanged(
         state.menuItem.copyWith(
-          item: state.menuItem.item?.copyWith(recipe: event.value),
+          item: state.menuItem.item
+              ?.copyWith(recipe: event.value as List<Recipe>),
         ),
         FormzStatus.valid,
       ),
@@ -144,9 +183,15 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     MenuItemSubmitEvent event,
     Emitter<MenuItemEditState> emit,
   ) async {
-    print(state.menuItem.id);
     bool answer = await _menuItemRepository.replaceMenuItem(state.menuItem);
-    // print(answer);
+    if (answer) {
+      return emit(
+        MenuItemSubmitted(state.menuItem, FormzStatus.submissionSuccess),
+      );
+    }
+    return emit(
+      MenuItemEditError(state.menuItem, FormzStatus.submissionFailure),
+    );
   }
 
   /// updates the menu Item Object with the relevant active value

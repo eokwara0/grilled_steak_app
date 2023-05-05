@@ -138,6 +138,8 @@ class MenuItemRepository {
 
   Future<bool> replaceMenuItem(MenuItem item) async {
     // print(jsonEncode(item.toJson()));
+
+    print(item.item?.nutrition);
     final response = await http.post(
         Uri.parse('http://localhost:3000/menuItem/replace/${item.id}'),
         headers: {

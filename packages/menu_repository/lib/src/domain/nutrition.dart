@@ -22,11 +22,11 @@ class Nutrition extends Equatable {
   get protein => _protein;
   get calories => _calories;
 
-  Map<String, dynamic> toJson() => {
-        'fat': _fat,
-        'carbs': _carbs,
-        'protein': _protein,
-        'calories': _calories,
+  Map<String, String> toJson() => {
+        'fat': _fat ?? '',
+        'carbs': _carbs ?? '',
+        'protein': _protein ?? '',
+        'calories': _calories ?? '',
       };
 
   /// return a copy of the Nutirion object

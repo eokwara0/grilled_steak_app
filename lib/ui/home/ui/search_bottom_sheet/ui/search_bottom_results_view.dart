@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_item_cubit.dart';
+import 'package:grilled_steak_app/ui/menu/ui/menu_item/edit_page/bloc/menu_item_edit_bloc.dart';
 import 'package:grilled_steak_app/ui/widgets/persistant_header_drag.dart';
 
 import '../../../../../authentication/authentication.dart';
@@ -47,7 +48,13 @@ class ResultView extends StatelessWidget {
                       subtitle: Text(state.result[index].item!.summary!),
                       trailing: role
                           ? EditIcon(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.read<MenuItemCubit>().addItem(
+                                      state.result[index],
+                                    );
+
+                                context.go('/menuItem/edit');
+                              },
                             )
                           : null,
                       onTap: () {
