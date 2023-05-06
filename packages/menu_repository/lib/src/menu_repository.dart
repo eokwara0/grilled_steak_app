@@ -74,7 +74,7 @@ class MenuRepository {
     return false;
   }
 
-  Future<String?> getMenuIdByTitle(String title) async {
+  Future<Menu?> getMenuIdByTitle(String title) async {
     final response = await http.get(
       Uri.parse('http://localhost:3000/menu/id/${title}'),
       headers: {
@@ -83,8 +83,23 @@ class MenuRepository {
       },
     );
     if (response.statusCode == 200) {
-      return '${response.body}';
+      return Menu.fromJson(jsonDecode(response.body));
     }
-    return '';
+    return null;
+  }
+
+  Future<Menu?> getMenuById(String id) async {
+    final response = await http.get(
+      Uri.parse('http://localhost:3000/menu/menu/${id}'),
+      headers: {
+        "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
+        "Content-Type": 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      return Menu.fromJson(jsonDecode(response.body));
+    }
+
+    return null;
   }
 }

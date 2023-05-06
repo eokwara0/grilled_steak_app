@@ -46,9 +46,7 @@ class Routers {
         path: '/menuItem/edit',
         name: 'menu_item_edit',
         builder: (context, state) {
-          return MenuItemEditPage(
-            item: context.read<MenuItemCubit>().state.item,
-          );
+          return MenuItemEditPage();
         },
       )
     ],

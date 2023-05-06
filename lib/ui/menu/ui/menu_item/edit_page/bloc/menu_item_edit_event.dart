@@ -13,8 +13,8 @@ class MenuItemActiveEditEvent extends MenuItemEditEvent {
   const MenuItemActiveEditEvent(super.value);
 }
 
-class MenuItemUrlChangedEvent extends MenuItemEditEvent {
-  const MenuItemUrlChangedEvent(super.value);
+class MenuItemFileChangedEvent extends MenuItemEditEvent {
+  const MenuItemFileChangedEvent(super.value);
 }
 
 class MenuItemTitleChangedEvent extends MenuItemEditEvent {

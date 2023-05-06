@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -9,16 +12,14 @@ import 'package:menu_repository/menu_repository.dart';
 
 import 'bloc/menu_item_edit_bloc.dart';
 import 'menu_item_edit_nutrition.dart';
+import 'menu_item_edit_upload.dart';
 import 'menu_item_recipe_edit.dart';
 import 'text_field_edit.dart';
 
 class MenuItemEditPage extends StatelessWidget {
   const MenuItemEditPage({
     super.key,
-    required item,
-  }) : _menuItem = item;
-
-  final MenuItem _menuItem;
+  });
 
   // recipe list
 
@@ -28,6 +29,7 @@ class MenuItemEditPage extends StatelessWidget {
       create: (context) => MenuItemEditBloc(
         item: context.read<MenuItemCubit>().state.item,
         menuItemRepo: RepositoryProvider.of<MenuItemRepository>(context),
+        menuRepo: RepositoryProvider.of<MenuRepository>(context),
       ),
       child: BlocBuilder<MenuItemEditBloc, MenuItemEditState>(
         builder: (context, state) {
@@ -99,48 +101,7 @@ class MenuItemEditPage extends StatelessWidget {
                 }
                 return CustomScrollView(
                   slivers: [
-                    SliverAppBar(
-                      automaticallyImplyLeading: false,
-                      leading: Ink(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            context.go('/');
-                          },
-                          child: Icon(
-                            Icons.arrow_back_ios_new_outlined,
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        '# ${state.menuItem.item?.title}',
-                        style: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontSize: 14,
-                        ),
-                      ),
-                      actions: [
-                        Container(
-                          width: 100,
-                          alignment: Alignment.center,
-                          child: Chip(
-                            label: const Text(
-                              'active',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            backgroundColor: state.menuItem.active!
-                                ? Colors.amber
-                                : Colors.grey.shade400,
-                          ),
-                        )
-                      ],
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onBackground,
-                      pinned: true,
-                    ),
+                    const MenuItemEditAppBar(),
                     SliverPadding(
                       padding: const EdgeInsets.all(20),
                       sliver: SliverList(
@@ -159,6 +120,10 @@ class MenuItemEditPage extends StatelessWidget {
                                           ),
                                         );
                                   },
+                                ),
+                                const MenuItemEditUploadImage(),
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
                                 ),
                                 EditTextField(
                                   onChanged: (value) {
@@ -222,7 +187,9 @@ class MenuItemEditPage extends StatelessWidget {
                                 const EditRecipeList(),
                                 const Divider(),
                                 const EditMenuItemInstructions(),
-                                const Padding(padding: EdgeInsets.all(40)),
+                                const Padding(
+                                  padding: EdgeInsets.all(40),
+                                ),
                               ],
                             ),
                           ],
@@ -236,6 +203,78 @@ class MenuItemEditPage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class MenuItemEditAppBar extends StatelessWidget {
+  const MenuItemEditAppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MenuItemEditBloc, MenuItemEditState>(
+      builder: (context, state) {
+        final Object image = !state.fileIsNull
+            ? FileImage(state.file!)
+            : NetworkImage(state.menuItem.imageUrl!);
+        return SliverAppBar(
+          expandedHeight: 200,
+          automaticallyImplyLeading: false,
+          leading: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: InkWell(
+              onTap: () {
+                context.go('/');
+              },
+              child: const Icon(
+                Icons.arrow_back_ios_new_outlined,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          title: Text(
+            '# ${state.menuItem.item?.title}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+          ),
+          flexibleSpace: Blur(
+            blur: 0,
+            blurColor: Colors.transparent,
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: image as ImageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            Container(
+              width: 100,
+              alignment: Alignment.center,
+              child: Chip(
+                label: const Text(
+                  'active',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: state.menuItem.active!
+                    ? Colors.amber
+                    : Colors.grey.shade400,
+              ),
+            )
+          ],
+          backgroundColor: Theme.of(context).colorScheme.onBackground,
+          pinned: true,
+        );
+      },
     );
   }
 }

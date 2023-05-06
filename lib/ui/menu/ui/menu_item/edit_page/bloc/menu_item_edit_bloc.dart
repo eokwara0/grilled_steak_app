@@ -1,26 +1,29 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 part 'menu_item_edit_event.dart';
 part 'menu_item_edit_state.dart';
 
 class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
-  MenuItemEditBloc(
-      {required MenuItemRepository menuItemRepo, required MenuItem item})
-      : _menuItemRepository = menuItemRepo,
+  MenuItemEditBloc({
+    required MenuItemRepository menuItemRepo,
+    required MenuItem item,
+    required MenuRepository menuRepo,
+  })  : _menuItemRepository = menuItemRepo,
+        _menuRepo = menuRepo,
         super(
-          MenuItemEditInitial(
-            item,
-            FormzStatus.pure,
-          ),
+          MenuItemEditInitial(item: item, status_: FormzStatus.pure),
         ) {
     on<MenuItemActiveEditEvent>(
       _onMenuItemActiveChanged,
     );
-    on<MenuItemUrlChangedEvent>(
-      _onMenuItemUrlChanged,
+    on<MenuItemFileChangedEvent>(
+      _onMenuItemFileChanged,
     );
     on<MenuItemTitleChangedEvent>(
       _onMenuItemTitleChanged,
@@ -56,6 +59,7 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   }
 
   final MenuItemRepository _menuItemRepository;
+  final MenuRepository _menuRepo;
 
   _onMenuItemDeleted(
     MenuItemDeleteEvent event,
@@ -66,13 +70,16 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     if (response ?? false) {
       return emit(
         MenuItemDeletedState(
-          state.menuItem,
-          FormzStatus.submissionSuccess,
+          item: state.menuItem,
+          status_: FormzStatus.submissionSuccess,
         ),
       );
     }
     return emit(
-      MenuItemEditError(state.menuItem, FormzStatus.submissionFailure),
+      MenuItemEditError(
+        item: state.menuItem,
+        status_: FormzStatus.submissionFailure,
+      ),
     );
   }
 
@@ -83,10 +90,10 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   ) {
     emit(
       MenuItemChanged(
-        state.menuItem.copyWith(
+        item: state.menuItem.copyWith(
           item: state.menuItem.item?.copyWith(summary: event.value),
         ),
-        FormzStatus.valid,
+        status_: FormzStatus.valid,
       ),
     );
   }
@@ -96,12 +103,12 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     emit,
   ) {
     emit(MenuItemChanged(
-      state.menuItem.copyWith(
+      item: state.menuItem.copyWith(
         item: state.menuItem.item?.copyWith(
           content: event.value,
         ),
       ),
-      FormzStatus.valid,
+      status_: FormzStatus.valid,
     ));
   }
 
@@ -111,12 +118,12 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   ) {
     emit(
       MenuItemChanged(
-        state.menuItem.copyWith(
+        item: state.menuItem.copyWith(
           item: state.menuItem.item?.copyWith(
             quantity: event.value,
           ),
         ),
-        FormzStatus.valid,
+        status_: FormzStatus.valid,
       ),
     );
   }
@@ -127,10 +134,10 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   ) {
     emit(
       MenuItemChanged(
-        state.menuItem.copyWith(
+        item: state.menuItem.copyWith(
           item: state.menuItem.item?.copyWith(price: event.value),
         ),
-        FormzStatus.valid,
+        status_: FormzStatus.valid,
       ),
     );
   }
@@ -142,10 +149,10 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     // print(event.value);
     emit(
       MenuItemChanged(
-        state.menuItem.copyWith(
+        item: state.menuItem.copyWith(
           item: state.menuItem.item?.copyWith(nutrition: event.value),
         ),
-        FormzStatus.valid,
+        status_: FormzStatus.valid,
       ),
     );
   }
@@ -156,11 +163,11 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   ) {
     emit(
       MenuItemRecipeChanged(
-        state.menuItem.copyWith(
+        item: state.menuItem.copyWith(
           item: state.menuItem.item
               ?.copyWith(recipe: event.value as List<Recipe>),
         ),
-        FormzStatus.valid,
+        status_: FormzStatus.valid,
       ),
     );
   }
@@ -171,10 +178,10 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   ) {
     emit(
       MenuItemChanged(
-        state.menuItem.copyWith(
+        item: state.menuItem.copyWith(
           item: state.menuItem.item?.copyWith(instructions: event.value),
         ),
-        FormzStatus.valid,
+        status_: FormzStatus.valid,
       ),
     );
   }
@@ -183,14 +190,38 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     MenuItemSubmitEvent event,
     Emitter<MenuItemEditState> emit,
   ) async {
+    // validate if image has been uploaded and get the new url
+
+    if (!state.fileIsNull) {
+      Menu? menu = await _menuRepo.getMenuById(state.menuItem.menuId!);
+      String dirName = menu?.title?.toLowerCase() ?? 'files';
+
+      // TODO: Change this to dirName
+      String? url = await _menuItemRepository.uploadImage(state.file, 'files');
+      emit(
+        MenuItemChanged(
+          item: state.menuItem.copyWith(imageUrl: url),
+          status_: FormzStatus.valid,
+        ),
+      );
+    }
+
+    // Try updating the item and emit a submitted state.
     bool answer = await _menuItemRepository.replaceMenuItem(state.menuItem);
+
     if (answer) {
       return emit(
-        MenuItemSubmitted(state.menuItem, FormzStatus.submissionSuccess),
+        MenuItemSubmitted(
+          item: state.menuItem,
+          status_: FormzStatus.submissionSuccess,
+        ),
       );
     }
     return emit(
-      MenuItemEditError(state.menuItem, FormzStatus.submissionFailure),
+      MenuItemEditError(
+        item: state.menuItem,
+        status_: FormzStatus.submissionFailure,
+      ),
     );
   }
 
@@ -201,14 +232,36 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   ) {
     emit(
       MenuItemChanged(
-          state.menuItem.copyWith(active: event.value), FormzStatus.valid),
+        item: state.menuItem.copyWith(active: event.value),
+        status_: FormzStatus.valid,
+      ),
     );
   }
 
-  _onMenuItemUrlChanged(
-    MenuItemUrlChangedEvent event,
+  _onMenuItemFileChanged(
+    MenuItemFileChangedEvent event,
     Emitter<MenuItemEditState> emit,
-  ) {}
+  ) async {
+    File? file = await getImage();
+
+    return emit(
+      MenuItemChanged(
+        item: state.menuItem,
+        status_: FormzStatus.valid,
+        file: File(file!.path),
+      ),
+    );
+  }
+
+  Future<File?> getImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return null;
+      return File(image.path);
+    } catch (e) {
+      return null;
+    }
+  }
 
   // emits a new state when title changes
   _onMenuItemTitleChanged(
@@ -217,12 +270,12 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   ) {
     emit(
       MenuItemChanged(
-        state.menuItem.copyWith(
+        item: state.menuItem.copyWith(
           item: state.menuItem.item?.copyWith(
             title: event.value,
           ),
         ),
-        FormzStatus.valid,
+        status_: FormzStatus.valid,
       ),
     );
   }

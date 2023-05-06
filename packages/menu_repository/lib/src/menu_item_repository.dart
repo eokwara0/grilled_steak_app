@@ -154,4 +154,35 @@ class MenuItemRepository {
     }
     return false;
   }
+
+  Future<String?> uploadImage(File? file, String dir) async {
+    Map<String, String> headers = {
+      "Content-type": "multipart/form-data",
+      "Authorization": 'Bearer ${await _ss.readKey('access_token')}'
+    };
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse(
+        'http://localhost:3000/menuItem/upload/image/$dir',
+      ),
+    )
+      ..fields['image'] = 'image'
+      ..files.add(
+          await http.MultipartFile.fromPath('file', File(file!.path).path));
+
+    request.headers.addAll(headers);
+    final response = await request.send();
+
+    if (response.statusCode == HttpStatus.accepted) {
+      final data = await http.Response.fromStream(response);
+      String url = extracturl(data.body);
+      return url;
+    }
+    return null;
+  }
+
+  String extracturl(String url) {
+    String newData = url.replaceFirst('public', 'http://localhost:3000');
+    return newData;
+  }
 }
