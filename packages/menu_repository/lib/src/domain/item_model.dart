@@ -74,7 +74,7 @@ class Item extends Equatable {
         'content': _content,
         'quantity': _quantity,
         'recipe': _recipe?.map((e) => e.toJson()).toList(),
-        'nutritions': _nutrition?.toJson(),
+        'nutrition': _nutrition?.toJson(),
         'instructions': _instructions
       };
   @override

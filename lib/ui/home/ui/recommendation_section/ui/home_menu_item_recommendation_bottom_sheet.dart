@@ -64,7 +64,7 @@ class HomeMenuItemRecommendationBottomSheet extends StatelessWidget {
                                       context.go('/menuItem/edit');
                                     },
                                     child: const Icon(
-                                      Icons.edit_note_outlined,
+                                      Icons.edit,
                                     ),
                                   )
                                 : null),
