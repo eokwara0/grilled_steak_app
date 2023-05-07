@@ -1,13 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/forgot/ui/forgot_page.dart';
-import 'package:grilled_steak_app/ui/menu/cubit/menu_item_cubit.dart';
-import 'package:grilled_steak_app/ui/menu/ui/menu_item/edit_page/menu_item_edit_page.dart';
+import 'package:grilled_steak_app/ui/menu/ui/menu/menu_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import '../ui/home/ui/home_page.dart';
 import '../ui/login/view/login_page.dart';
+import '../ui/menu/ui/menu/menu_manage/menu_manage_page.dart';
+import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
+import '../ui/menu/ui/menu_item/menu_item_edit/menu_item_edit_page.dart';
 import '../ui/splash/view/splash_page.dart';
 
 // Routers class
@@ -46,9 +48,23 @@ class Routers {
         path: '/menuItem/edit',
         name: 'menu_item_edit',
         builder: (context, state) {
-          return MenuItemEditPage();
+          return const MenuItemEditPage();
         },
-      )
+      ),
+      GoRoute(
+        path: '/menu',
+        name: 'name',
+        builder: (context, state) {
+          return const MenuPage();
+        },
+      ),
+      GoRoute(
+        name: 'manageMenu',
+        path: '/manageMenu',
+        builder: (context, state) {
+          return const MenuManagePage();
+        },
+      ),
     ],
   );
 }

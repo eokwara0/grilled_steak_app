@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import 'cubit/home_menu_section_cubit.dart';
@@ -69,12 +71,20 @@ class HomeMenuSection extends StatelessWidget {
                     children: List.generate(
                       state.menus.length,
                       (index) => Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         child: Ink(
                           width: 90,
                           height: 90,
                           child: InkWell(
                             onTap: () {
                               /** */
+                              context.read<MenuCubit>().addMenu(
+                                    state.menus[index],
+                                  );
+
+                              context.go('/menu');
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

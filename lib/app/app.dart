@@ -2,8 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:grilled_steak_app/app/routes.dart';
 import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
-import 'package:grilled_steak_app/ui/menu/cubit/menu_item_cubit.dart';
-import 'package:grilled_steak_app/ui/menu/ui/menu_item/edit_page/bloc/menu_item_edit_bloc.dart';
+import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
 import 'package:service_locator/service_locator.dart';
 import 'package:user_repository/user_repository.dart';
@@ -11,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../authentication/authentication.dart';
 import '../ui/home/ui/search_bottom_sheet/cubit/search_bottom_sheet_cubit.dart';
+import '../ui/menu/ui/menu/menu_manage/cubit/menu_manage_cubit.dart';
+import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -76,6 +77,18 @@ class _AppState extends State<App> {
           ),
           BlocProvider(
             create: (context) => MenuItemCubit(),
+          ),
+          BlocProvider(
+            create: (context) => MenuCubit(
+              menuRepository: _menuRepository,
+              menuItemRepository: _menuItemRepository,
+            ),
+          ),
+          BlocProvider(
+            create: (context) => MenuManageCubit(
+              menuRepository: _menuRepository,
+              menuItemRepository: _menuItemRepository,
+            ),
           ),
         ],
         child: const AppView(),

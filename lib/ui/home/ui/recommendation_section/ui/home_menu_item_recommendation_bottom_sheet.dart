@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import '../../../../../authentication/bloc/authentication_bloc.dart';
-import '../../../../menu/cubit/menu_item_cubit.dart';
+import '../../../../menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../../../../widgets/persistant_header_drag.dart';
 
 class HomeMenuItemRecommendationBottomSheet extends StatelessWidget {

@@ -20,7 +20,6 @@ class _EditRecipeListState extends State<EditRecipeList> {
     return BlocBuilder<MenuItemEditBloc, MenuItemEditState>(
       key: const ValueKey('RecipeEditKey'),
       buildWhen: (previous, current) {
-        print('mina');
         return true;
       },
       builder: (context, state) {
