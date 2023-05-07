@@ -64,6 +64,22 @@ class Item extends Equatable {
         _nutrition = nutrition,
         _instructions = instructions;
 
+  static Item empty() {
+    return Item.fromJson({
+      'unit': 'Serving',
+      'prep': '10mins',
+      'price': 0.00,
+      'title': 'New Meal',
+      'cooking': false,
+      'summary': "summary of the meal",
+      'content': 'Extra information regarding the meal',
+      'quantity': 0,
+      'recipe': [],
+      'nutrition': Nutrition.empty(),
+      'instructions': 'Instructions on how to prepare the meal'
+    });
+  }
+
   Map<String, dynamic> toJson() => {
         'unit': _unit,
         'prep': _prep,

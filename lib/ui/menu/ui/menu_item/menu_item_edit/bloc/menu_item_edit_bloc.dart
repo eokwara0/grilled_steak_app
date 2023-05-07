@@ -22,6 +22,8 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     on<MenuItemActiveEditEvent>(
       _onMenuItemActiveChanged,
     );
+
+    on<MenuItemAddEvent>(_onMenuItemAdd);
     on<MenuItemFileChangedEvent>(
       _onMenuItemFileChanged,
     );
@@ -60,6 +62,21 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
 
   final MenuItemRepository _menuItemRepository;
   final MenuRepository _menuRepo;
+
+  _onMenuItemAdd(MenuItemAddEvent event, emit) async {
+    bool response = await _menuItemRepository.createMenuItem(state.menuItem);
+
+    if (response) {
+      return emit(
+        MenuItemSubmitted(
+            item: state.menuItem, status_: FormzStatus.submissionSuccess),
+      );
+    }
+    return MenuItemEditError(
+      item: state.menuItem,
+      status_: FormzStatus.submissionFailure,
+    );
+  }
 
   _onMenuItemDeleted(
     MenuItemDeleteEvent event,
@@ -116,30 +133,70 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     event,
     emit,
   ) {
-    emit(
-      MenuItemChanged(
-        item: state.menuItem.copyWith(
-          item: state.menuItem.item?.copyWith(
-            quantity: event.value,
+    try {
+      double? answer = double.tryParse(event.value);
+      if (answer != null) {
+        print(answer);
+        emit(
+          MenuItemChanged(
+            item: state.menuItem.copyWith(
+              item: state.menuItem.item?.copyWith(
+                quantity: double.tryParse(event.value),
+              ),
+            ),
+            status_: FormzStatus.valid,
           ),
+        );
+      }
+      return emit(
+        MenuItemChanged(
+          item: state.menuItem,
+          status_: FormzStatus.invalid,
         ),
-        status_: FormzStatus.valid,
-      ),
-    );
+      );
+    } on Exception {
+      return emit(
+        MenuItemChanged(
+          item: state.menuItem,
+          status_: FormzStatus.invalid,
+        ),
+      );
+    }
   }
 
   _onMenuItemPriceChanged(
     event,
     emit,
   ) {
-    emit(
-      MenuItemChanged(
-        item: state.menuItem.copyWith(
-          item: state.menuItem.item?.copyWith(price: event.value),
+    try {
+      double? answer = double.tryParse(event.value);
+      if (answer != null) {
+        print(answer);
+        emit(
+          MenuItemChanged(
+            item: state.menuItem.copyWith(
+              item: state.menuItem.item?.copyWith(
+                price: double.tryParse(event.value),
+              ),
+            ),
+            status_: FormzStatus.valid,
+          ),
+        );
+      }
+      return emit(
+        MenuItemChanged(
+          item: state.menuItem,
+          status_: FormzStatus.invalid,
         ),
-        status_: FormzStatus.valid,
-      ),
-    );
+      );
+    } on Exception {
+      return emit(
+        MenuItemChanged(
+          item: state.menuItem,
+          status_: FormzStatus.invalid,
+        ),
+      );
+    }
   }
 
   _onMenuItemNutritionChanged(

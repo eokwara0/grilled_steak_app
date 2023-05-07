@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grilled_steak_app/authentication/authentication.dart';
 
 class HamBurgerMenuPage extends StatefulWidget {
   const HamBurgerMenuPage({super.key});
@@ -71,6 +73,11 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
               ),
             ),
             ListTile(
+              onTap: () {
+                context.read<AuthenticationBloc>().add(
+                      AuthenticationLogoutRequest(),
+                    );
+              },
               leading: const Icon(
                 Icons.logout,
                 size: 22,

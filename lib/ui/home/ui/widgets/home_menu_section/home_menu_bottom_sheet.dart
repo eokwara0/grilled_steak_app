@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import '../../../../../authentication/authentication.dart';
@@ -31,30 +33,34 @@ class HomeMenuSectionBottomSheet extends StatelessWidget {
                     (e) => Column(
                       children: [
                         ListTile(
-                            onTap: () {
-                              /** */
-                            },
-                            leading: Image.network(
-                              e.imageUrl!,
-                              fit: BoxFit.cover,
-                              width: 40,
-                              height: 40,
-                              scale: 1.2,
-                            ),
-                            title: Text(e.title!),
-                            subtitle: Text(e.summary!),
-                            trailing: context
-                                    .read<AuthenticationBloc>()
-                                    .state
-                                    .user
-                                    .isAdmin
-                                ? InkWell(
-                                    onTap: () {},
-                                    child: const Icon(
-                                      Icons.edit_note_outlined,
-                                    ),
-                                  )
-                                : null),
+                          onTap: () {
+                            context.read<MenuCubit>().addMenu(e);
+                            context.go('/menu');
+                          },
+                          leading: Image.network(
+                            e.imageUrl!,
+                            fit: BoxFit.cover,
+                            width: 40,
+                            height: 40,
+                            scale: 1.2,
+                          ),
+                          title: Text(e.title!),
+                          subtitle: Text(e.summary!),
+                          trailing: context
+                                  .read<AuthenticationBloc>()
+                                  .state
+                                  .user
+                                  .isAdmin
+                              ? InkWell(
+                                  onTap: () {
+                                    context.go('/manageMenu');
+                                  },
+                                  child: const Icon(
+                                    Icons.edit_note_outlined,
+                                  ),
+                                )
+                              : null,
+                        ),
                         const Divider(),
                       ],
                     ),

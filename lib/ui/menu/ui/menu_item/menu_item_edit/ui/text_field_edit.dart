@@ -67,6 +67,7 @@ class _EditTextFieldState extends State<EditTextField> {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
+              errorBorder: UnderlineInputBorder(),
               hintText: widget.hint,
               hintStyle: TextStyle(
                 color: Colors.grey.shade400,

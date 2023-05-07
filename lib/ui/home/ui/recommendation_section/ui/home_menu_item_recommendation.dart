@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menu_repository/menu_repository.dart';
 
-import '../../../../menu/cubit/menu_item_cubit.dart';
+import '../../../../menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../cubit/home_menu_item_recommendation_cubit.dart';
 import 'home_menu_item_recommendation_bottom_sheet.dart';
 
@@ -107,7 +107,7 @@ class _HomeRecommendedMenuItemsState extends State<HomeRecommendedMenuItems> {
                                     Container(
                                       padding: const EdgeInsets.all(10),
                                       alignment: Alignment.centerLeft,
-                                      width: 180,
+                                      width: 190,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -165,9 +165,9 @@ class _HomeRecommendedMenuItemsState extends State<HomeRecommendedMenuItems> {
                                                   Text(
                                                     '${e.item?.nutrition?.calories} Kal',
                                                     style: TextStyle(
-                                                      fontSize: 11,
+                                                      fontSize: 14,
                                                       color:
-                                                          Colors.grey.shade800,
+                                                          Colors.grey.shade600,
                                                     ),
                                                   ),
                                                 ],
@@ -180,7 +180,7 @@ class _HomeRecommendedMenuItemsState extends State<HomeRecommendedMenuItems> {
                                           Text(
                                             'R${(e.item?.price)?.toStringAsFixed(2)}',
                                             style: TextStyle(
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.w700,
                                               fontSize: 18,
                                               color: Colors.grey.shade600,
                                             ),

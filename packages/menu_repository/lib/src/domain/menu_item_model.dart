@@ -54,8 +54,19 @@ class MenuItem extends Equatable {
         'imageUrl': _imageUrl,
       };
 
-  static empty() {
-    return MenuItem(id: '');
+  static empty(String? userId, String? menuId) {
+    bool active = true;
+    String imageUrl = "http://localhost:3000/items/ph/placeholder.avif";
+    Item item_ = Item.empty();
+
+    return MenuItem(
+      id: '',
+      menuId: menuId,
+      userId: userId,
+      active: active,
+      imageUrl: imageUrl,
+      item: item_,
+    );
   }
 
   static fromJson(Map<dynamic, dynamic> props) {
