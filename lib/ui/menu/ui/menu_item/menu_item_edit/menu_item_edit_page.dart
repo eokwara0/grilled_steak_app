@@ -4,7 +4,7 @@ import 'package:menu_repository/menu_repository.dart';
 
 import '../cubit/menu_item_cubit.dart';
 import 'bloc/menu_item_edit_bloc.dart';
-import 'menu_item_edit_body.dart';
+import 'ui/menu_item_edit_body.dart';
 
 class MenuItemEditPage extends StatelessWidget {
   const MenuItemEditPage({

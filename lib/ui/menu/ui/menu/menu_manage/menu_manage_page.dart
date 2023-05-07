@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grilled_steak_app/authentication/authentication.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
+import 'package:menu_repository/menu_repository.dart';
 
 import 'cubit/menu_manage_cubit.dart';
 
@@ -129,7 +131,20 @@ class MenuManagePage extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          context.read<MenuItemCubit>().addItem(
+                                                MenuItem.empty(
+                                                  context
+                                                      .read<
+                                                          AuthenticationBloc>()
+                                                      .state
+                                                      .user
+                                                      .id,
+                                                  state.menus[index].id,
+                                                ),
+                                              );
+                                          context.go('/menuItem/add');
+                                        },
                                         child: const Text(
                                           'Add Item',
                                           style: TextStyle(

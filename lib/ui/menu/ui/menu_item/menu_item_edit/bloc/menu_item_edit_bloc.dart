@@ -22,6 +22,8 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     on<MenuItemActiveEditEvent>(
       _onMenuItemActiveChanged,
     );
+
+    on<MenuItemAddEvent>(_onMenuItemAdd);
     on<MenuItemFileChangedEvent>(
       _onMenuItemFileChanged,
     );
@@ -61,6 +63,7 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
   final MenuItemRepository _menuItemRepository;
   final MenuRepository _menuRepo;
 
+  _onMenuItemAdd(MenuItemAddEvent event, emit) async {}
   _onMenuItemDeleted(
     MenuItemDeleteEvent event,
     emit,

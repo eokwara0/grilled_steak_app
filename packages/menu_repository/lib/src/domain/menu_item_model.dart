@@ -54,8 +54,19 @@ class MenuItem extends Equatable {
         'imageUrl': _imageUrl,
       };
 
-  static empty() {
-    return MenuItem(id: '');
+  static empty(String? userId, String? menuId) {
+    bool active = true;
+    String imageUrl = "";
+    Item item_ = Item.empty();
+
+    return MenuItem(
+      id: '',
+      menuId: menuId,
+      userId: userId,
+      active: active,
+      imageUrl: imageUrl,
+      item: item_,
+    );
   }
 
   static fromJson(Map<dynamic, dynamic> props) {

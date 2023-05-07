@@ -9,6 +9,7 @@ import '../ui/home/ui/home_page.dart';
 import '../ui/login/view/login_page.dart';
 import '../ui/menu/ui/menu/menu_manage/menu_manage_page.dart';
 import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
+import '../ui/menu/ui/menu_item/menu_item_add/menu_item_add.dart';
 import '../ui/menu/ui/menu_item/menu_item_edit/menu_item_edit_page.dart';
 import '../ui/splash/view/splash_page.dart';
 
@@ -49,6 +50,13 @@ class Routers {
         name: 'menu_item_edit',
         builder: (context, state) {
           return const MenuItemEditPage();
+        },
+      ),
+      GoRoute(
+        path: '/menuItem/add',
+        name: 'menu_item_add',
+        builder: (context, state) {
+          return const MenuItemAddPage();
         },
       ),
       GoRoute(

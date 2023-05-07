@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/menu_item_edit_bloc.dart';
+import '../bloc/menu_item_edit_bloc.dart';
 
 class MenuItemEditUploadImage extends StatelessWidget {
   const MenuItemEditUploadImage({

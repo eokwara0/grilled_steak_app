@@ -29,6 +29,15 @@ class Nutrition extends Equatable {
         'calories': _calories ?? '',
       };
 
+  static empty() {
+    return {
+      'fat': '',
+      'carbs': '',
+      'protein': '',
+      'calories': '',
+    };
+  }
+
   /// return a copy of the Nutirion object
   copyWith({
     String? fat,

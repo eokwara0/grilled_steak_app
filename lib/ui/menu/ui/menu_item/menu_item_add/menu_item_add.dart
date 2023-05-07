@@ -34,11 +34,7 @@ class MenuItemAddPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   TextButton(
-                    onPressed: () {
-                      context
-                          .read<MenuItemEditBloc>()
-                          .add(const MenuItemSubmitEvent(''));
-                    },
+                    onPressed: () {},
                     child: const Text(
                       'Add New Item',
                       style: TextStyle(

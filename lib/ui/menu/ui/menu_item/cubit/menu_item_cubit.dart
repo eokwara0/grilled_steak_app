@@ -8,7 +8,7 @@ class MenuItemCubit extends Cubit<MenuItemState> {
   MenuItemCubit()
       : super(
           MenuItemInitial(
-            item: MenuItem.empty(),
+            item: MenuItem.empty('', ''),
           ),
         );
 
