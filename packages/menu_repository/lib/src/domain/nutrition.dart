@@ -31,10 +31,10 @@ class Nutrition extends Equatable {
 
   static empty() {
     return {
-      'fat': '',
-      'carbs': '',
-      'protein': '',
-      'calories': '',
+      'fat': '0g',
+      'carbs': '0g',
+      'protein': '0g',
+      'calories': '0',
     };
   }
 

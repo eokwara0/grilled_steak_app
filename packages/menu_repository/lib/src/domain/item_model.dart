@@ -67,9 +67,9 @@ class Item extends Equatable {
   static Item empty() {
     return Item.fromJson({
       'unit': 'Serving',
-      'prep': 'Time it takes to prepare',
+      'prep': '10mins',
       'price': 0.00,
-      'title': 'Item Title',
+      'title': 'New Meal',
       'cooking': false,
       'summary': "summary of the meal",
       'content': 'Extra information regarding the meal',

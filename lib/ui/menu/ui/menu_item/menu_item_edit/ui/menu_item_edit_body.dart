@@ -131,9 +131,9 @@ class MenuItemEditBody extends StatelessWidget {
                               const Divider(),
                               EditTextField(
                                 onChanged: (value) {
-                                  context
-                                      .read<MenuItemEditBloc>()
-                                      .add(MenuItemPriceChangedEVent(value));
+                                  context.read<MenuItemEditBloc>().add(
+                                        MenuItemPriceChangedEVent(value),
+                                      );
                                 },
                                 maxLength: 20,
                                 maxLines: 1,

@@ -4,7 +4,7 @@ import 'package:menu_repository/menu_repository.dart';
 
 import '../cubit/menu_item_cubit.dart';
 import '../menu_item_edit/bloc/menu_item_edit_bloc.dart';
-import '../menu_item_edit/menu_item_edit_body.dart';
+import '../menu_item_edit/ui/menu_item_edit_body.dart';
 
 class MenuItemAddPage extends StatelessWidget {
   const MenuItemAddPage({
@@ -34,7 +34,11 @@ class MenuItemAddPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<MenuItemEditBloc>().add(
+                            const MenuItemAddEvent(''),
+                          );
+                    },
                     child: const Text(
                       'Add New Item',
                       style: TextStyle(

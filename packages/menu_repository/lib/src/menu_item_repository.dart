@@ -136,10 +136,23 @@ class MenuItemRepository {
     return null;
   }
 
-  Future<bool> replaceMenuItem(MenuItem item) async {
-    // print(jsonEncode(item.toJson()));
+  Future<bool> createMenuItem(MenuItem item) async {
+    final response =
+        await http.post(Uri.parse('http://localhost:3000/menuItem/add'),
+            headers: {
+              "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
+              "Content-Type": 'application/json',
+            },
+            body: jsonEncode(item.toJson()));
 
-    print(item.item?.nutrition);
+    // print(response.statusCode);
+    if (response.statusCode == HttpStatus.ok) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> replaceMenuItem(MenuItem item) async {
     final response = await http.post(
         Uri.parse('http://localhost:3000/menuItem/replace/${item.id}'),
         headers: {
