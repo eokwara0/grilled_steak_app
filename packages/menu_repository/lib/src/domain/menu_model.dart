@@ -22,6 +22,16 @@ class Menu extends Equatable {
         _content = content,
         _imageUrl = imageUrl;
 
+  static Menu empty(String? userId) {
+    return Menu(
+        id: '',
+        userId: userId ?? '',
+        title: 'Title',
+        summary: 'Summary',
+        content: 'content',
+        imageUrl: 'http://localhost:3000/items/ph/hot-pot.png');
+  }
+
   copyWith({
     String? userId,
     String? title,
@@ -32,8 +42,8 @@ class Menu extends Equatable {
     return Menu(
       id: _id,
       title: title ?? _title,
-      userId: userId ?? userId,
-      content: content ?? content,
+      userId: userId ?? _userId,
+      content: content ?? _content,
       summary: summary ?? _summary,
       imageUrl: imageUrl ?? _imageUrl,
     );

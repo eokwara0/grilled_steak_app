@@ -1,24 +1,24 @@
 part of 'menu_manage_cubit.dart';
 
-enum Status { initial, loaded, error }
+enum MenuManageStatus { initial, loaded, error }
 
 abstract class MenuManageState extends Equatable {
   const MenuManageState({
     required List<Menu> menus_,
     required Map<String, List<MenuItem>> items,
-    required Status status_,
+    required MenuManageStatus status_,
   })  : menus = menus_,
         menusToItems = items,
         status = status_;
 
   final List<Menu> menus;
   final Map<String, List<MenuItem>> menusToItems;
-  final Status status;
+  final MenuManageStatus status;
 
   // getters
   Map<String, List<MenuItem>> get menusToItem => menusToItems;
   List<Menu> get menu => menus;
-  Status get status_ => status;
+  MenuManageStatus get status_ => status;
 
   // state checkers
 
@@ -42,8 +42,11 @@ class MenuManageLoadedState extends MenuManageState {
 }
 
 class MenuEditChanged extends MenuManageState {
-  const MenuEditChanged(
-      {required super.menus_, required super.items, required super.status_});
+  const MenuEditChanged({
+    required super.menus_,
+    required super.items,
+    required super.status_,
+  });
 }
 
 class MenuManageErrorState extends MenuManageState {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grilled_steak_app/app/routes.dart';
 import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
+import 'package:grilled_steak_app/ui/menu/ui/menu/menu_edit/cubit/menu_edit_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
 import 'package:service_locator/service_locator.dart';
 import 'package:user_repository/user_repository.dart';
@@ -85,9 +86,8 @@ class _AppState extends State<App> {
             ),
           ),
           BlocProvider(
-            create: (context) => MenuManageCubit(
-              menuRepository: _menuRepository,
-              menuItemRepository: _menuItemRepository,
+            create: (context) => MenuEditCubit(
+              repo: _menuRepository,
             ),
           ),
         ],

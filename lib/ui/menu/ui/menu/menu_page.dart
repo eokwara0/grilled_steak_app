@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/authentication/authentication.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
+import 'package:grilled_steak_app/ui/menu/ui/menu/menu_edit/cubit/menu_edit_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_manage/cubit/menu_manage_cubit.dart';
 import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
 import 'package:menu_repository/menu_repository.dart';

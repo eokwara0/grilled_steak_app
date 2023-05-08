@@ -7,6 +7,7 @@ import 'package:menu_repository/menu_repository.dart';
 
 import '../ui/home/ui/home_page.dart';
 import '../ui/login/view/login_page.dart';
+import '../ui/menu/ui/menu/menu_edit/menu_edit_page.dart';
 import '../ui/menu/ui/menu/menu_manage/menu_manage_page.dart';
 import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../ui/menu/ui/menu_item/menu_item_add/menu_item_add.dart';
@@ -71,6 +72,13 @@ class Routers {
         path: '/manageMenu',
         builder: (context, state) {
           return const MenuManagePage();
+        },
+      ),
+      GoRoute(
+        name: 'menuEdit',
+        path: '/menuEdit',
+        builder: (context, state) {
+          return const MenuEditPage();
         },
       ),
     ],
