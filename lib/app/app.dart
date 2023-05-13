@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:grilled_steak_app/app/routes.dart';
 import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
+import 'package:grilled_steak_app/ui/menu/ui/menu/menu_edit/cubit/menu_edit_cubit.dart';
+import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
 import 'package:service_locator/service_locator.dart';
+import 'package:table_reservation_repository/table_reservation_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../authentication/authentication.dart';
 import '../ui/home/ui/search_bottom_sheet/cubit/search_bottom_sheet_cubit.dart';
-import '../ui/menu/ui/menu/menu_manage/cubit/menu_manage_cubit.dart';
 import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
+import '../ui/table/view/table_edit_bottom_sheet.dart/cubit/table_edit_cubit.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -26,6 +29,7 @@ class _AppState extends State<App> {
   late final UserRepository _userRepository;
   late final MenuItemRepository _menuItemRepository;
   late final MenuRepository _menuRepository;
+  late final ReservationRepository _reservationRepository;
 
   // initialization
   @override
@@ -38,6 +42,7 @@ class _AppState extends State<App> {
         AuthenticationRepository(); // initializing Authentication repository
     _menuItemRepository = MenuItemRepository(); // initializing
     _menuRepository = MenuRepository(); // initializing
+    _reservationRepository = ReservationRepository();
   }
 
   @override
@@ -55,6 +60,9 @@ class _AppState extends State<App> {
         ),
         RepositoryProvider(
           create: (context) => _menuRepository,
+        ),
+        RepositoryProvider(
+          create: (context) => _reservationRepository,
         )
       ],
       child: MultiBlocProvider(
@@ -85,11 +93,20 @@ class _AppState extends State<App> {
             ),
           ),
           BlocProvider(
-            create: (context) => MenuManageCubit(
-              menuRepository: _menuRepository,
-              menuItemRepository: _menuItemRepository,
+            create: (context) => MenuEditCubit(
+              repo: _menuRepository,
             ),
           ),
+          BlocProvider(
+            create: (context) => TableEditCubit(
+              reservationRepository: _reservationRepository,
+            ),
+          ),
+          BlocProvider(
+            create: (context) => ManageTableCubit(
+              reservationRepository: _reservationRepository,
+            ),
+          )
         ],
         child: const AppView(),
       ),

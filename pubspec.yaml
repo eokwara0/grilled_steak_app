@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  table_reservation_repository:
+    path: packages/table_reservation_repository
   authentication_repository:
     path: packages/authentication_repository
   user_repository:

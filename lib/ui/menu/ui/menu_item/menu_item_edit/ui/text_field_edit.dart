@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 
 class EditTextField extends StatefulWidget {
-  const EditTextField({
-    super.key,
-    required this.label,
-    required this.hint,
-    this.maxLines,
-    this.padding,
-    this.maxLength,
-    this.height,
-    this.onChanged,
-    this.onFieldSubmitted,
-    this.validator,
-    this.onEditingComplete,
-    this.onTapOutside,
-  });
+  const EditTextField(
+      {super.key,
+      required this.label,
+      required this.hint,
+      this.maxLines,
+      this.padding,
+      this.maxLength,
+      this.height,
+      this.onChanged,
+      this.onFieldSubmitted,
+      this.validator,
+      this.onEditingComplete,
+      this.onTapOutside,
+      this.errorText});
   final String label;
   final String hint;
   final EdgeInsets? padding;
   final int? maxLength;
   final int? maxLines;
   final double? height;
+  final String? errorText;
 
   final Function(String)? onChanged;
   final Function(String)? onFieldSubmitted;
@@ -63,11 +64,14 @@ class _EditTextFieldState extends State<EditTextField> {
               color: Colors.grey.shade400,
             ),
             decoration: InputDecoration(
+              focusedErrorBorder: InputBorder.none,
+              errorStyle: TextStyle(color: Colors.amber),
+              errorBorder: InputBorder.none,
+              errorText: widget.errorText,
               contentPadding: const EdgeInsets.all(10),
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
-              errorBorder: UnderlineInputBorder(),
               hintText: widget.hint,
               hintStyle: TextStyle(
                 color: Colors.grey.shade400,

@@ -71,11 +71,12 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
         MenuItemSubmitted(
             item: state.menuItem, status_: FormzStatus.submissionSuccess),
       );
+    } else {
+      return emit(MenuItemEditError(
+        item: state.menuItem,
+        status_: FormzStatus.submissionFailure,
+      ));
     }
-    return MenuItemEditError(
-      item: state.menuItem,
-      status_: FormzStatus.submissionFailure,
-    );
   }
 
   _onMenuItemDeleted(

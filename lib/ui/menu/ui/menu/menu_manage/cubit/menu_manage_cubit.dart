@@ -14,7 +14,7 @@ class MenuManageCubit extends Cubit<MenuManageState> {
           const MenuManageInitialState(
             menus_: [],
             items: {},
-            status_: Status.initial,
+            status_: MenuManageStatus.initial,
           ),
         ) {
     initialize();
@@ -36,11 +36,15 @@ class MenuManageCubit extends Cubit<MenuManageState> {
       }
       return emit(
         MenuManageLoadedState(
-            menus_: menus, items: menuToItem, status_: Status.loaded),
+            menus_: menus, items: menuToItem, status_: MenuManageStatus.loaded),
       );
     }
     return emit(
-      const MenuManageErrorState(menus_: [], items: {}, status_: Status.error),
+      const MenuManageErrorState(
+        menus_: [],
+        items: {},
+        status_: MenuManageStatus.error,
+      ),
     );
   }
 }

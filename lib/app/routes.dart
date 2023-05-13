@@ -3,10 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/forgot/ui/forgot_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_page.dart';
+import 'package:grilled_steak_app/ui/table/view/table_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import '../ui/home/ui/home_page.dart';
 import '../ui/login/view/login_page.dart';
+import '../ui/menu/ui/menu/menu_edit/menu_edit_page.dart';
 import '../ui/menu/ui/menu/menu_manage/menu_manage_page.dart';
 import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../ui/menu/ui/menu_item/menu_item_add/menu_item_add.dart';
@@ -71,6 +73,20 @@ class Routers {
         path: '/manageMenu',
         builder: (context, state) {
           return const MenuManagePage();
+        },
+      ),
+      GoRoute(
+        name: 'menuEdit',
+        path: '/menuEdit',
+        builder: (context, state) {
+          return const MenuEditPage();
+        },
+      ),
+      GoRoute(
+        name: 'manageTable',
+        path: '/manageTable',
+        builder: (context, state) {
+          return const Tablepage();
         },
       ),
     ],
