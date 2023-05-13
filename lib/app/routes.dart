@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/forgot/ui/forgot_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_page.dart';
+import 'package:grilled_steak_app/ui/table/view/table_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import '../ui/home/ui/home_page.dart';
@@ -79,6 +80,13 @@ class Routers {
         path: '/menuEdit',
         builder: (context, state) {
           return const MenuEditPage();
+        },
+      ),
+      GoRoute(
+        name: 'manageTable',
+        path: '/manageTable',
+        builder: (context, state) {
+          return const Tablepage();
         },
       ),
     ],

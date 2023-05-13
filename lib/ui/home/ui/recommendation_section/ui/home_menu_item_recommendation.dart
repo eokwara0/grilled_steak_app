@@ -37,8 +37,9 @@ class _HomeRecommendedMenuItemsState extends State<HomeRecommendedMenuItems> {
                     Text(
                       'Recommended',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey.shade700),
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                     const Spacer(),
                     Ink(
