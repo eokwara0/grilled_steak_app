@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/authentication/authentication.dart';
+import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
 
 class HamBurgerMenuPage extends StatefulWidget {
   const HamBurgerMenuPage({super.key});
@@ -73,25 +74,48 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
                 Icons.keyboard_arrow_right_rounded,
               ),
             ),
-            ListTile(
-              onTap: () {
-                context.go('/ManageTable');
-              },
-              leading: const Icon(
-                Icons.table_restaurant,
-                size: 22,
-              ),
-              title: Text(
-                'Manage Reservations',
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 15,
+            if (context.read<AuthenticationBloc>().state.user.isAdmin)
+              ListTile(
+                onTap: () {
+                  context.read<ManageTableCubit>().initialize();
+                  context.go('/ManageMenu');
+                },
+                leading: const Icon(
+                  Icons.menu_book_rounded,
+                  size: 22,
+                ),
+                title: Text(
+                  'Manage Menu',
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 15,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.keyboard_arrow_right_rounded,
                 ),
               ),
-              trailing: const Icon(
-                Icons.keyboard_arrow_right_rounded,
+            if (context.read<AuthenticationBloc>().state.user.isAdmin)
+              ListTile(
+                onTap: () {
+                  context.read<ManageTableCubit>().initialize();
+                  context.go('/ManageTable');
+                },
+                leading: const Icon(
+                  Icons.table_restaurant,
+                  size: 22,
+                ),
+                title: Text(
+                  'Manage Reservations',
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 15,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                ),
               ),
-            ),
             ListTile(
               onTap: () {
                 context.read<AuthenticationBloc>().add(

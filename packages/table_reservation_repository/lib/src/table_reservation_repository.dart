@@ -110,8 +110,9 @@ class ReservationRepository {
     return null;
   }
 
-  Future<bool?> updateReservation(String id, TableReservation table) async {
-    print(jsonDecode(table.toString()));
+  Future<bool> updateReservation(String id, TableReservation table) async {
+    // print(jsonEncode(table.toJson()));
+    // print(id);
     final response = await http.post(
       Uri.parse('http://localhost:3000/table/reservation/${id}'),
       headers: {
@@ -123,6 +124,7 @@ class ReservationRepository {
       ),
     );
 
+    // print(response.statusCode);
     if (response.statusCode == HttpStatus.accepted) {
       return true;
     }

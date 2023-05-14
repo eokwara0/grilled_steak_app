@@ -12,13 +12,10 @@ class UserRepository {
   SecureStorage _ss = sl<SecureStorage>();
 
   // user
-  User? _user;
 
   // Returns user from the user API
   Future<User?> getUser() async {
-    if (_user != null) return _user;
-    _user = User.fromJson(await makeRequest());
-    // print(_user?.id.toString());
+    final _user = User.fromJson(await makeRequest());
     return _user;
   }
 

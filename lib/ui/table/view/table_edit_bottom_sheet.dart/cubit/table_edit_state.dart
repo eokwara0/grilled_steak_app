@@ -4,6 +4,7 @@ abstract class TableEditState extends Equatable {
   const TableEditState({
     required TableReservation table,
     required Reservation reservation,
+    required FormzStatus status,
     Email? email,
     Username? firstname,
     Username? lastname,
@@ -13,8 +14,10 @@ abstract class TableEditState extends Equatable {
         _email = email,
         _firstname = firstname,
         _lastname = lastname,
-        _number = number;
+        _number = number,
+        _status = status;
 
+  final FormzStatus _status;
   final Reservation _reservation;
   final TableReservation _table;
   final Email? _email;
@@ -29,7 +32,13 @@ abstract class TableEditState extends Equatable {
   Username? get firstname => _firstname;
   Username? get lastname => _lastname;
   PhoneNumber? get number => _number;
+  FormzStatus get status => _status;
 
+  // checks
+  bool get isSbumitted => this is TableEditSubmit;
+  bool get isError => this is TableEditError;
+  bool get isChanged => this is TableEditChanged;
+  bool get isInitial => this is TableEditInitial;
   @override
   List<Object?> get props => [
         _table,
@@ -38,7 +47,8 @@ abstract class TableEditState extends Equatable {
         _firstname,
         _lastname,
         _number,
-        _table.capacity
+        _table.capacity,
+        _status,
       ];
 }
 
@@ -50,6 +60,7 @@ class TableEditInitial extends TableEditState {
     super.firstname,
     super.lastname,
     super.number,
+    required super.status,
   });
 }
 
@@ -61,6 +72,7 @@ class TableEditChanged extends TableEditState {
     super.firstname,
     super.lastname,
     super.number,
+    required super.status,
   });
 }
 
@@ -72,6 +84,7 @@ class TableEditSubmit extends TableEditState {
     super.firstname,
     super.lastname,
     super.number,
+    required super.status,
   });
 }
 
@@ -83,5 +96,6 @@ class TableEditError extends TableEditState {
     super.firstname,
     super.lastname,
     super.number,
+    required super.status,
   });
 }

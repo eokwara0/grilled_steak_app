@@ -49,14 +49,16 @@ class User extends Equatable {
       };
   // user from json
   static User fromJson(Map<dynamic, dynamic> user) {
-    return User(
-      id: '${user['_id']}',
-      role: '${user['role']}',
-      emaill: '${user['email']}',
-      lastname: '${user['lastname']}',
-      username: '${user['username']}',
-      firstname: '${user['firstname']}',
-    );
+    return user == null
+        ? User.empty
+        : User(
+            id: '${user['_id']}',
+            role: '${user['role']}',
+            emaill: '${user['email']}',
+            lastname: '${user['lastname']}',
+            username: '${user['username']}',
+            firstname: '${user['firstname']}',
+          );
   }
 
   // Empty users

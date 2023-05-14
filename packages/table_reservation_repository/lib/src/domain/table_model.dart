@@ -35,7 +35,7 @@ class TableReservation extends Equatable {
   Map<String, dynamic> toJson() => {
         "status": _status,
         "capacity": _capacity,
-        "reservation": _reservation?.toJson()
+        "reservation": _reservation!.hasDate ? _reservation?.toJson() : {},
       };
 
   copyWith({

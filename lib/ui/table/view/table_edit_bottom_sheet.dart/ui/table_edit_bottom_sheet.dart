@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_edit/ui/text_field_edit.dart';
 import 'package:grilled_steak_app/ui/table/view/table_edit_bottom_sheet.dart/cubit/table_edit_cubit.dart';
@@ -31,61 +32,128 @@ class _TableEditBottomSheetState extends State<TableEditBottomSheet> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       onClosing: () {},
       builder: (context) {
-        return BlocBuilder<TableEditCubit, TableEditState>(
-          builder: (context, state) {
-            print(state.table.capacity);
-            return CustomScrollView(
-              slivers: [
-                SliverPersistentHeader(
-                  delegate: SliverHeader(),
-                  pinned: true,
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.all(20),
-                  sliver: SliverList(
-                    delegate: SliverChildListDelegate(
-                      [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            EditTextField(
-                              onChanged: (p0) {
-                                context
-                                    .read<TableEditCubit>()
-                                    .capacityChanged(p0);
-                              },
-                              label: 'Capacity',
-                              hint: '${state.table.capacity}',
-                              maxLines: 1,
-                            ),
-                            if (!show)
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.amber,
-                                  textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    show = !show;
-                                  });
-                                },
-                                child: const Text(
-                                  'Add Reservation',
-                                ),
-                              ),
-                            if (show) const ReservationBody(),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            );
+        return BlocListener<TableEditCubit, TableEditState>(
+          listener: (context, state) {
+            if (state is TableEditSubmit) {
+              context.go('/success?message=Table Successfully Updated');
+            }
           },
+          child: BlocBuilder<TableEditCubit, TableEditState>(
+            builder: (context, state) {
+              return CustomScrollView(
+                slivers: [
+                  SliverPersistentHeader(
+                    delegate: SliverHeader(),
+                    pinned: true,
+                  ),
+                  SliverPadding(
+                    padding: const EdgeInsets.all(20),
+                    sliver: SliverList(
+                      delegate: SliverChildListDelegate(
+                        [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              EditTextField(
+                                onChanged: (p0) {
+                                  context
+                                      .read<TableEditCubit>()
+                                      .capacityChanged(p0);
+                                },
+                                label: 'Capacity',
+                                hint: '${state.table.capacity}',
+                                maxLines: 1,
+                              ),
+                              const Divider(),
+                              if (!show)
+                                Column(
+                                  children: [
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: Colors.amber,
+                                        textStyle: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          show = !show;
+                                        });
+                                      },
+                                      child: const Text(
+                                        'Add Reservation',
+                                      ),
+                                    ),
+                                    const Divider(),
+                                  ],
+                                ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              if (show) const ReservationBody(),
+                              show
+                                  ? FilledButton(
+                                      style: FilledButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        foregroundColor: Colors.amber,
+                                        minimumSize:
+                                            const Size(double.infinity, 50),
+                                      ),
+                                      onPressed: () {
+                                        state.status.isValidated
+                                            ? context
+                                                .read<TableEditCubit>()
+                                                .addReservation(show)
+                                            : null;
+                                      },
+                                      child: const Text(
+                                        'Reserve',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  : FilledButton(
+                                      style: FilledButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        foregroundColor: Colors.amber,
+                                        minimumSize:
+                                            const Size(double.infinity, 50),
+                                      ),
+                                      onPressed: () {
+                                        context
+                                            .read<TableEditCubit>()
+                                            .addReservation(show);
+                                      },
+                                      child: const Text(
+                                        'Update',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                              const SizedBox(
+                                height: 100,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
         );
       },
     );
@@ -137,6 +205,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
                   )
                 ],
               ),
+
               const Spacer(),
 
               Padding(
@@ -208,6 +277,7 @@ class ReservationBody extends StatelessWidget {
                 hint: 'firstname',
                 maxLines: 1,
               ),
+              const Divider(),
               EditTextField(
                 onChanged: (p0) {
                   context.read<TableEditCubit>().lastNameChanged(p0);
@@ -217,6 +287,7 @@ class ReservationBody extends StatelessWidget {
                 hint: 'lastname',
                 maxLines: 1,
               ),
+              const Divider(),
               EditTextField(
                 onChanged: (p0) {
                   context.read<TableEditCubit>().mobileChanged(p0);
@@ -227,6 +298,7 @@ class ReservationBody extends StatelessWidget {
                 hint: 'mobile',
                 maxLines: 1,
               ),
+              const Divider(),
               EditTextField(
                 onChanged: (p0) {
                   context.read<TableEditCubit>().emailChanged(p0);
@@ -236,6 +308,7 @@ class ReservationBody extends StatelessWidget {
                 hint: 'email',
                 maxLines: 1,
               ),
+              const Divider(),
               TextButton(
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.amber,
@@ -259,6 +332,7 @@ class ReservationBody extends StatelessWidget {
 
                   // ignore: use_build_context_synchronously
                   final time = await showTimePicker(
+                    errorInvalidText: 'Input date',
                     context: context,
                     initialTime: TimeOfDay.now(),
                   );
@@ -279,8 +353,28 @@ class ReservationBody extends StatelessWidget {
                       .read<TableEditCubit>()
                       .dateChanged(datetime, datetime2);
                 },
-                child: const Text('Select Date'),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Text('Select Date'),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    if (!state.reservation.hasDate)
+                      Text(
+                        'Enter a Select Date and time',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.red.shade300,
+                        ),
+                      ),
+                  ],
+                ),
               ),
+              const Divider(),
+              const SizedBox(
+                height: 20,
+              )
             ],
           ),
         );

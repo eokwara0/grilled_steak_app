@@ -44,12 +44,13 @@ class AuthenticationRepository {
     switch (res.statucode) {
       case 200:
         print(' Authentication Repository ${res.resBody['access_token']}');
-        _controller.add(AuthenticationStatus.authenticated);
         fss.writeAll({
           "username": username,
           "password": password,
           "access_token": res.resBody['access_token'],
         });
+        _controller.add(AuthenticationStatus.authenticated);
+
         return true;
 
       case 401:

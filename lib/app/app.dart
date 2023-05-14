@@ -5,6 +5,7 @@ import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_edit/cubit/menu_edit_cubit.dart';
 import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
+import 'package:grilled_steak_app/ui/table/view/table_reservation_bottom_sheet.dart/cubit/reservation_bottom_sheet_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
 import 'package:service_locator/service_locator.dart';
 import 'package:table_reservation_repository/table_reservation_repository.dart';
@@ -106,6 +107,10 @@ class _AppState extends State<App> {
             create: (context) => ManageTableCubit(
               reservationRepository: _reservationRepository,
             ),
+          ),
+          BlocProvider(
+            create: (context) =>
+                ReservationBottomSheetCubit(repo: _reservationRepository),
           )
         ],
         child: const AppView(),
