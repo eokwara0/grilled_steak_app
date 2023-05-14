@@ -38,6 +38,8 @@ dependencies:
     path: packages/service_locator_repository
   menu_repository:
     path: packages/menu_repository
+  order_repository:
+    path: packages/order_repository
   bloc: ^8.1.0
   equatable: ^2.0.3
   flutter:

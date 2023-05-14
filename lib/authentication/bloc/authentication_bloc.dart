@@ -57,6 +57,7 @@ class AuthenticationBloc
       // with user .
       case AuthenticationStatus.authenticated:
         final user = await _tryGetUser();
+        print(user!.role!);
         return emit(
           user != null
               ? AuthenticationState.authenticated(user)

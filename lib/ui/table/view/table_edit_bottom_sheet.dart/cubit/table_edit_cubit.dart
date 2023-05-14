@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:formz/formz.dart';
 import 'package:grilled_steak_app/ui/login/models/username.dart';
 import 'package:table_reservation_repository/table_reservation_repository.dart';
 
@@ -20,6 +21,7 @@ class TableEditCubit extends Cubit<TableEditState> {
             firstname: Username.dirty(),
             lastname: Username.dirty(),
             number: PhoneNumber.dirty(),
+            status: FormzStatus.invalid,
           ),
         );
 
@@ -34,6 +36,7 @@ class TableEditCubit extends Cubit<TableEditState> {
         firstname: const Username.dirty(),
         lastname: const Username.dirty(),
         number: const PhoneNumber.dirty(),
+        status: FormzStatus.invalid,
       ),
     );
   }
@@ -41,16 +44,21 @@ class TableEditCubit extends Cubit<TableEditState> {
   dateChanged(DateTime start, DateTime end) {
     return emit(
       TableEditChanged(
-        table: state._table,
-        reservation: state._reservation.copyWith(
-          startDate: start,
-          endDate: end,
-        ),
-        firstname: state._firstname,
-        email: state._email,
-        lastname: state._lastname,
-        number: state._number,
-      ),
+          table: state._table,
+          reservation: state._reservation.copyWith(
+            startDate: start,
+            endDate: end,
+          ),
+          firstname: state._firstname,
+          email: state._email,
+          lastname: state._lastname,
+          number: state._number,
+          status: Formz.validate([
+            state._firstname!,
+            state._lastname!,
+            state._number!,
+            state.email!,
+          ])),
     );
   }
 
@@ -63,6 +71,7 @@ class TableEditCubit extends Cubit<TableEditState> {
         email: state._email,
         lastname: state._lastname,
         number: state._number,
+        status: FormzStatus.invalid,
       ),
     );
   }
@@ -76,6 +85,14 @@ class TableEditCubit extends Cubit<TableEditState> {
         email: state._email,
         lastname: state._lastname,
         number: state._number,
+        status: state.reservation.hasDate
+            ? Formz.validate([
+                Username.dirty(firstname),
+                state._lastname!,
+                state._number!,
+                state.email!,
+              ])
+            : FormzStatus.invalid,
       ),
     );
   }
@@ -89,6 +106,14 @@ class TableEditCubit extends Cubit<TableEditState> {
         email: state._email,
         lastname: Username.dirty(lastname),
         number: state._number,
+        status: state.reservation.hasDate
+            ? Formz.validate([
+                Username.dirty(lastname),
+                state._firstname!,
+                state._number!,
+                state._email!
+              ])
+            : FormzStatus.invalid,
       ),
     );
   }
@@ -102,6 +127,14 @@ class TableEditCubit extends Cubit<TableEditState> {
         email: state._email,
         lastname: state._lastname,
         number: PhoneNumber.dirty(mobile),
+        status: state.reservation.hasDate
+            ? Formz.validate([
+                PhoneNumber.dirty(mobile),
+                state._firstname!,
+                state._lastname!,
+                state._email!
+              ])
+            : FormzStatus.invalid,
       ),
     );
   }
@@ -115,14 +148,51 @@ class TableEditCubit extends Cubit<TableEditState> {
         email: Email.dirty(email),
         lastname: state._lastname,
         number: state._number,
+        status: state.reservation.hasDate
+            ? Formz.validate(
+                [
+                  Email.dirty(email),
+                  state._lastname!,
+                  state.firstname!,
+                  state._email!
+                ],
+              )
+            : FormzStatus.invalid,
       ),
     );
   }
 
-  addReservation() async {
-    TableReservation table = state._table
-        .copyWith(reservation: state._reservation, status: 'RESERVED');
-    bool? respnose =
+  addReservation(bool show) async {
+    TableReservation table = state._table.copyWith(
+      reservation: show ? state._reservation : null,
+      status: show ? 'RESERVED' : state.table.status,
+    );
+    bool response =
         await _reservationRepository.updateReservation(table.id!, table);
+
+    if (response) {
+      return emit(
+        TableEditSubmit(
+          table: table,
+          reservation: state._reservation,
+          status: FormzStatus.submissionSuccess,
+          firstname: state._firstname,
+          email: state._email,
+          lastname: state._lastname,
+          number: state._number,
+        ),
+      );
+    }
+    return emit(
+      TableEditError(
+        table: state.table,
+        reservation: state._reservation,
+        firstname: state._firstname,
+        email: state._email,
+        lastname: state._lastname,
+        number: state._number,
+        status: FormzStatus.submissionFailure,
+      ),
+    );
   }
 }

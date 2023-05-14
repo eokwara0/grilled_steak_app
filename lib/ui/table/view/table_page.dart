@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
 import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
 import 'package:grilled_steak_app/ui/table/view/table_edit_bottom_sheet.dart/cubit/table_edit_cubit.dart';
+import 'package:grilled_steak_app/ui/table/view/table_reservation_bottom_sheet.dart/cubit/reservation_bottom_sheet_cubit.dart';
+import 'package:grilled_steak_app/ui/table/view/table_reservation_bottom_sheet.dart/ui/table_reservation_bottom_sheet.dart';
 import 'package:table_reservation_repository/table_reservation_repository.dart';
 
 import 'table_edit_bottom_sheet.dart/ui/table_edit_bottom_sheet.dart';
@@ -122,7 +124,6 @@ class _TablepageState extends State<Tablepage>
           ),
           BlocBuilder<ManageTableCubit, ManageTableState>(
             builder: (context, state) {
-              print(state);
               return CustomScrollView(
                 slivers: [
                   SliverPadding(
@@ -135,7 +136,25 @@ class _TablepageState extends State<Tablepage>
                               (index) => Column(
                                 children: [
                                   ListTile(
-                                    onTap: () {},
+                                    // isThreeLine: true,
+                                    onTap: () {
+                                      context
+                                          .read<ReservationBottomSheetCubit>()
+                                          .addTable(
+                                            state.reservedTables[index],
+                                          );
+
+                                      showModalBottomSheet(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        context: context,
+                                        builder: (context) {
+                                          return const ReservationBottomSheet();
+                                        },
+                                      );
+                                    },
                                     title: Text(
                                       'Table ${index + 1}',
                                       style: const TextStyle(
@@ -143,7 +162,8 @@ class _TablepageState extends State<Tablepage>
                                       ),
                                     ),
                                     subtitle: Text(
-                                        '${state.reservedTables[index].capacity} seating'),
+                                      '${state.reservedTables[index].capacity} seats',
+                                    ),
                                   ),
                                   const Divider()
                                 ],

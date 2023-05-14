@@ -51,7 +51,7 @@ class Reservation extends Equatable {
       mobile: '${json['mobile']}',
       email: '${json['email']}',
       startDate: DateTime.parse('${json['startDate']}'),
-      endDate: DateTime.parse('${json['startDate']}'),
+      endDate: DateTime.parse('${json['endDate']}'),
     );
   }
 
@@ -72,6 +72,9 @@ class Reservation extends Equatable {
   String? get email => _email;
   DateTime? get startDate => _startDate;
   DateTime? get endDate => _endDate;
+
+  // checks
+  bool get hasDate => startDate != null;
 
   @override
   List<Object?> get props => [

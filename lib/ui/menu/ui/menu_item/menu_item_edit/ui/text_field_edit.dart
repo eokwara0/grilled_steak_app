@@ -65,7 +65,9 @@ class _EditTextFieldState extends State<EditTextField> {
             ),
             decoration: InputDecoration(
               focusedErrorBorder: InputBorder.none,
-              errorStyle: TextStyle(color: Colors.amber),
+              errorStyle: TextStyle(
+                color: Colors.red.shade400,
+              ),
               errorBorder: InputBorder.none,
               errorText: widget.errorText,
               contentPadding: const EdgeInsets.all(10),

@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             label: '',
             icon: Icon(
-              Icons.shopping_bag,
+              Icons.receipt_long_rounded,
               // size: 25,
             ),
           ),
