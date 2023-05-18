@@ -46,7 +46,7 @@ class ChefHomePage extends StatelessWidget {
               SnackBar(
                 elevation: 1,
                 dismissDirection: DismissDirection.endToStart,
-                backgroundColor: Colors.green[400],
+                backgroundColor: Colors.amber[600],
                 behavior: SnackBarBehavior.floating,
                 width: 400,
                 shape: RoundedRectangleBorder(
@@ -132,7 +132,6 @@ class ChefHomePage extends StatelessWidget {
         },
         child: BlocBuilder<ChefHomePageCubit, ChefHomePageState>(
           builder: (context, state) {
-            // print(state);
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
@@ -499,7 +498,8 @@ class ChefHomePage extends StatelessWidget {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                backgroundColor: Colors.green,
+                                                backgroundColor:
+                                                    Colors.amber[600],
                                               ),
                                               child: const Text('Ready'),
                                             ),

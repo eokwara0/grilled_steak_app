@@ -65,7 +65,6 @@ class _TablepageState extends State<Tablepage>
         children: [
           BlocBuilder<ManageTableCubit, ManageTableState>(
             builder: (context, state) {
-              // print(state);
               return CustomScrollView(
                 slivers: [
                   SliverPadding(

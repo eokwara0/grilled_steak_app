@@ -3,13 +3,10 @@ import 'package:service_locator/service_locator.dart';
 
 import 'domain/models/models.dart';
 
-// Authentication Statuses
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
-// Authentication repository
 class AuthenticationRepository {
   final SecureStorage fss = sl<SecureStorage>();
-  // Stream controller
   final _controller = StreamController<AuthenticationStatus>();
 
   Stream<AuthenticationStatus> get status async* {
@@ -17,14 +14,10 @@ class AuthenticationRepository {
     yield* _controller.stream;
   }
 
-  // Login method
   Future<bool> logIn({
     required String username,
     required String password,
   }) async {
-    // print('got here...');
-
-    // request object
     final request = Post(
       uri: Uri.parse('http://localhost:3000/auth/login'),
       headers: {},
@@ -34,13 +27,8 @@ class AuthenticationRepository {
       },
     );
 
-    // response Object
     final Response res = await request.request();
 
-    // print(res.statucode);
-    // print(res.resBody);
-
-    // checking for status code.
     switch (res.statucode) {
       case 200:
         print(' Authentication Repository ${res.resBody['access_token']}');

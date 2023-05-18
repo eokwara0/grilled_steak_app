@@ -68,7 +68,6 @@ class MenuItemRepository {
             MenuItem.fromJson(e),
           );
         });
-        // print(items);
         return items;
       } catch (err) {
         return null;
@@ -90,19 +89,14 @@ class MenuItemRepository {
 
     try {
       if (response.statusCode == HttpStatus.ok) {
-        print('got here ');
         final List<dynamic> decoded = List.of(jsonDecode(response.body));
-        // print(decoded);
         decoded.forEach((el) {
-          // print('Geneniva ===> ${el.title}');
           items.add(MenuItem.fromJson(el));
         });
-        // print('other side');
         return items;
       }
       return null;
     } catch (e) {
-      // print('an error occured');
       return null;
     }
   }
@@ -145,7 +139,6 @@ class MenuItemRepository {
             },
             body: jsonEncode(item.toJson()));
 
-    // print(response.statusCode);
     if (response.statusCode == HttpStatus.ok) {
       return true;
     }
@@ -161,7 +154,6 @@ class MenuItemRepository {
         },
         body: jsonEncode(item.toJson()));
 
-    // print(response.statusCode);
     if (response.statusCode == HttpStatus.accepted) {
       return true;
     }

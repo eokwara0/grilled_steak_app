@@ -19,7 +19,6 @@ class SearchBottomSheetCubit extends Cubit<SearchBottomSheetState> {
   Future<void> onSubmit(String search) async {
     try {
       List<MenuItem>? items = await _menuItemRepo.getItemsBySearch(search);
-      // print(items);
       if (items == null || items.isEmpty) {
         emit(
           const SearchBottomSheetInitial(
@@ -28,7 +27,6 @@ class SearchBottomSheetCubit extends Cubit<SearchBottomSheetState> {
           ),
         );
       } else {
-        // print(items);
         emit(
           SearchBottomSheetLoaded(
             result: items,

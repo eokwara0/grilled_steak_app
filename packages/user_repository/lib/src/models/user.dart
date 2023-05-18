@@ -8,18 +8,21 @@ class User extends Equatable {
     String? firstname,
     String? lastname,
     String? emaill,
+    String? access,
   })  : _id = id,
         _role = role,
         _username = username,
         _firstname = firstname,
         _lastname = lastname,
-        _emaill = emaill;
+        _emaill = emaill,
+        _access = access;
   final String? _id;
   final String? _role;
   final String? _username;
   final String? _firstname;
   final String? _lastname;
   final String? _emaill;
+  final String? _access;
 
   get id => _id;
   get role => _role;
@@ -27,6 +30,7 @@ class User extends Equatable {
   get firstname => _firstname;
   get lastname => _lastname;
   get email => _emaill;
+  get access => _access;
 
   bool get isAdmin => _role == 'ADMIN' || _role == "MANAGER";
   bool get isChef => _role == 'CHEF';
@@ -39,6 +43,7 @@ class User extends Equatable {
         _firstname,
         _lastname,
         _emaill,
+        _access,
       ];
 
   Map<String, String> toJson() => {
@@ -47,19 +52,19 @@ class User extends Equatable {
         lastname: _lastname ?? '',
         firstname: _firstname ?? '',
         username: _firstname ?? '',
+        access: _access ?? '',
       };
   // user from json
   static User fromJson(Map<dynamic, dynamic> user) {
-    return user == null
-        ? User.empty
-        : User(
-            id: '${user['_id']}',
-            role: '${user['role']}',
-            emaill: '${user['email']}',
-            lastname: '${user['lastname']}',
-            username: '${user['username']}',
-            firstname: '${user['firstname']}',
-          );
+    return User(
+      id: '${user['_id']}',
+      role: '${user['role']}',
+      emaill: '${user['email']}',
+      lastname: '${user['lastname']}',
+      username: '${user['username']}',
+      firstname: '${user['firstname']}',
+      access: '${user['access']}',
+    );
   }
 
   // Empty users

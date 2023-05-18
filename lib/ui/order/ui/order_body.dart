@@ -50,7 +50,7 @@ class OrderBody extends StatelessWidget {
           if (state.isOrdered) {
             showSnackBar(
               context,
-              Colors.green[400],
+              Colors.amber[600],
               'Order has been placed',
             );
           } else if (state.isError) {
@@ -62,7 +62,7 @@ class OrderBody extends StatelessWidget {
           } else if (state.isClosed) {
             showSnackBar(
               context,
-              Colors.green[400],
+              Colors.amber[600],
               'Order was closed Successfully',
             );
           }
@@ -418,7 +418,7 @@ class OrderBody extends StatelessWidget {
                                               'ready')
                                             OrderButtonWidget(
                                               content: 'Generate Bill',
-                                              color: Colors.green[600],
+                                              color: Colors.amber[600],
                                               onPressed: () {
                                                 showDialog(
                                                   context: context,

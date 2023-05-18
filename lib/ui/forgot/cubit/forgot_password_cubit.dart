@@ -36,7 +36,6 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
         email: state.email.value,
       );
 
-      print(res);
       if (res) {
         return emit(
           const ForgotPasswordLoaded(

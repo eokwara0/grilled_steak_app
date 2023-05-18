@@ -58,7 +58,6 @@ class CheckOutPage extends StatelessWidget {
                               return Dialog(
                                 child: BlocBuilder<CartCubit, CartState>(
                                   builder: (context, state) {
-                                    // print(state);
                                     return Container(
                                       padding: const EdgeInsets.all(20),
                                       width: 400,

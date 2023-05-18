@@ -38,7 +38,7 @@ class MenuItemBottomAppBar extends StatelessWidget {
                 SnackBar(
                   elevation: 1,
                   dismissDirection: DismissDirection.endToStart,
-                  backgroundColor: Colors.green[400],
+                  backgroundColor: Colors.amber[600],
                   behavior: SnackBarBehavior.floating,
                   width: 400,
                   shape: RoundedRectangleBorder(

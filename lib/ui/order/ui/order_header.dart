@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grilled_steak_app/ui/home/ui/widgets/home_header/home_header_Image.dart';
+import 'package:grilled_steak_app/ui/home/ui/widgets/home_header/home_header_image_widget.dart';
 
 class OrderHeader extends StatelessWidget {
   const OrderHeader({
@@ -12,7 +12,7 @@ class OrderHeader extends StatelessWidget {
       pinned: true,
       expandedHeight: 100,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      flexibleSpace: HeaderBackGroundImage(),
+      flexibleSpace: const HeaderBackGroundImage(),
 
       title: const Text(
         '# Orders',

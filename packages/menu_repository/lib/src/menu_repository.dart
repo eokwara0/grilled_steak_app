@@ -112,7 +112,6 @@ class MenuRepository {
       body: jsonEncode(menu.toJson()),
     );
     if (response.statusCode == HttpStatus.created) {
-      print(jsonDecode(response.body));
       return true;
     }
     return false;
