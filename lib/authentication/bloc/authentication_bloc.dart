@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grilled_steak_app/ui/order/cubit/order_cubit.dart';
 import 'package:user_repository/user_repository.dart';
 
 import 'authentication_event.dart';
@@ -57,7 +59,7 @@ class AuthenticationBloc
       // with user .
       case AuthenticationStatus.authenticated:
         final user = await _tryGetUser();
-        print(user!.role!);
+        // print(user!.role!);
         return emit(
           user != null
               ? AuthenticationState.authenticated(user)

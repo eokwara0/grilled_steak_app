@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grilled_steak_app/cart/ui/cart_icon.dart';
 import 'package:grilled_steak_app/ui/home/ui/recommendation_section/ui/home_menu_item_recommendation.dart';
 
 import '../home_header/home_header_Image.dart';
@@ -20,15 +21,11 @@ class _HomePageBodyState extends State<HomePageBody> {
       slivers: [
         const SliverAppBar(
           stretch: true,
-          // pinned: true,
           backgroundColor: Colors.white,
           elevation: 0.0,
-
-          // leading icons
           leadingWidth: 200,
-
+          actions: [CartIcon()],
           leading: HeaderProfile(),
-
           bottom: PreferredSize(
             preferredSize: Size(
               double.infinity,
@@ -36,8 +33,6 @@ class _HomePageBodyState extends State<HomePageBody> {
             ),
             child: MenuSearch(),
           ),
-
-          // flexible space
           flexibleSpace: HeaderBackGroundImage(),
           expandedHeight: 300,
           collapsedHeight: 200,

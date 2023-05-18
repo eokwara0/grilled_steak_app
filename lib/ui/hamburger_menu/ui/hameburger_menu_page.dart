@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/authentication/authentication.dart';
+import 'package:grilled_steak_app/cart/cubit/cart_cubit.dart';
 import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
 
 class HamBurgerMenuPage extends StatefulWidget {
@@ -121,6 +122,7 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
                 context.read<AuthenticationBloc>().add(
                       AuthenticationLogoutRequest(),
                     );
+                context.read<CartCubit>().reset();
               },
               leading: const Icon(
                 Icons.logout,

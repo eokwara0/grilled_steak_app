@@ -2,11 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/forgot/ui/forgot_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_page.dart';
-import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_edit/ui/menu_item_edit_success.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_page.dart';
 import 'package:grilled_steak_app/ui/table/view/table_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
+import '../ui/checkout/ui/checkout.dart';
+import '../ui/chef/ui/chef_page.dart';
 import '../ui/home/ui/home_page.dart';
 import '../ui/login/view/login_page.dart';
 import '../ui/menu/ui/menu/menu_edit/menu_edit_page.dart';
@@ -108,6 +109,20 @@ class Routers {
           return ErrorPage(
             message: state.queryParams['message']!,
           );
+        },
+      ),
+      GoRoute(
+        name: 'checkout',
+        path: '/checkout',
+        builder: (context, state) {
+          return const CheckOutPage();
+        },
+      ),
+      GoRoute(
+        name: 'chef',
+        path: '/chefPage',
+        builder: (context, state) {
+          return const ChefPage();
         },
       ),
     ],

@@ -1,12 +1,15 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:grilled_steak_app/app/routes.dart';
+import 'package:grilled_steak_app/cart/cubit/cart_cubit.dart';
 import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_edit/cubit/menu_edit_cubit.dart';
+import 'package:grilled_steak_app/ui/order/ui/order_bill/cubit/order_bill_cubit.dart';
 import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
 import 'package:grilled_steak_app/ui/table/view/table_reservation_bottom_sheet.dart/cubit/reservation_bottom_sheet_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
+import 'package:order_repository/order_repository.dart';
 import 'package:service_locator/service_locator.dart';
 import 'package:table_reservation_repository/table_reservation_repository.dart';
 import 'package:user_repository/user_repository.dart';
@@ -31,6 +34,7 @@ class _AppState extends State<App> {
   late final MenuItemRepository _menuItemRepository;
   late final MenuRepository _menuRepository;
   late final ReservationRepository _reservationRepository;
+  late final OrderRepository _orderRepository;
 
   // initialization
   @override
@@ -44,6 +48,7 @@ class _AppState extends State<App> {
     _menuItemRepository = MenuItemRepository(); // initializing
     _menuRepository = MenuRepository(); // initializing
     _reservationRepository = ReservationRepository();
+    _orderRepository = OrderRepository();
   }
 
   @override
@@ -64,6 +69,9 @@ class _AppState extends State<App> {
         ),
         RepositoryProvider(
           create: (context) => _reservationRepository,
+        ),
+        RepositoryProvider(
+          create: (context) => _orderRepository,
         )
       ],
       child: MultiBlocProvider(
@@ -109,9 +117,16 @@ class _AppState extends State<App> {
             ),
           ),
           BlocProvider(
-            create: (context) =>
-                ReservationBottomSheetCubit(repo: _reservationRepository),
-          )
+            create: (context) => ReservationBottomSheetCubit(
+              repo: _reservationRepository,
+            ),
+          ),
+          BlocProvider(
+            create: (context) => CartCubit(
+              orderRepo: _orderRepository,
+              menuRepo: _menuItemRepository,
+            ),
+          ),
         ],
         child: const AppView(),
       ),
@@ -135,9 +150,10 @@ class _AppViewState extends State<AppView> {
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
-            /// Checking for the states
             if (state.status == AuthenticationStatus.authenticated) {
-              return Routers.router.pushReplacement('/');
+              return state.user.isChef
+                  ? Routers.router.pushReplacement('/chefPage')
+                  : Routers.router.pushReplacement('/');
             } else if (state.status == AuthenticationStatus.unauthenticated) {
               return Routers.router.pushReplacement('/login');
             }
