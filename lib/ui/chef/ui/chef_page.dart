@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:grilled_steak_app/ui/order/ui/order_body.dart';
+import 'package:grilled_steak_app/ui/chef/ui/chef_home_page/ui/chef_home_page.dart';
+import 'package:grilled_steak_app/ui/hamburger_menu/ui/hameburger_menu_page.dart';
 
-import '../../hamburger_menu/ui/hameburger_menu_page.dart';
-import 'widgets/home_body/home_page_body.dart';
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ChefPage extends StatefulWidget {
+  const ChefPage({super.key});
 
   static Route<void> route() {
     return MaterialPageRoute(
-      builder: (_) => const HomePage(),
+      builder: (_) => const ChefPage(),
     );
   }
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ChefPage> createState() => _ChefPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ChefPageState extends State<ChefPage> {
   late int _currentIndex;
   late List<Widget> _pages;
 
@@ -26,8 +24,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _currentIndex = 0;
     _pages = [
-      const HomePageBody(),
-      const OrderBody(),
+      const ChefHomePage(),
       const HamBurgerMenuPage(),
     ];
   }
@@ -42,7 +39,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      // endDrawerEnableOpenDragGesture: true,
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
@@ -50,22 +46,13 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             label: '',
             icon: Icon(
-              Icons.home_rounded,
-              // size: 25,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(
-              Icons.receipt_long_rounded,
-              // size: 25,
+              Icons.list_alt_rounded,
             ),
           ),
           BottomNavigationBarItem(
             label: '',
             icon: Icon(
               Icons.menu,
-              // size: 25,
             ),
           ),
         ],

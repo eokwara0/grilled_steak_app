@@ -1,7 +1,7 @@
 class OrderItem {
   final String menuId;
   final int quantity;
-  final int price;
+  final double price;
 
   const OrderItem({
     required this.menuId,
@@ -21,14 +21,14 @@ class OrderItem {
     return OrderItem(
       menuId: json['menuId'],
       quantity: json['quantity'],
-      price: json['price'],
+      price: double.parse('${json['price']}'),
     );
   }
 
   OrderItem copyWith({
     String? menuId,
     int? quantity,
-    int? price,
+    double? price,
   }) {
     return OrderItem(
       menuId: menuId ?? this.menuId,

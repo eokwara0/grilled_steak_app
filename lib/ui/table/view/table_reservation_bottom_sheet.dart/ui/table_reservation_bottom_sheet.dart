@@ -272,7 +272,6 @@ class ReservationBottomSheet extends StatelessWidget {
         );
       },
     );
-    ;
   }
 }
 

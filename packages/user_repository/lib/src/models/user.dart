@@ -29,6 +29,7 @@ class User extends Equatable {
   get email => _emaill;
 
   bool get isAdmin => _role == 'ADMIN' || _role == "MANAGER";
+  bool get isChef => _role == 'CHEF';
 
   @override
   List<Object?> get props => [

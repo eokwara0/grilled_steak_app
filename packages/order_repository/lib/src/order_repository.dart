@@ -73,6 +73,21 @@ class OrderRepository {
     return false;
   }
 
+  Future<bool> closeId(String id) async {
+    final response = await http.put(
+      Uri.parse('http://localhost:3000/order/close/$id'),
+      headers: {
+        "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
+        "Content-Type": 'application/json',
+      },
+    );
+
+    if (response.statusCode == HttpStatus.accepted) {
+      return true;
+    }
+    return false;
+  }
+
   Future<bool> cancelId(String id) async {
     final response = await http.put(
       Uri.parse('http://localhost:3000/order/cancel/$id'),
@@ -92,7 +107,7 @@ class OrderRepository {
     List<Order> orders = [];
 
     final response = await http.get(
-      Uri.parse('http://localhost:3000/order/unprepared'),
+      Uri.parse('http://localhost:3000/order/preparing'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',

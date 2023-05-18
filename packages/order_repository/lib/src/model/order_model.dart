@@ -22,6 +22,7 @@ class Order extends Equatable {
   final double grandTotal;
   final List<OrderItem> items;
   final OrderCustomer customer;
+  final DateTime? createdAt;
 
   Order({
     required this.id,
@@ -31,10 +32,11 @@ class Order extends Equatable {
     required this.grandTotal,
     required this.items,
     required this.customer,
+    this.createdAt,
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         userId,
         type,
@@ -42,6 +44,7 @@ class Order extends Equatable {
         grandTotal,
         items,
         customer,
+        createdAt,
       ];
 
   Map<String, dynamic> toJson() {
@@ -56,16 +59,18 @@ class Order extends Equatable {
   }
 
   factory Order.fromJson(Map<String, dynamic> json) {
+    print(json['grandTotal']);
     return Order(
       id: json['_id'] as String,
       userId: json['userId'] as String,
       type: json['type'] as String,
       status: json['status'] as String,
-      grandTotal: json['grandTotal'] as double,
+      grandTotal: double.parse('${json['grandTotal']}'),
       items: (json['items'] as List<dynamic>)
           .map((e) => OrderItem.fromJson(e))
           .toList(),
       customer: OrderCustomer.fromJson(json['customer']),
+      createdAt: DateTime.parse(json['createdAt'] as String),
     );
   }
 
@@ -86,6 +91,7 @@ class Order extends Equatable {
       grandTotal: grandTotal ?? this.grandTotal,
       items: items ?? this.items,
       customer: customer ?? this.customer,
+      createdAt: this.createdAt,
     );
   }
 }

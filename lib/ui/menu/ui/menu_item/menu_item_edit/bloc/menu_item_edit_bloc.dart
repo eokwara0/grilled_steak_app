@@ -137,7 +137,7 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     try {
       double? answer = double.tryParse(event.value);
       if (answer != null) {
-        print(answer);
+        // print(answer);
         emit(
           MenuItemChanged(
             item: state.menuItem.copyWith(
@@ -172,7 +172,7 @@ class MenuItemEditBloc extends Bloc<MenuItemEditEvent, MenuItemEditState> {
     try {
       double? answer = double.tryParse(event.value);
       if (answer != null) {
-        print(answer);
+        // print(answer);
         emit(
           MenuItemChanged(
             item: state.menuItem.copyWith(

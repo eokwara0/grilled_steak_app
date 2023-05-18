@@ -5,7 +5,6 @@ import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import '../../../../../authentication/authentication.dart';
-import '../../../../menu/ui/menu/menu_manage/cubit/menu_manage_cubit.dart';
 import '../../../../widgets/persistant_header_drag.dart';
 
 class HomeMenuSectionBottomSheet extends StatelessWidget {

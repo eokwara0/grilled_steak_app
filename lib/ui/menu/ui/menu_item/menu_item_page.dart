@@ -75,6 +75,7 @@ class _MenuItemPageState extends State<MenuItemPage> {
         ],
       ),
       bottomNavigationBar: MenuItemBottomAppBar(
+        menuId: widget.item!.id,
         quantity: quantity,
         price: widget.item!.item!.price!,
       ),
