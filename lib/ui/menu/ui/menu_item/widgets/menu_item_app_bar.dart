@@ -19,13 +19,13 @@ class MenuItemAppBar extends StatelessWidget {
       leading: Padding(
         padding: const EdgeInsets.all(10.0),
         child: CircleAvatar(
-          backgroundColor: Colors.white70,
+          backgroundColor: Colors.white,
           radius: 20,
           child: IconButton(
             enableFeedback: true,
             icon: Icon(
               Icons.arrow_back_ios_new,
-              color: Colors.grey.shade700,
+              color: Colors.grey[800],
               size: 20,
             ),
             onPressed: () {

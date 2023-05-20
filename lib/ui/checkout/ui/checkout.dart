@@ -124,7 +124,7 @@ class CheckOutPage extends StatelessWidget {
                                                                 AuthenticationBloc>()
                                                             .state
                                                             .user
-                                                            .id,
+                                                            .id!,
                                                       );
                                                 }
                                               },

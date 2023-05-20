@@ -20,75 +20,97 @@ class MenuItemBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MenuItemCubit, MenuItemState>(
-      builder: (context, state) {
+      builder: (menuItemContext, state) {
         return BottomAppBar(
           height: 100,
           padding: const EdgeInsets.all(10),
-          child: OutlinedButton(
-            onPressed: () {
-              context.read<CartCubit>().addOrderItem(
-                    OrderItem(
-                      menuId: menuId,
-                      quantity: quantity,
-                      price: price,
-                    ),
-                  );
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  elevation: 1,
-                  dismissDirection: DismissDirection.endToStart,
-                  backgroundColor: Colors.amber[600],
-                  behavior: SnackBarBehavior.floating,
-                  width: 400,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  showCloseIcon: true,
-                  closeIconColor: Colors.white,
-                  content: SizedBox(
-                    height: 25,
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Order added to cart',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                        FilledButton(
-                          style: FilledButton.styleFrom(
-                            elevation: 0,
-                            foregroundColor: Colors.amber,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () {},
-                          child: const Text('checkout'),
-                        )
-                      ],
-                    ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'R${(quantity * price).toStringAsFixed(2)}',
+                  style: TextStyle(
+                    color: Colors.amber[500],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
                   ),
                 ),
-              );
+              ),
+              SizedBox(
+                width: 240,
+                height: 50,
+                child: OutlinedButton(
+                  onPressed: () {
+                    context.read<CartCubit>().addOrderItem(
+                          OrderItem(
+                            menuId: menuId,
+                            quantity: quantity,
+                            price: price,
+                          ),
+                        );
 
-              context.go('/');
-            },
-            style: OutlinedButton.styleFrom(
-              splashFactory: InkSplash.splashFactory,
-              enableFeedback: true,
-              backgroundColor: Colors.amber,
-              shape: const StadiumBorder(),
-            ),
-            child: Text(
-              'Add to Order R${(quantity * price).toStringAsFixed(2)}',
-              style: const TextStyle(color: Colors.white),
-            ),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        elevation: 1,
+                        dismissDirection: DismissDirection.endToStart,
+                        backgroundColor: Colors.amber[600],
+                        behavior: SnackBarBehavior.floating,
+                        width: 400,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        showCloseIcon: true,
+                        closeIconColor: Colors.white,
+                        content: SizedBox(
+                          height: 25,
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Order added to cart',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 30,
+                              ),
+                              FilledButton(
+                                style: FilledButton.styleFrom(
+                                  elevation: 0,
+                                  foregroundColor: Colors.amber,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                onPressed: () {},
+                                child: const Text('checkout'),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+
+                    context.go('/');
+                  },
+                  style: OutlinedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: Colors.amber,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: const Text(
+                    'Add to Order',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },

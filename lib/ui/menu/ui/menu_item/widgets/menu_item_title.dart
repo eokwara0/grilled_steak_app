@@ -11,31 +11,39 @@ class MenuItemHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          menuItem.item!.title!,
-          style: TextStyle(
-            color: Colors.grey.shade600,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            menuItem.item!.title!,
+            style: TextStyle(
+              color: Colors.grey.shade600,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        Row(
-          children: [
-            Flexible(
-              child: Text(
-                menuItem.item!.summary!,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 23,
-                  color: Colors.grey.shade800,
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  menuItem.item!.summary!,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 25,
+                    color: Colors.grey[800],
+                  ),
                 ),
               ),
-            ),
-            const Padding(padding: EdgeInsets.all(10)),
-          ],
-        ),
-      ],
+              const Padding(padding: EdgeInsets.all(10)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

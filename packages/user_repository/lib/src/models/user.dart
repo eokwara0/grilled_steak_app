@@ -9,13 +9,15 @@ class User extends Equatable {
     String? lastname,
     String? emaill,
     String? access,
+    String? mobile,
   })  : _id = id,
         _role = role,
         _username = username,
         _firstname = firstname,
         _lastname = lastname,
         _emaill = emaill,
-        _access = access;
+        _access = access,
+        _mobile = mobile;
   final String? _id;
   final String? _role;
   final String? _username;
@@ -23,17 +25,20 @@ class User extends Equatable {
   final String? _lastname;
   final String? _emaill;
   final String? _access;
+  final String? _mobile;
 
-  get id => _id;
-  get role => _role;
-  get username => _username;
-  get firstname => _firstname;
-  get lastname => _lastname;
-  get email => _emaill;
-  get access => _access;
+  String? get id => _id;
+  String? get role => _role;
+  String? get username => _username;
+  String? get firstname => _firstname;
+  String? get lastname => _lastname;
+  String? get email => _emaill;
+  String? get access => _access;
+  String? get mobile => _mobile;
 
   bool get isAdmin => _role == 'ADMIN' || _role == "MANAGER";
   bool get isChef => _role == 'CHEF';
+  bool get hasAccess => access == 'ACTIVE';
 
   @override
   List<Object?> get props => [
@@ -44,15 +49,17 @@ class User extends Equatable {
         _lastname,
         _emaill,
         _access,
+        _mobile,
       ];
 
   Map<String, String> toJson() => {
-        role: _role ?? '',
-        email: _emaill ?? '',
-        lastname: _lastname ?? '',
-        firstname: _firstname ?? '',
-        username: _firstname ?? '',
-        access: _access ?? '',
+        "role": _role ?? "",
+        "email": _emaill ?? '',
+        "lastname": _lastname ?? '',
+        "firstname": _firstname ?? '',
+        "username": _firstname ?? '',
+        "access": _access ?? '',
+        "mobile": _mobile ?? '',
       };
   // user from json
   static User fromJson(Map<dynamic, dynamic> user) {
@@ -64,6 +71,7 @@ class User extends Equatable {
       username: '${user['username']}',
       firstname: '${user['firstname']}',
       access: '${user['access']}',
+      mobile: '${user['mobile']}',
     );
   }
 

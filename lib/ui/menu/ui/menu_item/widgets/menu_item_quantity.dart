@@ -15,21 +15,23 @@ class MenuItemQuantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.all(10.0),
       child: Row(
         children: [
-          // item price sections start
           Column(
             children: [
               Row(
                 children: [
                   Text(
-                    'R${menuItem.item?.price}',
+                    'R${menuItem.item?.price?.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey.shade800,
                     ),
+                  ),
+                  const SizedBox(
+                    width: 5,
                   ),
                   Column(
                     children: [

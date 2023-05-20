@@ -4,6 +4,7 @@ import 'package:grilled_steak_app/ui/forgot/ui/forgot_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_page.dart';
 import 'package:grilled_steak_app/ui/table/view/table_page.dart';
+import 'package:grilled_steak_app/ui/user/ui/user_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import '../ui/checkout/ui/checkout.dart';
@@ -123,6 +124,13 @@ class Routers {
         path: '/chefPage',
         builder: (context, state) {
           return const ChefPage();
+        },
+      ),
+      GoRoute(
+        name: 'users',
+        path: '/users',
+        builder: (context, state) {
+          return const UserPage();
         },
       ),
     ],

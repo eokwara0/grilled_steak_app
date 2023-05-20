@@ -100,6 +100,27 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
               ListTile(
                 onTap: () {
                   context.read<ManageTableCubit>().initialize();
+                  context.go('/users');
+                },
+                leading: const Icon(
+                  Icons.menu_book_rounded,
+                  size: 22,
+                ),
+                title: Text(
+                  'Manage Users',
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 15,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                ),
+              ),
+            if (context.read<AuthenticationBloc>().state.user.isAdmin)
+              ListTile(
+                onTap: () {
+                  context.read<ManageTableCubit>().initialize();
                   context.go('/ManageTable');
                 },
                 leading: const Icon(

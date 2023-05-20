@@ -14,47 +14,32 @@ class MenuItemAbout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(
+          height: 10,
+        ),
         Row(
           children: [
-            const Text(
+            Text(
               'About',
               style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
+                fontSize: 25,
+                fontWeight: FontWeight.w900,
+                color: Colors.grey[700],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(10),
+            const SizedBox(
+              width: 10,
             ),
-            GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  context: context,
-                  builder: (context) => MenuItemLearnMore(
-                    menuItem: menuItem,
-                  ),
-                );
-              },
-              child: Tooltip(
-                message: 'learn more',
-                child: Icon(
-                  Icons.info_outline,
-                  color: Colors.blue.shade700,
-                  size: 20,
-                ),
-              ),
+            Icon(
+              Icons.info_outline_rounded,
+              color: Colors.amber[600],
             )
           ],
         ),
-        const Padding(
-          padding: EdgeInsets.all(10.0),
+        const SizedBox(
+          height: 5,
         ),
         Row(
           children: [
@@ -66,8 +51,9 @@ class MenuItemAbout extends StatelessWidget {
                   ..trim(),
                 style: const TextStyle(
                   height: 1.5,
-                  wordSpacing: 3,
-                  fontSize: 15,
+                  wordSpacing: 1,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             )

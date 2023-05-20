@@ -21,8 +21,31 @@ class UsernameInput extends StatelessWidget {
                 LoginUsernameChanged(username),
               ),
           decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: 'username',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Colors.amber,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Colors.amber,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            // labelText: 'username',
+            label: Text(
+              'username',
+              style: TextStyle(
+                color: Colors.amber[800],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             errorText: state.username.invalid ? 'Invalid username' : null,
           ),
         );

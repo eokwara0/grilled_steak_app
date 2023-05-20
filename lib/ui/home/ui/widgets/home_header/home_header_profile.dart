@@ -25,7 +25,7 @@ class HeaderProfile extends StatelessWidget {
           radius: 17,
           backgroundColor: Colors.grey.shade100,
           child: Text(
-            '${context.read<AuthenticationBloc>().state.user.username[0]}'
+            '${context.read<AuthenticationBloc>().state.user.username![0]}'
                 .toUpperCase(),
           ),
         ),

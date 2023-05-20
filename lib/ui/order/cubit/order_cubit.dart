@@ -29,7 +29,7 @@ class OrderCubit extends Cubit<OrderState> {
     User? user = await _userRepository.getUser();
 
     if (user != null) {
-      List<Order>? orders = await _orderRepository.getOrdersByUserId(user.id);
+      List<Order>? orders = await _orderRepository.getOrdersByUserId(user.id!);
       List<List<MenuItem>> items = [];
       if (orders != null) {
         for (Order order in orders) {

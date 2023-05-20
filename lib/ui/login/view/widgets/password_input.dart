@@ -20,8 +20,30 @@ class PasswordInput extends StatelessWidget {
                 LoginPasswordChanged(password),
               ),
           decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: 'password',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Colors.amber,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Colors.amber,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            label: Text(
+              'password',
+              style: TextStyle(
+                color: Colors.amber[800],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             errorText: state.password.invalid ? 'invalid' : null,
           ),
         );
