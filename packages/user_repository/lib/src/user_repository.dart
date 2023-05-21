@@ -34,6 +34,22 @@ class UserRepository {
     return response.statusCode == 200 ? jsonDecode(response.body) : null;
   }
 
+  Future<bool> addUser(User user) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:3000/user'),
+      headers: {
+        "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
+        "Content-Type": 'application/json',
+      },
+      body: jsonEncode(user.toJson()),
+    );
+
+    if (response.statusCode == HttpStatus.accepted) {
+      return true;
+    }
+    return false;
+  }
+
   Future<bool> grantAccess(String userId) async {
     final response = await http.put(
       Uri.parse('http://localhost:3000/user/grant/${userId}'),
@@ -89,29 +105,22 @@ class UserRepository {
     return null;
   }
 
-  Future<List<User>?> changePassword(String userId, String password) async {
-    List<User> users = [];
+  Future<bool> changePassword(String userId, String password) async {
     final response = await http.put(
-      Uri.parse(
-          'http://localhost:3000/user/change/password/${userId}?password=${password}'),
+      Uri.parse('http://localhost:3000/user/change/password/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
       },
+      body: jsonEncode(
+        {'password': password},
+      ),
     );
 
-    if (response.statusCode == HttpStatus.ok) {
-      List<dynamic> userList = jsonDecode(response.body);
-      try {
-        userList.forEach((user) {
-          User user_ = User.fromJson(user);
-          users.add(user_);
-        });
-      } catch (e) {
-        return null;
-      }
-      return users;
+    if (response.statusCode == HttpStatus.accepted) {
+      _ss.writeValue('password', password);
+      return true;
     }
-    return null;
+    return false;
   }
 }

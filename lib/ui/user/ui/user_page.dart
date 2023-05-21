@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grilled_steak_app/authentication/authentication.dart';
 import 'package:grilled_steak_app/ui/order/ui/order_body.dart';
 import 'package:grilled_steak_app/ui/order/ui/order_button_widget.dart';
 import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
@@ -47,8 +48,9 @@ class UserPage extends StatelessWidget {
           },
           child: BlocBuilder<UserCubit, UserState>(
             buildWhen: (previous, current) {
-              print(previous.status);
-              print(current.status);
+              if (previous != current) {
+                return true;
+              }
               return previous.status != current.status;
             },
             builder: (context, state) {
@@ -57,14 +59,15 @@ class UserPage extends StatelessWidget {
                   slivers: [
                     SliverAppBar(
                       leading: IconButton(
-                          splashRadius: 15,
-                          onPressed: () {
-                            context.go('/');
-                          },
-                          icon: Icon(
-                            Icons.arrow_back_ios_new_rounded,
-                            color: Colors.grey[500],
-                          )),
+                        splashRadius: 15,
+                        onPressed: () {
+                          context.go('/');
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: Colors.grey[500],
+                        ),
+                      ),
                       backgroundColor:
                           Theme.of(context).colorScheme.onBackground,
                       pinned: true,
@@ -84,25 +87,49 @@ class UserPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Chip(
-                                  label: Text(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  label: const Text(
                                     'Team',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 15,
-                                      color: Colors.grey[700],
+                                      color: Colors.black54,
                                     ),
                                   ),
-                                  backgroundColor: Colors.amber[300],
+                                  backgroundColor: Colors.amber[500],
                                 ),
                                 Chip(
-                                  label: Text('${state.users.length}'),
-                                  backgroundColor: Colors.amber[100],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  label: Text('${state.users.length} Users'),
+                                  backgroundColor: Colors.amber[500],
                                 )
                               ],
                             ),
                             const SizedBox(
                               height: 20,
                             ),
+                            Row(
+                              children: [
+                                TextButton(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: Colors.amber,
+                                    ),
+                                    onPressed: () {
+                                      context.go('/user/add');
+                                    },
+                                    child: const Text(
+                                      'Add User',
+                                      style: TextStyle(
+                                        color: Colors.amber,
+                                      ),
+                                    )),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
                             ...state.users.map((user) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -265,8 +292,8 @@ class UserPage extends StatelessWidget {
                                                     children: [
                                                       user.hasAccess
                                                           ? Container(
-                                                              width: 35,
-                                                              height: 35,
+                                                              width: 25,
+                                                              height: 25,
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -282,11 +309,12 @@ class UserPage extends StatelessWidget {
                                                                     .check_circle,
                                                                 color: Colors
                                                                     .amber,
+                                                                size: 20,
                                                               ),
                                                             )
                                                           : Container(
-                                                              width: 35,
-                                                              height: 35,
+                                                              width: 25,
+                                                              height: 25,
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -301,6 +329,7 @@ class UserPage extends StatelessWidget {
                                                                 Icons.error,
                                                                 color:
                                                                     Colors.red,
+                                                                size: 20,
                                                               ),
                                                             ),
                                                       const SizedBox(width: 10),
@@ -319,7 +348,14 @@ class UserPage extends StatelessWidget {
                                                 ],
                                               ),
                                               const SizedBox(height: 15),
-                                              if (user.hasAccess)
+                                              if (user.hasAccess &&
+                                                  user.id !=
+                                                      context
+                                                          .read<
+                                                              AuthenticationBloc>()
+                                                          .state
+                                                          .user
+                                                          .id)
                                                 OrderButtonWidget(
                                                   content: 'Revoke Access',
                                                   color: Colors.amber,

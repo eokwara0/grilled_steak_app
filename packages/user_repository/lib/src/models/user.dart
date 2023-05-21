@@ -10,6 +10,7 @@ class User extends Equatable {
     String? emaill,
     String? access,
     String? mobile,
+    String? password,
   })  : _id = id,
         _role = role,
         _username = username,
@@ -17,7 +18,10 @@ class User extends Equatable {
         _lastname = lastname,
         _emaill = emaill,
         _access = access,
-        _mobile = mobile;
+        _mobile = mobile,
+        _password = password;
+
+  final String? _password;
   final String? _id;
   final String? _role;
   final String? _username;
@@ -35,6 +39,7 @@ class User extends Equatable {
   String? get email => _emaill;
   String? get access => _access;
   String? get mobile => _mobile;
+  String? get password => _password;
 
   bool get isAdmin => _role == 'ADMIN' || _role == "MANAGER";
   bool get isChef => _role == 'CHEF';
@@ -50,6 +55,7 @@ class User extends Equatable {
         _emaill,
         _access,
         _mobile,
+        _password
       ];
 
   Map<String, String> toJson() => {
@@ -60,6 +66,7 @@ class User extends Equatable {
         "username": _firstname ?? '',
         "access": _access ?? '',
         "mobile": _mobile ?? '',
+        "password": _password ?? '',
       };
   // user from json
   static User fromJson(Map<dynamic, dynamic> user) {
@@ -72,6 +79,29 @@ class User extends Equatable {
       firstname: '${user['firstname']}',
       access: '${user['access']}',
       mobile: '${user['mobile']}',
+      password: '${user['password']}',
+    );
+  }
+
+  User copyWith({
+    String? role,
+    String? username,
+    String? firstname,
+    String? lastname,
+    String? email,
+    String? access,
+    String? mobile,
+    String? password,
+  }) {
+    return User(
+      role: role ?? this.role,
+      username: username ?? this.username,
+      firstname: firstname ?? this.firstname,
+      lastname: lastname ?? this.lastname,
+      emaill: email ?? this.email,
+      access: access ?? this.access,
+      mobile: mobile ?? this.mobile,
+      password: password ?? this.password,
     );
   }
 

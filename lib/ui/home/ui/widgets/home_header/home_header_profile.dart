@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../authentication/authentication.dart';
 
@@ -21,12 +22,23 @@ class HeaderProfile extends StatelessWidget {
         ),
 
         // circle Avatar
-        CircleAvatar(
-          radius: 17,
-          backgroundColor: Colors.grey.shade100,
-          child: Text(
-            '${context.read<AuthenticationBloc>().state.user.username![0]}'
-                .toUpperCase(),
+        InkWell(
+          onTap: () {
+            context.go('/profile');
+          },
+          child: Ink(
+            child: CircleAvatar(
+              radius: 17,
+              backgroundColor: Colors.grey.shade100,
+              child: Text(
+                context
+                    .read<AuthenticationBloc>()
+                    .state
+                    .user
+                    .username![0]
+                    .toUpperCase(),
+              ),
+            ),
           ),
         ),
 

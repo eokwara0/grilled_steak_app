@@ -44,28 +44,15 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
             ),
             const Spacer(),
             ListTile(
+              onTap: () {
+                context.go('/profile');
+              },
               leading: const Icon(
                 Icons.account_circle,
                 size: 22,
               ),
               title: Text(
                 'View Profile',
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 15,
-                ),
-              ),
-              trailing: const Icon(
-                Icons.keyboard_arrow_right_rounded,
-              ),
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.lock_reset,
-                size: 22,
-              ),
-              title: Text(
-                'Change Password',
                 style: TextStyle(
                   color: Colors.grey.shade600,
                   fontSize: 15,
@@ -103,7 +90,7 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
                   context.go('/users');
                 },
                 leading: const Icon(
-                  Icons.menu_book_rounded,
+                  Icons.manage_accounts_outlined,
                   size: 22,
                 ),
                 title: Text(
@@ -124,7 +111,7 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
                   context.go('/ManageTable');
                 },
                 leading: const Icon(
-                  Icons.table_restaurant,
+                  Icons.tab_rounded,
                   size: 22,
                 ),
                 title: Text(

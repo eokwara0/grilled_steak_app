@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/forgot/ui/forgot_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_page.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_page.dart';
+import 'package:grilled_steak_app/ui/profile/ui/profile.dart';
 import 'package:grilled_steak_app/ui/table/view/table_page.dart';
+import 'package:grilled_steak_app/ui/user/ui/user_add/ui/user_add_page.dart';
 import 'package:grilled_steak_app/ui/user/ui/user_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
@@ -131,6 +133,20 @@ class Routers {
         path: '/users',
         builder: (context, state) {
           return const UserPage();
+        },
+      ),
+      GoRoute(
+        name: 'addUser',
+        path: '/user/add',
+        builder: (context, state) {
+          return const UserAddPage();
+        },
+      ),
+      GoRoute(
+        name: 'profile',
+        path: '/profile',
+        builder: (context, state) {
+          return const ProfilePage();
         },
       ),
     ],
