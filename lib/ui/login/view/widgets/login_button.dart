@@ -18,7 +18,7 @@ class LoginButton extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     elevation: 0,
                     backgroundColor: Colors.amber,
                     shape: RoundedRectangleBorder(

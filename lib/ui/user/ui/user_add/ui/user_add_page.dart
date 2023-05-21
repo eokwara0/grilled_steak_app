@@ -71,7 +71,7 @@ class _UserAddPageState extends State<UserAddPage> {
                     ),
                   ),
                   SliverPadding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     sliver: SliverList(
                       delegate: SliverChildListDelegate(
                         [

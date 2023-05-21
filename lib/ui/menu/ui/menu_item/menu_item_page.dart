@@ -201,7 +201,7 @@ class _MenuItemPageState extends State<MenuItemPage>
         .map((e) => Column(
               children: [
                 ListTile(
-                  contentPadding: EdgeInsets.all(20),
+                  contentPadding: const EdgeInsets.all(20),
                   tileColor: Colors.grey[100],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
