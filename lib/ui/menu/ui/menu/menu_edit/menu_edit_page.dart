@@ -14,8 +14,9 @@ class MenuEditPage extends StatelessWidget {
     return BlocBuilder<MenuEditCubit, MenuEditState>(
       builder: (context, state) {
         return Scaffold(
-          bottomNavigationBar: !state.isSubmitted || !state.isError
-              ? BottomAppBar(
+          bottomNavigationBar: state.isSubmitted || state.isError
+              ? null
+              : BottomAppBar(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -33,8 +34,7 @@ class MenuEditPage extends StatelessWidget {
                       // Spacer(),
                     ],
                   ),
-                )
-              : null,
+                ),
           body: state.isSubmitted
               ? const MenuItemEditSuccess(
                   message: 'Menu has been added successfully')
@@ -58,6 +58,7 @@ class MenuEditPage extends StatelessWidget {
                           ),
                           title: !state.isSubmitted || !state.isError
                               ? SizedBox(
+                                  width: 250,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

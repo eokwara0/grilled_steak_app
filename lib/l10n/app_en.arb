@@ -1,0 +1,39 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  }, 
+  "greeting" : "Welcome back!",
+  "@greeting" : {
+    "description" : "Welcome Message"
+  }, 
+  "searchText" : "What are you having today?",
+  "@searchText" : {
+    "description" : "searchText"
+  }
+  , 
+  "categories" : "Categories",
+  "@categories" : {
+    "description" : "categories"
+  }, 
+  "seemore" : "see more",
+  "@seemore" : {
+    "description" : "see More Text"
+  }, 
+  "recommended" : "Recommended",
+  "@recommended" : {
+    "description" : "recommended text"
+  }, 
+  "menu" : "Menu",
+  "@menu" : {
+    "description" : "menu text"
+  }, 
+  "profileview" : "view Profile",
+  "@profileview" : {
+    "description" : "view profile"
+  }, 
+  "menuManage" : "Manage {text}",
+  "@menu" : {
+    "description" : "menu text"
+  }
+}

@@ -24,7 +24,7 @@ class ChangePasswordDialog extends StatelessWidget {
           if (state.isSuccess) {
             context.pop();
             OrderBody.showSnackBar(
-                context, Colors.amber[600], 'Password Updated Successfully');
+                context, Colors.amber[500], 'Password Updated Successfully');
           } else if (state.isError) {
             context.pop();
             OrderBody.showSnackBar(context, Colors.red[600],

@@ -36,7 +36,7 @@ class MenuItemEditSuccess extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.check_circle,
-                          color: Colors.green.shade400,
+                          color: Colors.amber[500],
                           size: 100,
                         ),
                         Text(

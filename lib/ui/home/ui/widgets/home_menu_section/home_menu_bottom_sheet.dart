@@ -56,7 +56,7 @@ class HomeMenuSectionBottomSheet extends StatelessWidget {
                                     context.go('/manageMenu');
                                   },
                                   child: const Icon(
-                                    Icons.edit_note_outlined,
+                                    Icons.mode_edit,
                                   ),
                                 )
                               : null,

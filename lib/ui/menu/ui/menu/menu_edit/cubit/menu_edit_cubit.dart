@@ -72,9 +72,15 @@ class MenuEditCubit extends Cubit<MenuEditState> {
     bool response = await menuRepo.deleteMenuById(menu.id!);
     if (response) {
       emit(
-        MenuEditSubmitted(menu: menu, status: MenuEditStatus.success),
+        MenuEditDelete(
+          menu: menu,
+          status: MenuEditStatus.success,
+        ),
       );
-      return true;
+      return emit(MenuEditInitial(
+        menu: menu,
+        status: MenuEditStatus.success,
+      ));
     }
     emit(
       MenuEditError(menu: menu, status: MenuEditStatus.error),

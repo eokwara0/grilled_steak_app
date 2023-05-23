@@ -5,17 +5,15 @@ import 'package:menu_repository/menu_repository.dart';
 
 import '../../../../menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../cubit/home_menu_item_recommendation_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'home_menu_item_recommendation_bottom_sheet.dart';
 
-class HomeRecommendedMenuItems extends StatefulWidget {
-  const HomeRecommendedMenuItems({super.key});
+class HomeRecommendedMenuItems extends StatelessWidget {
+  const HomeRecommendedMenuItems({super.key, required this.sectionText});
 
-  @override
-  State<HomeRecommendedMenuItems> createState() =>
-      _HomeRecommendedMenuItemsState();
-}
+  final String sectionText;
 
-class _HomeRecommendedMenuItemsState extends State<HomeRecommendedMenuItems> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -35,7 +33,7 @@ class _HomeRecommendedMenuItemsState extends State<HomeRecommendedMenuItems> {
                 Row(
                   children: [
                     Text(
-                      'Recommended',
+                      sectionText,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.grey.shade700,
@@ -57,8 +55,11 @@ class _HomeRecommendedMenuItemsState extends State<HomeRecommendedMenuItems> {
                           );
                         },
                         child: Text(
-                          'See more',
-                          style: TextStyle(color: Colors.amber.shade500),
+                          AppLocalizations.of(context)!.seemore,
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     )

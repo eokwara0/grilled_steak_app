@@ -28,69 +28,79 @@ class _MenuManagePageState extends State<MenuManagePage> {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            BlocBuilder<MenuManageCubit, MenuManageState>(
-              builder: (context, state_) {
-                return SliverAppBar(
-                  pinned: true,
-                  backgroundColor: Theme.of(context).colorScheme.onBackground,
-                  leading: IconButton(
-                    splashRadius: 20,
-                    onPressed: () {
-                      context.go('/');
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                  title: state_.isLoaded || state_.isSubmitted
-                      ? Container(
-                          alignment: Alignment.center,
-                          width: double.infinity,
-                          child: Text(
-                            'Manage Menus',
-                            style: TextStyle(
-                              color: Colors.grey.shade500,
-                            ),
-                          ),
-                        )
-                      : null,
-                  actions: state_.isLoaded || state_.isSubmitted
-                      ? [
-                          PopupMenuButton(
-                            icon: Icon(
-                              Icons.more_vert_rounded,
-                              color: Colors.grey.shade400,
-                            ),
-                            itemBuilder: (context) {
-                              return [
-                                PopupMenuItem(
-                                  child: const Text(
-                                    'Add Menu',
-                                  ),
-                                  onTap: () {
-                                    context.read<MenuEditCubit>().add(
-                                          Menu.empty(
-                                            context
-                                                .read<AuthenticationBloc>()
-                                                .state
-                                                .user
-                                                .id,
-                                          ),
-                                        );
-                                    context.go('/menuEdit');
-                                  },
-                                ),
-                              ];
-                            },
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          )
-                        ]
-                      : [],
-                );
+            BlocListener<MenuEditCubit, MenuEditState>(
+              listener: (context, state) {
+                if (state is MenuEditDelete) {
+                  context.go('/success?message=Menu deleted successfully');
+                } else if (state.isError) {
+                  context.go(
+                      '/error?message=An error occurred while deleting menu');
+                }
               },
+              child: BlocBuilder<MenuManageCubit, MenuManageState>(
+                builder: (context, state_) {
+                  return SliverAppBar(
+                    pinned: true,
+                    backgroundColor: Theme.of(context).colorScheme.onBackground,
+                    leading: IconButton(
+                      splashRadius: 20,
+                      onPressed: () {
+                        context.go('/');
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Colors.grey.shade400,
+                      ),
+                    ),
+                    title: state_.isLoaded || state_.isSubmitted
+                        ? Container(
+                            alignment: Alignment.center,
+                            width: double.infinity,
+                            child: Text(
+                              'Manage Menus',
+                              style: TextStyle(
+                                color: Colors.grey.shade500,
+                              ),
+                            ),
+                          )
+                        : null,
+                    actions: state_.isLoaded || state_.isSubmitted
+                        ? [
+                            PopupMenuButton(
+                              icon: Icon(
+                                Icons.more_vert_rounded,
+                                color: Colors.grey.shade400,
+                              ),
+                              itemBuilder: (context) {
+                                return [
+                                  PopupMenuItem(
+                                    child: const Text(
+                                      'Add Menu',
+                                    ),
+                                    onTap: () {
+                                      context.read<MenuEditCubit>().add(
+                                            Menu.empty(
+                                              context
+                                                  .read<AuthenticationBloc>()
+                                                  .state
+                                                  .user
+                                                  .id,
+                                            ),
+                                          );
+                                      context.go('/menuEdit');
+                                    },
+                                  ),
+                                ];
+                              },
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            )
+                          ]
+                        : [],
+                  );
+                },
+              ),
             ),
             SliverPadding(
               padding: const EdgeInsets.all(20),

@@ -36,6 +36,10 @@ class MenuEditSubmitted extends MenuEditState {
   const MenuEditSubmitted({required super.menu, required super.status});
 }
 
+class MenuEditDelete extends MenuEditState {
+  const MenuEditDelete({required super.menu, required super.status});
+}
+
 class MenuEditError extends MenuEditState {
   const MenuEditError({required super.menu, required super.status});
 }

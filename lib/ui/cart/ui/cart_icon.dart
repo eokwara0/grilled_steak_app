@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/cart/cubit/cart_cubit.dart';
+
+import '../cubit/cart_cubit.dart';
 
 class CartIcon extends StatelessWidget {
   const CartIcon({super.key});

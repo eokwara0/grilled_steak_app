@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'cubit/home_menu_section_cubit.dart';
 import 'home_menu_bottom_sheet.dart';
@@ -27,7 +28,7 @@ class HomeMenuSection extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Categories',
+                      AppLocalizations.of(context)!.categories,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade700,
@@ -36,9 +37,10 @@ class HomeMenuSection extends StatelessWidget {
                     const Spacer(),
                     InkWell(
                       child: Text(
-                        'see more',
+                        AppLocalizations.of(context)!.seemore,
                         style: TextStyle(
-                          color: Colors.amber.shade500,
+                          color: Colors.grey.shade500,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       onTap: () {

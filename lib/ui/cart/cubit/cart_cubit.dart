@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:menu_repository/menu_repository.dart';
 import 'package:order_repository/order_repository.dart';
 
-import '../../ui/login/models/email.dart';
-import '../../ui/login/models/username.dart';
+import '../../login/models/email.dart';
+import '../../login/models/username.dart';
 
 part 'cart_state.dart';
 

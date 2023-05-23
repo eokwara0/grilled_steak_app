@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/cart/cubit/cart_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/menu_item_edit/ui/text_field_edit.dart';
 import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
 import 'package:order_repository/order_repository.dart';
 
 import '../../../authentication/bloc/authentication_bloc.dart';
+import '../../cart/cubit/cart_cubit.dart';
 
 class CheckOutPage extends StatelessWidget {
   const CheckOutPage({super.key});

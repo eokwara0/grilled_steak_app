@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../search_bottom_sheet/cubit/search_bottom_sheet_cubit.dart';
 import '../../search_bottom_sheet/ui/search_bottom_sheet.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuSearch extends StatefulWidget {
   const MenuSearch({
@@ -23,7 +24,7 @@ class _MenuSearchState extends State<MenuSearch> {
       child: Column(
         children: [
           Text(
-            'What are you having today?',
+            AppLocalizations.of(context)!.searchText,
             style: TextStyle(
               color: Colors.white.withOpacity(.9),
               height: 1,

@@ -6,6 +6,10 @@ class PersistanceHeaderDragDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
       padding: const EdgeInsets.all(20),
       child: const DragIcon(),
     );

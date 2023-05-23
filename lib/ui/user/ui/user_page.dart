@@ -23,7 +23,7 @@ class UserPage extends StatelessWidget {
             if (state.isAccessRevoked) {
               OrderBody.showSnackBar(
                 context,
-                Colors.amber[600],
+                Colors.amber[500],
                 'User Access has been revoked',
               );
             } else if (state.isAccessRevokedError) {
@@ -35,7 +35,7 @@ class UserPage extends StatelessWidget {
             } else if (state.isAccessGranted) {
               OrderBody.showSnackBar(
                 context,
-                Colors.amber[600],
+                Colors.amber[500],
                 'Access has been granted to user',
               );
             } else if (state.isAccessGrantedError) {

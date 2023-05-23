@@ -1,7 +1,6 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:grilled_steak_app/app/routes.dart';
-import 'package:grilled_steak_app/cart/cubit/cart_cubit.dart';
 import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_edit/cubit/menu_edit_cubit.dart';
@@ -15,9 +14,11 @@ import 'package:user_repository/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../authentication/authentication.dart';
+import '../ui/cart/cubit/cart_cubit.dart';
 import '../ui/home/ui/search_bottom_sheet/cubit/search_bottom_sheet_cubit.dart';
 import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../ui/table/view/table_edit_bottom_sheet.dart/cubit/table_edit_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -145,6 +146,8 @@ class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: Routers.router,
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(

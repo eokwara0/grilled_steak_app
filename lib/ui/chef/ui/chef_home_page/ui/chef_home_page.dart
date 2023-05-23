@@ -46,7 +46,7 @@ class ChefHomePage extends StatelessWidget {
               SnackBar(
                 elevation: 1,
                 dismissDirection: DismissDirection.endToStart,
-                backgroundColor: Colors.amber[600],
+                backgroundColor: Colors.amber[500],
                 behavior: SnackBarBehavior.floating,
                 width: 400,
                 shape: RoundedRectangleBorder(
@@ -75,7 +75,7 @@ class ChefHomePage extends StatelessWidget {
               SnackBar(
                 elevation: 1,
                 dismissDirection: DismissDirection.endToStart,
-                backgroundColor: Colors.green[400],
+                backgroundColor: Colors.amber[500],
                 behavior: SnackBarBehavior.floating,
                 width: 400,
                 shape: RoundedRectangleBorder(

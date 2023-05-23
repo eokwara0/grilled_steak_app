@@ -50,7 +50,7 @@ class OrderBody extends StatelessWidget {
           if (state.isOrdered) {
             showSnackBar(
               context,
-              Colors.amber[600],
+              Colors.amber[500],
               'Order has been placed',
             );
           } else if (state.isError) {
@@ -62,7 +62,7 @@ class OrderBody extends StatelessWidget {
           } else if (state.isClosed) {
             showSnackBar(
               context,
-              Colors.amber[600],
+              Colors.amber[500],
               'Order was closed Successfully',
             );
           }
@@ -466,6 +466,7 @@ class OrderBody extends StatelessWidget {
   static showSnackBar(BuildContext context, Color? color, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        duration: const Duration(milliseconds: 400),
         elevation: 1,
         dismissDirection: DismissDirection.endToStart,
         backgroundColor: color,
