@@ -74,12 +74,12 @@ class CartCubit extends Cubit<CartState> {
     // _loadItems();
   }
 
-  void _loadItems() {
+  void _loadItems() async {
     List<MenuItem> menuItems = [];
-    state._orderItems.forEach((el) async {
+    for (var el in state._orderItems) {
       MenuItem? item = await _menuItemRepository.getMenuItemById(el.menuId);
       menuItems.add(item!);
-    });
+    }
 
     emit(
       CartMenuItemLoaded(

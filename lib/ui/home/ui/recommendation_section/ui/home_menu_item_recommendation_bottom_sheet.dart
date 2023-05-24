@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menu_repository/menu_repository.dart';
 
-import '../../../../../authentication/bloc/authentication_bloc.dart';
+import '../../../../../app/authentication/bloc/authentication_bloc.dart';
 import '../../../../menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../../../../widgets/persistant_header_drag.dart';
 
@@ -48,7 +48,6 @@ class HomeMenuItemRecommendationBottomSheet extends StatelessWidget {
                                 fit: BoxFit.cover,
                                 width: 40,
                                 height: 40,
-                                scale: 1.2,
                               ),
                             ),
                             title: Text(e.item!.title!),

@@ -11,6 +11,9 @@ import 'package:http/http.dart' as http;
 class UserRepository {
   // secure storage
   SecureStorage _ss = sl<SecureStorage>();
+  final http.Client client;
+
+  UserRepository({http.Client? cli}) : client = cli ?? http.Client();
 
   // user
 
@@ -23,7 +26,7 @@ class UserRepository {
   // Makes a request to the user API to get user with
   // username
   Future<dynamic> makeRequest() async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/auth/profile'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -35,7 +38,7 @@ class UserRepository {
   }
 
   Future<bool> addUser(User user) async {
-    final response = await http.post(
+    final response = await client.post(
       Uri.parse('http://localhost:3000/user'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -51,7 +54,7 @@ class UserRepository {
   }
 
   Future<bool> grantAccess(String userId) async {
-    final response = await http.put(
+    final response = await client.put(
       Uri.parse('http://localhost:3000/user/grant/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -66,7 +69,7 @@ class UserRepository {
   }
 
   Future<bool> revokeAccess(String userId) async {
-    final response = await http.put(
+    final response = await client.put(
       Uri.parse('http://localhost:3000/user/revoke/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -82,7 +85,7 @@ class UserRepository {
 
   Future<List<User>?> getAllUsers() async {
     List<User> users = [];
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/user'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -106,7 +109,7 @@ class UserRepository {
   }
 
   Future<bool> changePassword(String userId, String password) async {
-    final response = await http.put(
+    final response = await client.put(
       Uri.parse('http://localhost:3000/user/change/password/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',

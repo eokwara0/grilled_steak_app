@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/widgets/persistant_header_drag.dart';
 
-import '../../../../../authentication/authentication.dart';
+import '../../../../../app/authentication/authentication.dart';
 import '../../../../menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../cubit/search_bottom_sheet_cubit.dart';
 import 'edit_icon.dart';

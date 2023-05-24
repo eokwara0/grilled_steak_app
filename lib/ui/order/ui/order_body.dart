@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grilled_steak_app/ui/order/cubit/order_cubit.dart';
 import 'package:grilled_steak_app/ui/order/ui/order_bill/cubit/order_bill_cubit.dart';
+import 'package:grilled_steak_app/ui/widgets/button_widget.dart';
 import 'package:menu_repository/menu_repository.dart';
 import 'package:order_repository/order_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
+import '../../widgets/snack_bar.dart';
 import 'order_bill/order_bill.dart';
-import 'order_button_widget.dart';
 import 'order_header.dart';
 
 class OrderBody extends StatelessWidget {
@@ -49,21 +50,21 @@ class OrderBody extends StatelessWidget {
         listener: (context, state) {
           if (state.isOrdered) {
             showSnackBar(
-              context,
               Colors.amber[500],
               'Order has been placed',
+              context,
             );
           } else if (state.isError) {
             showSnackBar(
-              context,
               Colors.red[400],
               'An error occurred',
+              context,
             );
           } else if (state.isClosed) {
             showSnackBar(
-              context,
               Colors.amber[500],
               'Order was closed Successfully',
+              context,
             );
           }
         },
@@ -396,7 +397,7 @@ class OrderBody extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          OrderButtonWidget(
+                                          GrilledHouseButton(
                                             content: 'Order Again',
                                             color: Colors.black87,
                                             onPressed: () {
@@ -406,7 +407,7 @@ class OrderBody extends StatelessWidget {
                                           ),
                                           if (order.status.toLowerCase() ==
                                               'canceled')
-                                            OrderButtonWidget(
+                                            GrilledHouseButton(
                                               content: 'Close Order',
                                               color: Colors.red[400],
                                               onPressed: () {
@@ -416,7 +417,7 @@ class OrderBody extends StatelessWidget {
                                             ),
                                           if (order.status.toLowerCase() ==
                                               'ready')
-                                            OrderButtonWidget(
+                                            GrilledHouseButton(
                                               content: 'Generate Bill',
                                               color: Colors.amber[600],
                                               onPressed: () {
@@ -458,38 +459,6 @@ class OrderBody extends StatelessWidget {
               ],
             );
           },
-        ),
-      ),
-    );
-  }
-
-  static showSnackBar(BuildContext context, Color? color, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(milliseconds: 400),
-        elevation: 1,
-        dismissDirection: DismissDirection.endToStart,
-        backgroundColor: color,
-        behavior: SnackBarBehavior.floating,
-        width: 400,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        showCloseIcon: true,
-        closeIconColor: Colors.white,
-        content: SizedBox(
-          height: 25,
-          child: Row(
-            children: [
-              Text(
-                message,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

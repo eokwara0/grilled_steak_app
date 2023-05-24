@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../../authentication/authentication.dart';
+import '../../../../../app/authentication/authentication.dart';
 
 class HeaderProfile extends StatelessWidget {
   const HeaderProfile({

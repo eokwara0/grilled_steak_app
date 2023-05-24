@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grilled_steak_app/ui/widgets/snack_bar.dart';
 import 'package:menu_repository/menu_repository.dart';
 import 'package:order_repository/order_repository.dart';
 
@@ -42,92 +43,11 @@ class ChefHomePage extends StatelessWidget {
       child: BlocListener<ChefHomePageCubit, ChefHomePageState>(
         listener: (context, state) {
           if (state.isReady) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                elevation: 1,
-                dismissDirection: DismissDirection.endToStart,
-                backgroundColor: Colors.amber[500],
-                behavior: SnackBarBehavior.floating,
-                width: 400,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                showCloseIcon: true,
-                closeIconColor: Colors.white,
-                content: SizedBox(
-                  height: 25,
-                  child: Row(
-                    children: const [
-                      Text(
-                        'Order is now ready',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
+            showSnackBar(Colors.amber[500], 'Order is now ready', context);
           } else if (state.isCancel) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                elevation: 1,
-                dismissDirection: DismissDirection.endToStart,
-                backgroundColor: Colors.amber[500],
-                behavior: SnackBarBehavior.floating,
-                width: 400,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                showCloseIcon: true,
-                closeIconColor: Colors.white,
-                content: SizedBox(
-                  height: 25,
-                  child: Row(
-                    children: const [
-                      Text(
-                        'Order has been canceled',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
+            showSnackBar(Colors.amber[500], 'Order has been canceled', context);
           } else if (state.isError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                elevation: 1,
-                dismissDirection: DismissDirection.endToStart,
-                backgroundColor: Colors.red[400],
-                behavior: SnackBarBehavior.floating,
-                width: 400,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                showCloseIcon: true,
-                closeIconColor: Colors.white,
-                content: SizedBox(
-                  height: 25,
-                  child: Row(
-                    children: const [
-                      Text(
-                        'An error occurred',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
+            showSnackBar(Colors.red[400], 'An error occurred', context);
           }
         },
         child: BlocBuilder<ChefHomePageCubit, ChefHomePageState>(

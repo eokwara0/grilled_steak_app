@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/authentication/authentication.dart';
+import 'package:grilled_steak_app/app/authentication/authentication.dart';
 import 'package:grilled_steak_app/ui/order/ui/order_body.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../../menu/ui/menu_item/menu_item_edit/ui/text_field_edit.dart';
+import '../../widgets/snack_bar.dart';
 import 'cubit/change_password_cubit.dart';
 
 class ChangePasswordDialog extends StatelessWidget {
@@ -23,12 +24,12 @@ class ChangePasswordDialog extends StatelessWidget {
         listener: (context, state) {
           if (state.isSuccess) {
             context.pop();
-            OrderBody.showSnackBar(
-                context, Colors.amber[500], 'Password Updated Successfully');
+            showSnackBar(
+                Colors.amber[500], 'Password updated successfully', context);
           } else if (state.isError) {
             context.pop();
-            OrderBody.showSnackBar(context, Colors.red[600],
-                'An error occurred while changing password');
+            showSnackBar(Colors.red[500],
+                'An error occured while changing password', context);
           }
         },
         child: BlocBuilder<ChangePasswordCubit, ChangePasswordState>(

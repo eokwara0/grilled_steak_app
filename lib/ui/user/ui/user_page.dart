@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/authentication/authentication.dart';
-import 'package:grilled_steak_app/ui/order/ui/order_body.dart';
-import 'package:grilled_steak_app/ui/order/ui/order_button_widget.dart';
-import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
+import 'package:grilled_steak_app/app/authentication/authentication.dart';
+import 'package:grilled_steak_app/ui/widgets/button_widget.dart';
+import 'package:grilled_steak_app/ui/widgets/snack_bar.dart';
+import 'package:grilled_steak_app/ui/widgets/splash_page.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../cubit/user_cubit.dart';
@@ -21,29 +21,17 @@ class UserPage extends StatelessWidget {
         body: BlocListener<UserCubit, UserState>(
           listener: (context, state) {
             if (state.isAccessRevoked) {
-              OrderBody.showSnackBar(
-                context,
-                Colors.amber[500],
-                'User Access has been revoked',
-              );
+              showSnackBar(
+                  Colors.amber[500], 'User Access has been revoked', context);
             } else if (state.isAccessRevokedError) {
-              OrderBody.showSnackBar(
-                context,
-                Colors.red,
-                'An Error Occured while revoking access',
-              );
+              showSnackBar(Colors.red, 'An error occured while revoking access',
+                  context);
             } else if (state.isAccessGranted) {
-              OrderBody.showSnackBar(
-                context,
-                Colors.amber[500],
-                'Access has been granted to user',
-              );
+              showSnackBar(Colors.amber[500], 'Access has been granted to user',
+                  context);
             } else if (state.isAccessGrantedError) {
-              OrderBody.showSnackBar(
-                context,
-                Colors.red[500],
-                'An Error occured while granting access',
-              );
+              showSnackBar(Colors.red[500],
+                  'An error occured while granting access', context);
             }
           },
           child: BlocBuilder<UserCubit, UserState>(
@@ -356,7 +344,7 @@ class UserPage extends StatelessWidget {
                                                           .state
                                                           .user
                                                           .id)
-                                                OrderButtonWidget(
+                                                GrilledHouseButton(
                                                   content: 'Revoke Access',
                                                   color: Colors.amber,
                                                   onPressed: () {
@@ -366,7 +354,7 @@ class UserPage extends StatelessWidget {
                                                   },
                                                 ),
                                               if (!user.hasAccess)
-                                                OrderButtonWidget(
+                                                GrilledHouseButton(
                                                   content: 'Grant Access',
                                                   color: Colors.green,
                                                   onPressed: () {

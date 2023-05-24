@@ -18,13 +18,11 @@ import '../ui/menu/ui/menu/menu_manage/menu_manage_page.dart';
 import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
 import '../ui/menu/ui/menu_item/menu_item_add/menu_item_add.dart';
 import '../ui/menu/ui/menu_item/menu_item_edit/menu_item_edit_page.dart';
-import '../ui/splash/view/splash_page.dart';
+import '../ui/widgets/splash_page.dart';
 import '../ui/widgets/error_page.dart';
 import '../ui/widgets/success_page.dart';
 
-// Routers class
 class Routers {
-  // final _navigatorKey = GlobalKey<NavigatorState>();
   static final router = GoRouter(
     initialLocation: '/splash',
     routes: <RouteBase>[

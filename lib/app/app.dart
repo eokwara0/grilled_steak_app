@@ -13,7 +13,7 @@ import 'package:table_reservation_repository/table_reservation_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../authentication/authentication.dart';
+import 'authentication/authentication.dart';
 import '../ui/cart/cubit/cart_cubit.dart';
 import '../ui/home/ui/search_bottom_sheet/cubit/search_bottom_sheet_cubit.dart';
 import '../ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
@@ -36,19 +36,16 @@ class _AppState extends State<App> {
   late final ReservationRepository _reservationRepository;
   late final OrderRepository _orderRepository;
 
-  // initialization
   @override
   void initState() {
-    super.initState();
-
-    registerServices(sl); // registering service
-    _userRepository = UserRepository(); // initializing user repository
-    _authenticationRepository =
-        AuthenticationRepository(); // initializing Authentication repository
-    _menuItemRepository = MenuItemRepository(); // initializing
-    _menuRepository = MenuRepository(); // initializing
+    registerServices(sl);
+    _userRepository = UserRepository();
+    _authenticationRepository = AuthenticationRepository();
+    _menuItemRepository = MenuItemRepository();
+    _menuRepository = MenuRepository();
     _reservationRepository = ReservationRepository();
     _orderRepository = OrderRepository();
+    super.initState();
   }
 
   @override

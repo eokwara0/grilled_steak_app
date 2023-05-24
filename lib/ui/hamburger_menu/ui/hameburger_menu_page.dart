@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/authentication/authentication.dart';
+import 'package:grilled_steak_app/app/authentication/authentication.dart';
 import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
 
 import '../../cart/cubit/cart_cubit.dart';
