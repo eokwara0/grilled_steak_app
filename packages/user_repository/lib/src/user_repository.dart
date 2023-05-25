@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:get_it/get_it.dart';
 import 'package:service_locator/service_locator.dart';
 import 'models/user.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,20 @@ import 'package:http/http.dart' as http;
 /// user API
 class UserRepository {
   // secure storage
-  SecureStorage _ss = sl<SecureStorage>();
+  late SecureStorage _ss;
+  final http.Client client;
+  final GetIt? locator;
+
+  UserRepository({
+    http.Client? cli,
+    GetIt? loc,
+  })  : client = cli ?? http.Client(),
+        locator = loc {
+    if (loc != null) {
+      _ss = loc<SecureStorage>();
+    }
+    _ss = sl<SecureStorage>();
+  }
 
   // user
 
@@ -23,7 +37,7 @@ class UserRepository {
   // Makes a request to the user API to get user with
   // username
   Future<dynamic> makeRequest() async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/auth/profile'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -35,7 +49,7 @@ class UserRepository {
   }
 
   Future<bool> addUser(User user) async {
-    final response = await http.post(
+    final response = await client.post(
       Uri.parse('http://localhost:3000/user'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -51,7 +65,7 @@ class UserRepository {
   }
 
   Future<bool> grantAccess(String userId) async {
-    final response = await http.put(
+    final response = await client.put(
       Uri.parse('http://localhost:3000/user/grant/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -66,7 +80,7 @@ class UserRepository {
   }
 
   Future<bool> revokeAccess(String userId) async {
-    final response = await http.put(
+    final response = await client.put(
       Uri.parse('http://localhost:3000/user/revoke/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -82,7 +96,7 @@ class UserRepository {
 
   Future<List<User>?> getAllUsers() async {
     List<User> users = [];
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/user'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -106,7 +120,7 @@ class UserRepository {
   }
 
   Future<bool> changePassword(String userId, String password) async {
-    final response = await http.put(
+    final response = await client.put(
       Uri.parse('http://localhost:3000/user/change/password/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',

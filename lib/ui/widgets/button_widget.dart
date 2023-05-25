@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OrderButtonWidget extends StatelessWidget {
-  const OrderButtonWidget({
+class GrilledHouseButton extends StatelessWidget {
+  const GrilledHouseButton({
     super.key,
     required this.content,
     required this.color,
@@ -11,7 +11,6 @@ class OrderButtonWidget extends StatelessWidget {
   final String content;
   final Color? color;
   final Function() onPressed;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:menu_repository/menu_repository.dart';
 
-import '../../../../../authentication/authentication.dart';
+import '../../../../../app/authentication/authentication.dart';
 import '../../../../widgets/persistant_header_drag.dart';
 
 class HomeMenuSectionBottomSheet extends StatelessWidget {
@@ -37,12 +37,15 @@ class HomeMenuSectionBottomSheet extends StatelessWidget {
                             context.read<MenuCubit>().addMenu(e);
                             context.go('/menu');
                           },
-                          leading: Image.network(
-                            e.imageUrl!,
-                            fit: BoxFit.cover,
-                            width: 40,
-                            height: 40,
-                            scale: 1.2,
+                          leading: SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: Image.network(
+                              e.imageUrl!,
+                              fit: BoxFit.cover,
+                              width: 40,
+                              height: 40,
+                            ),
                           ),
                           title: Text(e.title!),
                           subtitle: Text(e.summary!),

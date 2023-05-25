@@ -94,6 +94,7 @@ class User extends Equatable {
     String? password,
   }) {
     return User(
+      id: _id,
       role: role ?? this.role,
       username: username ?? this.username,
       firstname: firstname ?? this.firstname,

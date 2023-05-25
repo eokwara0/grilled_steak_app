@@ -28,6 +28,7 @@ class HomeRecommendedMenuItems extends StatelessWidget {
           if (state.isLoaded) {
             List<MenuItem> some =
                 state.menuItem.sublist(0, state.menuItem.length ~/ 2);
+            some.shuffle();
             return Column(
               children: [
                 Row(

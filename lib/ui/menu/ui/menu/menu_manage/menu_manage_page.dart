@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/authentication/authentication.dart';
+import 'package:grilled_steak_app/app/authentication/authentication.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_edit/cubit/menu_edit_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu_item/cubit/menu_item_cubit.dart';
-import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
+import 'package:grilled_steak_app/ui/widgets/splash_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import 'cubit/menu_manage_cubit.dart';
@@ -128,10 +128,14 @@ class _MenuManagePageState extends State<MenuManagePage> {
                                   child: ExpansionTile(
                                     expandedCrossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    leading: Image.network(
-                                      width: 35,
-                                      height: 35,
-                                      state.menus[index].imageUrl!,
+                                    leading: SizedBox(
+                                      height: 40,
+                                      width: 40,
+                                      child: Image.network(
+                                        width: 35,
+                                        height: 35,
+                                        state.menus[index].imageUrl!,
+                                      ),
                                     ),
                                     shape: const RoundedRectangleBorder(
                                       side: BorderSide.none,
@@ -218,10 +222,14 @@ class _MenuManagePageState extends State<MenuManagePage> {
                                                     color: Colors.grey.shade500,
                                                   ),
                                                 ),
-                                                leading: Image.network(
+                                                leading: SizedBox(
                                                   width: 50,
                                                   height: 50,
-                                                  e.imageUrl!,
+                                                  child: Image.network(
+                                                    width: 50,
+                                                    height: 50,
+                                                    e.imageUrl!,
+                                                  ),
                                                 ),
                                                 trailing: IconButton(
                                                   onPressed: () {

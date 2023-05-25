@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:grilled_steak_app/ui/widgets/snack_bar.dart';
 import '../bloc/login_bloc.dart';
 import 'widgets/forgot_password.dart';
 import 'widgets/login_button.dart';
@@ -20,27 +21,17 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status.isSubmissionFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                elevation: 3.0,
-                backgroundColor: Colors.grey.shade100,
-                content: const Text(
-                  'Authentication Failure',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 215, 55, 55),
-                  ),
-                ),
-              ),
-            );
+          showSnackBar(Colors.red[500], 'Authenticatoin Failure', context);
         }
       },
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images/logo.jpg'),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Image.asset('images/logo1.jpg'),
+            ),
             const UsernameInput(),
             const Padding(padding: EdgeInsets.all(12)),
             const PasswordInput(),

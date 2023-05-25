@@ -8,10 +8,13 @@ import 'package:http/http.dart' as http;
 
 class ReservationRepository {
   final SecureStorage _ss = sl<SecureStorage>();
+  final http.Client client;
+
+  ReservationRepository({http.Client? cli}) : client = cli ?? http.Client();
 
   Future<List<TableReservation>?> getAllTable() async {
     List<TableReservation> tables = [];
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/table'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -42,7 +45,7 @@ class ReservationRepository {
   Future<List<TableReservation>?> getAvailableTables() async {
     List<TableReservation> tables = [];
 
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/table/available'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -73,7 +76,7 @@ class ReservationRepository {
   Future<List<TableReservation>?> getReservedTables() async {
     List<TableReservation> tables = [];
 
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/table/reserved'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -102,7 +105,7 @@ class ReservationRepository {
   }
 
   Future<bool> updateReservation(String id, TableReservation table) async {
-    final response = await http.post(
+    final response = await client.post(
       Uri.parse('http://localhost:3000/table/reservation/${id}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',

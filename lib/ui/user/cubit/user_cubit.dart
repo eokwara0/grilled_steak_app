@@ -30,18 +30,24 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> revokeAccess(User user) async {
     bool response = await _userRepository.revokeAccess(user.id!);
+    List<User> users = state.users.map((e) {
+      if (e.id == user.id) {
+        return e.copyWith(access: 'REVOKED');
+      }
+      return e;
+    }).toList();
 
     if (response) {
       emit(
         UserAccessRevoked(
-          users: await _getUsers() ?? state.users,
+          users: users,
           status: UserStateStatus.accessRevoked,
         ),
       );
 
       return emit(
         UserDataLoaded(
-          users: await _getUsers() ?? state._users,
+          users: users,
           status: UserStateStatus.loaded,
         ),
       );
@@ -63,18 +69,24 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> grantAccess(User user) async {
     bool response = await _userRepository.grantAccess(user.id!);
+    List<User> users = state.users.map((e) {
+      if (e.id == user.id) {
+        return e.copyWith(access: 'ACTIVE');
+      }
+      return e;
+    }).toList();
 
     if (response) {
       emit(
         UserAccessGranted(
-          users: await _getUsers() ?? state._users,
+          users: users,
           status: UserStateStatus.accessGranted,
         ),
       );
 
       return emit(
         UserDataLoaded(
-          users: await _getUsers() ?? state._users,
+          users: users,
           status: UserStateStatus.loaded,
         ),
       );
@@ -92,13 +104,5 @@ class UserCubit extends Cubit<UserState> {
         ),
       );
     }
-  }
-
-  Future<List<User>?> _getUsers() async {
-    final res = await _userRepository.getAllUsers();
-    if (res != null) {
-      return res;
-    }
-    return null;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
+import 'package:grilled_steak_app/ui/widgets/splash_page.dart';
 import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
 import 'package:grilled_steak_app/ui/table/view/table_edit_bottom_sheet.dart/cubit/table_edit_cubit.dart';
 import 'package:grilled_steak_app/ui/table/view/table_reservation_bottom_sheet.dart/cubit/reservation_bottom_sheet_cubit.dart';

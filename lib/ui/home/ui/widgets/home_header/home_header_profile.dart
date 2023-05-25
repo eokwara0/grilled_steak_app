@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../../authentication/authentication.dart';
+import '../../../../../app/authentication/authentication.dart';
 
 class HeaderProfile extends StatelessWidget {
   const HeaderProfile({
@@ -12,17 +12,12 @@ class HeaderProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Header row
     return Row(
-      // aligning to the right
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        // padding
         const Padding(
           padding: EdgeInsets.all(10),
         ),
-
-        // circle Avatar
         InkWell(
           onTap: () {
             context.go('/profile');
@@ -38,17 +33,17 @@ class HeaderProfile extends StatelessWidget {
                     .user
                     .username![0]
                     .toUpperCase(),
+                style: TextStyle(
+                  color: Colors.amber[700],
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
         ),
-
-        // padding seperation
         const Padding(
           padding: EdgeInsets.all(10),
         ),
-
-        // welcome message text
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,20 +61,16 @@ class HeaderProfile extends StatelessWidget {
                 );
               },
             ),
-
-            // separte text
             const Padding(
               padding: EdgeInsets.all(2.0),
             ),
-
-            // welcome back text
             Row(
               children: [
                 Text(
                   AppLocalizations.of(context)!.greeting,
                   style: TextStyle(
                     color: Colors.white.withOpacity(1),
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

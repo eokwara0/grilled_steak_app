@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/authentication/authentication.dart';
+import 'package:grilled_steak_app/app/authentication/authentication.dart';
 import 'package:grilled_steak_app/ui/table/cubit/manage_table_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../cart/cubit/cart_cubit.dart';
 
@@ -38,7 +39,7 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
             Text(
               'Menu',
               style: TextStyle(
-                color: Colors.grey.shade500,
+                color: Colors.amber.shade500,
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
               ),
@@ -74,7 +75,7 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
                   size: 22,
                 ),
                 title: Text(
-                  'Manage Menu',
+                  AppLocalizations.of(context)!.manage('menu'),
                   style: TextStyle(
                     color: Colors.grey.shade600,
                     fontSize: 15,
@@ -95,7 +96,7 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
                   size: 22,
                 ),
                 title: Text(
-                  'Manage Users',
+                  AppLocalizations.of(context)!.manage('user'),
                   style: TextStyle(
                     color: Colors.grey.shade600,
                     fontSize: 15,
@@ -116,7 +117,7 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
                   size: 22,
                 ),
                 title: Text(
-                  'Manage Reservations',
+                  AppLocalizations.of(context)!.manage('res'),
                   style: TextStyle(
                     color: Colors.grey.shade600,
                     fontSize: 15,

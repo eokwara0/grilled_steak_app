@@ -7,10 +7,12 @@ import 'domain/menu_item_model.dart';
 
 class MenuItemRepository {
   final SecureStorage _ss = sl<SecureStorage>();
+  final http.Client client;
+  MenuItemRepository({http.Client? cli}) : client = cli ?? http.Client();
 
   /// gets a menu item by its id
   Future<MenuItem?> getMenuItemById(String? id) async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/menuItem/item/${id}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -32,7 +34,7 @@ class MenuItemRepository {
 
   /// deletes menu item by it's Id
   Future<bool?> deleteItemById(String id) async {
-    final response = await http.delete(
+    final response = await client.delete(
       Uri.parse('http://localhost:3000/menuItem/${id}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -50,7 +52,7 @@ class MenuItemRepository {
   /// returns a list of menu items based on the word search
   Future<List<MenuItem>?> getItemsBySearch(String regex) async {
     List<MenuItem> items = [];
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse(
         'http://localhost:3000/menuItem/search/${regex}',
       ),
@@ -79,7 +81,7 @@ class MenuItemRepository {
   Future<List<MenuItem>?> getRecommendedItems() async {
     List<MenuItem> items = [];
 
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse('http://localhost:3000/menuItem/recommended'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -104,7 +106,7 @@ class MenuItemRepository {
   /// returns a list of menu items based on the word search
   Future<List<MenuItem>?> getItemsByMenuId(String id) async {
     List<MenuItem> items = [];
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse(
         'http://localhost:3000/menuItem/menuId/${id}',
       ),
@@ -132,7 +134,7 @@ class MenuItemRepository {
 
   Future<bool> createMenuItem(MenuItem item) async {
     final response =
-        await http.post(Uri.parse('http://localhost:3000/menuItem/add'),
+        await client.post(Uri.parse('http://localhost:3000/menuItem/add'),
             headers: {
               "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
               "Content-Type": 'application/json',
@@ -146,7 +148,7 @@ class MenuItemRepository {
   }
 
   Future<bool> replaceMenuItem(MenuItem item) async {
-    final response = await http.post(
+    final response = await client.post(
         Uri.parse('http://localhost:3000/menuItem/replace/${item.id}'),
         headers: {
           "Authorization": 'Bearer ${await _ss.readKey('access_token')}',

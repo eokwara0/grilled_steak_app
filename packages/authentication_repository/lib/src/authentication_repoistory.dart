@@ -2,12 +2,15 @@ import 'dart:async';
 import 'package:service_locator/service_locator.dart';
 
 import 'domain/models/models.dart';
+import 'package:http/http.dart' as http;
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
 class AuthenticationRepository {
   final SecureStorage fss = sl<SecureStorage>();
   final _controller = StreamController<AuthenticationStatus>();
+  final http.Client client;
+  AuthenticationRepository({http.Client? cli}) : client = cli ?? http.Client();
 
   Stream<AuthenticationStatus> get status async* {
     yield AuthenticationStatus.unknown;

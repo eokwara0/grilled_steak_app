@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grilled_steak_app/authentication/authentication.dart';
+import 'package:grilled_steak_app/app/authentication/authentication.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
-import 'package:grilled_steak_app/ui/splash/view/splash_page.dart';
+import 'package:grilled_steak_app/ui/widgets/splash_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
 import '../menu_item/cubit/menu_item_cubit.dart';
@@ -38,9 +38,13 @@ class MenuPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.network(
-                          state.menu.imageUrl!,
-                          width: 30,
+                        SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: Image.network(
+                            state.menu.imageUrl!,
+                            width: 30,
+                          ),
                         ),
                         const Padding(padding: EdgeInsets.all(10)),
                         Column(
@@ -52,13 +56,6 @@ class MenuPage extends StatelessWidget {
                                 color: Colors.grey.shade500,
                               ),
                             ),
-                            Text(
-                              state.menu.summary!,
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontSize: 12,
-                              ),
-                            )
                           ],
                         )
                       ],
@@ -101,22 +98,22 @@ class MenuPage extends StatelessWidget {
                     delegate: SliverChildListDelegate.fixed(
                       [
                         Text(
-                          '${state.menu.title!}s',
+                          '${state.items.length} Items',
                           style: TextStyle(
-                            fontSize: 35,
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade600,
+                            fontSize: 15,
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          '${state.items.length} Items',
+                          '${state.menu.title!}s',
                           style: TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey.shade600,
-                            fontSize: 15,
+                            fontSize: 25,
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                       ],
@@ -155,6 +152,8 @@ class MenuPage extends StatelessWidget {
               builder: (context, state) {
                 return SliverGrid.count(
                   crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  // crossAxisSpacing: 10,
                   childAspectRatio: .58,
                   children: [
                     ...List.generate(
@@ -183,7 +182,7 @@ class LongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 0.0,
+      elevation: 1.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

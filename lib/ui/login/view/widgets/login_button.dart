@@ -15,11 +15,11 @@ class LoginButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : SizedBox(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width - 100,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(15),
-                    elevation: 0,
+                    padding: const EdgeInsets.all(10),
+                    elevation: 1,
                     backgroundColor: Colors.amber,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -34,6 +34,7 @@ class LoginButton extends StatelessWidget {
                     'Login',
                     style: TextStyle(
                       fontSize: 15,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

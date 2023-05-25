@@ -16,9 +16,7 @@ class SearchBottomSheet extends StatelessWidget {
       expand: false,
       builder: (context, scroll) =>
           BlocBuilder<SearchBottomSheetCubit, SearchBottomSheetState>(
-        // builder
         builder: (context, state) {
-          // check conditions
           if (state.isLoaded) {
             return ResultView(search: search, controller: scroll);
           }
@@ -27,8 +25,15 @@ class SearchBottomSheet extends StatelessWidget {
               message: 'Error occured Check your internet connection.',
             );
           }
-          return const SearchBottomSheetNotFound(
-            message: 'Item not found',
+          return SearchBottomSheetNotFound(
+            header: SizedBox(
+                height: 200,
+                child: Image.asset(
+                  'images/wings.jpg',
+                  fit: BoxFit.cover,
+                  colorBlendMode: BlendMode.multiply,
+                )),
+            message: 'No MenuItem was Found',
           );
         },
       ),

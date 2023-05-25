@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class SearchBottomSheetNotFound extends StatelessWidget {
   final String message;
+  final Widget? header;
 
   const SearchBottomSheetNotFound({
     super.key,
     required this.message,
+    this.header,
   });
 
   @override
@@ -20,7 +22,7 @@ class SearchBottomSheetNotFound extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).pop();
                 },
                 child: const Icon(
                   Icons.close,
@@ -31,10 +33,17 @@ class SearchBottomSheetNotFound extends StatelessWidget {
         ),
         const Padding(padding: EdgeInsets.all(20)),
         Column(
-          children: [
-            const CircularProgressIndicator.adaptive(),
-            const Padding(padding: EdgeInsets.all(9)),
-            Text(message),
+          children: <Widget>[
+            header ?? Container(),
+            const Padding(padding: EdgeInsets.all(20)),
+            Text(
+              message,
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ],
