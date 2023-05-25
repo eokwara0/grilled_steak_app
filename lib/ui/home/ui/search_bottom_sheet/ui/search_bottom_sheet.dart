@@ -16,9 +16,7 @@ class SearchBottomSheet extends StatelessWidget {
       expand: false,
       builder: (context, scroll) =>
           BlocBuilder<SearchBottomSheetCubit, SearchBottomSheetState>(
-        // builder
         builder: (context, state) {
-          // check conditions
           if (state.isLoaded) {
             return ResultView(search: search, controller: scroll);
           }
@@ -27,8 +25,13 @@ class SearchBottomSheet extends StatelessWidget {
               message: 'Error occured Check your internet connection.',
             );
           }
-          return const SearchBottomSheetNotFound(
-            message: 'Item not found',
+          return SearchBottomSheetNotFound(
+            header: Icon(
+              Icons.error,
+              color: Colors.amber,
+              size: 100,
+            ),
+            message: 'No MenuItem was Found',
           );
         },
       ),

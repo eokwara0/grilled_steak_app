@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:grilled_steak_app/ui/user/cubit/user_cubit.dart';
 import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:service_locator/service_locator.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:http/http.dart' as http;
@@ -34,31 +37,25 @@ void main() {
   );
 
   group('UserCubit', () {
-    late MockCubit<UserCubit> counterBloc;
-    late MockClient client ;
+    late UserCubit counterBloc;
+    late MockClient client;
+
     // TestWidgetsFlutterBinding.ensureInitialized();
     // sl.registerSingleton<SecureStorage>(SecureStorage(
     //   const FlutterSecureStorage(
     //     aOptions: AndroidOptions(encryptedSharedPreferences: true),
     //   ),
     // ));
-    setUp(() async {
-      client = MockClient();
-      counterBloc = MockCubit<UserCubit>();
+    setUp(() {
+      client = MockClient((request) async {
+        return http.Response('data', 200);
+      });
+      counterBloc = UserCubit(userRepository: UserRepository(cli: client));
     });
 
-    test('initial state is UserInitial', () {
-      final client = MockClient();
-
+    test('initial state is UserInitial', () async {
       expect(counterBloc.state,
           const UserInitial(users: [], status: UserStateStatus.initial));
-      final client = MockCubit<();
-    });
-
-    test('initalized error', () async {
-      await counterBloc.initialize();
-      expect(counterBloc.state,
-          const UserDataLoadedError(users: [], status: UserStateStatus.error));
     });
   });
 }

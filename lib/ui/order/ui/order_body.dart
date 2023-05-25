@@ -138,7 +138,7 @@ class OrderBody extends StatelessWidget {
                                                 Text(
                                                   'Order #${order.id.substring(0, 5)}',
                                                   style: const TextStyle(
-                                                    fontSize: 17,
+                                                    fontSize: 16,
                                                     fontWeight: FontWeight.w700,
                                                   ),
                                                 ),

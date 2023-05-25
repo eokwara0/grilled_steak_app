@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:get_it/get_it.dart';
 import 'package:service_locator/service_locator.dart';
 import 'models/user.dart';
 import 'package:http/http.dart' as http;
@@ -10,10 +11,20 @@ import 'package:http/http.dart' as http;
 /// user API
 class UserRepository {
   // secure storage
-  SecureStorage _ss = sl<SecureStorage>();
+  late SecureStorage _ss;
   final http.Client client;
+  final GetIt? locator;
 
-  UserRepository({http.Client? cli}) : client = cli ?? http.Client();
+  UserRepository({
+    http.Client? cli,
+    GetIt? loc,
+  })  : client = cli ?? http.Client(),
+        locator = loc {
+    if (loc != null) {
+      _ss = loc<SecureStorage>();
+    }
+    _ss = sl<SecureStorage>();
+  }
 
   // user
 

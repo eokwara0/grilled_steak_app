@@ -63,9 +63,8 @@ class ChangePasswordDialog extends StatelessWidget {
                             .read<ChangePasswordCubit>()
                             .oldPasswordChanged(p0);
                       },
-                      errorText: !state.oldPassword.valid
-                          ? 'Password doesn\'t match exsisting password'
-                          : null,
+                      errorText:
+                          !state.oldPassword.valid ? 'Invalid Password' : null,
                       obscureText: true,
                       label: 'Current Password',
                       hint: '@oldPassword',
@@ -77,9 +76,8 @@ class ChangePasswordDialog extends StatelessWidget {
                             .read<ChangePasswordCubit>()
                             .newPasswordChanged(p0);
                       },
-                      errorText: !state.newPassword.valid
-                          ? 'Password doesn\'t match current password'
-                          : null,
+                      errorText:
+                          !state.newPassword.valid ? 'Invalid Password' : null,
                       obscureText: true,
                       label: 'New Password',
                       hint: '@newPassword',

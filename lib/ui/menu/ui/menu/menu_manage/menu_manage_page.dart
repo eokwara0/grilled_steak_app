@@ -128,10 +128,14 @@ class _MenuManagePageState extends State<MenuManagePage> {
                                   child: ExpansionTile(
                                     expandedCrossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    leading: Image.network(
-                                      width: 35,
-                                      height: 35,
-                                      state.menus[index].imageUrl!,
+                                    leading: SizedBox(
+                                      height: 40,
+                                      width: 40,
+                                      child: Image.network(
+                                        width: 35,
+                                        height: 35,
+                                        state.menus[index].imageUrl!,
+                                      ),
                                     ),
                                     shape: const RoundedRectangleBorder(
                                       side: BorderSide.none,

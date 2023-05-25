@@ -98,22 +98,22 @@ class MenuPage extends StatelessWidget {
                     delegate: SliverChildListDelegate.fixed(
                       [
                         Text(
-                          '${state.menu.title!}s',
+                          '${state.items.length} Items',
                           style: TextStyle(
-                            fontSize: 35,
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade600,
+                            fontSize: 15,
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          '${state.items.length} Items',
+                          '${state.menu.title!}s',
                           style: TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey.shade600,
-                            fontSize: 15,
+                            fontSize: 25,
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                       ],

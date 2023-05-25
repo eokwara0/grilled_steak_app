@@ -32,8 +32,13 @@
   "@profileview" : {
     "description" : "view profile"
   }, 
-  "menuManage" : "Manage {text}",
-  "@menu" : {
-    "description" : "menu text"
+  "manage" : "Manage {terms, select, menu{Menu} user{User} res{Reservations} other{they}}",
+  "@manage" : {
+    "description" : "manage text",
+    "placeholders" : {
+      "terms" : {
+        "type" : "String"
+      }
+    }
   }
 }

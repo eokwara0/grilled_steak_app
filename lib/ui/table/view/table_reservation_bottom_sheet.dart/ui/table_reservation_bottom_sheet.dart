@@ -286,8 +286,8 @@ class ReservationBottomSheetHeader extends SliverPersistentHeaderDelegate {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
             ),
             color: Theme.of(context).colorScheme.onBackground,
           ),
@@ -300,17 +300,28 @@ class ReservationBottomSheetHeader extends SliverPersistentHeaderDelegate {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(
-                      '# Table ${context.read<ManageTableCubit>().state.reservedTables.indexOf(state.table) + 1}',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey.shade600,
-                      ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.tag_rounded,
+                          color: Colors.grey[500],
+                        ),
+                        Text(
+                          'Table ${context.read<ManageTableCubit>().state.reservedTables.indexOf(state.table) + 1}',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: Text(
                       '${state.table.capacity} seats',
                       style: TextStyle(
