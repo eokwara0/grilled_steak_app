@@ -1,0 +1,15 @@
+name: billing_repository
+description: Dart package which manages the billing domain.
+publish_to: none
+
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+
+dev_dependencies:
+  very_good_analysis: ^3.1.0
+dependencies:
+  http: ^0.13.5
+  service_locator: 
+    path: ../service_locator_repository
+  get_it: ^7.2.0
+  equatable: ^2.0.3

@@ -26,11 +26,13 @@ class SearchBottomSheet extends StatelessWidget {
             );
           }
           return SearchBottomSheetNotFound(
-            header: Icon(
-              Icons.error,
-              color: Colors.amber,
-              size: 100,
-            ),
+            header: SizedBox(
+                height: 200,
+                child: Image.asset(
+                  'images/wings.jpg',
+                  fit: BoxFit.cover,
+                  colorBlendMode: BlendMode.multiply,
+                )),
             message: 'No MenuItem was Found',
           );
         },

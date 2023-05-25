@@ -28,7 +28,10 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images/logo.jpg'),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Image.asset('images/logo1.jpg'),
+            ),
             const UsernameInput(),
             const Padding(padding: EdgeInsets.all(12)),
             const PasswordInput(),

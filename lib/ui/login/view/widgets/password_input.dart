@@ -19,29 +19,31 @@ class PasswordInput extends StatelessWidget {
           onChanged: (password) => context.read<LoginBloc>().add(
                 LoginPasswordChanged(password),
               ),
+          cursorColor: Colors.amber,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(10),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: Colors.amber,
-                width: 2.0,
+                width: 1.5,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: Colors.amber,
-                width: 2.0,
+                width: 1.5,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
             ),
             label: Text(
               'password',
               style: TextStyle(
-                color: Colors.amber[800],
-                fontWeight: FontWeight.w500,
+                color: Colors.grey[500],
+                fontWeight: FontWeight.w600,
               ),
             ),
             errorText: state.password.invalid ? 'invalid' : null,

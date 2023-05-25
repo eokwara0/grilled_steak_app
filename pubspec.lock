@@ -56,6 +56,13 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  billing_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/billing_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   bloc:
     dependency: "direct main"
     description:
