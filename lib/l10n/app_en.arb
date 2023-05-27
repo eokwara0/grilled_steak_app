@@ -32,7 +32,7 @@
   "@profileview" : {
     "description" : "view profile"
   }, 
-  "manage" : "Manage {terms, select, menu{Menu} user{User} res{Reservations} other{they}}",
+  "manage" : "Manage {terms, select, menu{Menus} user{Users} res{Reservations} other{they}}",
   "@manage" : {
     "description" : "manage text",
     "placeholders" : {

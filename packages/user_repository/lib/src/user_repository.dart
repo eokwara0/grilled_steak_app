@@ -64,6 +64,21 @@ class UserRepository {
     return false;
   }
 
+  Future<User?> getUserById(String userId) async {
+    final response = await client.get(
+      Uri.parse('http://localhost:3000/user/$userId'),
+      headers: {
+        "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
+        "Content-Type": 'application/json',
+      },
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      return User.fromJson(jsonDecode(response.body));
+    }
+    return null;
+  }
+
   Future<bool> grantAccess(String userId) async {
     final response = await client.put(
       Uri.parse('http://localhost:3000/user/grant/${userId}'),

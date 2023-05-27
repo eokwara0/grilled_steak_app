@@ -29,7 +29,7 @@ class _ForgotState extends State<Forgot> {
                   Icons.arrow_back,
                 ),
               ),
-              Image.asset('images/logo.jpg'),
+              Image.asset('images/logo1.jpg'),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Column(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grilled_steak_app/ui/billing/cubit/bill_cubit.dart';
 import 'package:order_repository/order_repository.dart';
 
 import 'cubit/order_bill_cubit.dart';
@@ -292,6 +293,7 @@ class OrderBill extends StatelessWidget {
                 child: FilledButton(
                   onPressed: () {
                     BlocProvider.of<OrderBillCubit>(context).settleBill(order);
+                    BlocProvider.of<BillCubit>(context).addBill(order);
                     context.pop();
                   },
                   style: FilledButton.styleFrom(

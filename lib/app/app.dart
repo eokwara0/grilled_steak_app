@@ -1,6 +1,8 @@
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:billing_repository/billing_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:grilled_steak_app/app/routes.dart';
+import 'package:grilled_steak_app/ui/billing/cubit/bill_cubit.dart';
 import 'package:grilled_steak_app/ui/forgot/cubit/forgot_password_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/cubit/menu_cubit.dart';
 import 'package:grilled_steak_app/ui/menu/ui/menu/menu_edit/cubit/menu_edit_cubit.dart';
@@ -35,6 +37,7 @@ class _AppState extends State<App> {
   late final MenuRepository _menuRepository;
   late final ReservationRepository _reservationRepository;
   late final OrderRepository _orderRepository;
+  late final BillingRepository _billingRepository;
 
   @override
   void initState() {
@@ -45,6 +48,7 @@ class _AppState extends State<App> {
     _menuRepository = MenuRepository();
     _reservationRepository = ReservationRepository();
     _orderRepository = OrderRepository();
+    _billingRepository = BillingRepository();
     super.initState();
   }
 
@@ -69,6 +73,9 @@ class _AppState extends State<App> {
         ),
         RepositoryProvider(
           create: (context) => _orderRepository,
+        ),
+        RepositoryProvider(
+          create: (context) => _billingRepository,
         )
       ],
       child: MultiBlocProvider(
@@ -124,6 +131,11 @@ class _AppState extends State<App> {
               menuRepo: _menuItemRepository,
             ),
           ),
+          BlocProvider(
+            create: (context) => BillCubit(
+              billingRepository: _billingRepository,
+            ),
+          ),
         ],
         child: const AppView(),
       ),
@@ -143,6 +155,7 @@ class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: Routers.router,

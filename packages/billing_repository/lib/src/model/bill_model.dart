@@ -50,9 +50,9 @@ class Bill extends Equatable {
 
   static Bill fromJson(Map<dynamic, dynamic> Json) {
     return Bill(
-      id: Json['id'] as String,
-      userId: Json['userId'] as String,
-      orderId: Json['orderId'] as String,
+      id: '${Json['_id']}',
+      userId: '${Json['userId']}',
+      orderId: '${Json['orderId']}',
       grandTotal: double.tryParse('${Json['grandTotal']}'),
     );
   }
