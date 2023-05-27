@@ -39,9 +39,10 @@ class BillingRepository {
       },
     );
 
-    if (response.statusCode == HttpStatus.accepted) {
+    if (response.statusCode == HttpStatus.ok) {
       List<dynamic> bills = jsonDecode(response.body);
-      for (var bill in bills) {
+
+      for (dynamic bill in bills) {
         final realBill = Bill.fromJson(bill);
         billList.add(realBill);
       }

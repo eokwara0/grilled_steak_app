@@ -9,6 +9,7 @@ import 'package:grilled_steak_app/ui/user/ui/user_add/ui/user_add_page.dart';
 import 'package:grilled_steak_app/ui/user/ui/user_page.dart';
 import 'package:menu_repository/menu_repository.dart';
 
+import '../ui/billing/sales/ui/sales_page.dart';
 import '../ui/checkout/ui/checkout.dart';
 import '../ui/chef/ui/chef_page.dart';
 import '../ui/home/ui/home_page.dart';
@@ -145,6 +146,13 @@ class Routers {
         path: '/profile',
         builder: (context, state) {
           return const ProfilePage();
+        },
+      ),
+      GoRoute(
+        name: 'sales',
+        path: '/sales',
+        builder: (context, state) {
+          return const SalesPage();
         },
       ),
     ],

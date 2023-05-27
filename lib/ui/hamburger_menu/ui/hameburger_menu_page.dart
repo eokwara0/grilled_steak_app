@@ -127,6 +127,27 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
                   Icons.keyboard_arrow_right_rounded,
                 ),
               ),
+            if (context.read<AuthenticationBloc>().state.user.isAdmin)
+              ListTile(
+                onTap: () {
+                  context.read<ManageTableCubit>().initialize();
+                  context.go('/sales');
+                },
+                leading: const Icon(
+                  Icons.attach_money_rounded,
+                  size: 22,
+                ),
+                title: Text(
+                  'Sales',
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 15,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                ),
+              ),
             ListTile(
               onTap: () {
                 context.read<AuthenticationBloc>().add(

@@ -36,7 +36,7 @@ class MenuItemBottomAppBar extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.amber[500],
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: 23,
                   ),
                 ),
               ),

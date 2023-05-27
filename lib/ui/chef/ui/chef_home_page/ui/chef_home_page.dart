@@ -57,54 +57,20 @@ class ChefHomePage extends StatelessWidget {
                 SliverAppBar(
                   pinned: true,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  toolbarHeight: 0,
-                  bottom: PreferredSize(
-                    preferredSize: const Size(double.infinity, 100),
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      child: TextField(
-                        enabled: true,
-                        autocorrect: false,
-
-                        // cursor color
-                        cursorColor: Colors.amber,
-
-                        // search decoration
-                        decoration: InputDecoration(
-                          //prefix icon
-                          suffixIconColor: Colors.grey,
-                          suffixIcon: const Icon(
-                            Icons.search,
-                            size: 30,
-                          ),
-
-                          // filled
-                          filled: true,
-
-                          // fill color
-                          fillColor: Colors.grey.shade200.withOpacity(.8),
-                          // content padding
-
-                          contentPadding: const EdgeInsets.all(10),
-
-                          // default border
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-
-                          // focused border
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-
-                        // onSubmitted
-                        onSubmitted: (value) {},
-                      ),
+                  toolbarHeight: 100,
+                  title: Row(children: [
+                    Icon(
+                      Icons.tag,
+                      color: Colors.amber,
                     ),
-                  ),
+                    Text(
+                      'Orders',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ]),
                   // pinned: true,
                 ),
                 SliverPadding(

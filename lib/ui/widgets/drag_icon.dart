@@ -12,7 +12,7 @@ class DragIcon extends StatelessWidget {
         right: 150,
         left: 150,
       ),
-      width: 50,
+      width: 30,
       height: 5,
       decoration: const BoxDecoration(
         color: Colors.grey,
