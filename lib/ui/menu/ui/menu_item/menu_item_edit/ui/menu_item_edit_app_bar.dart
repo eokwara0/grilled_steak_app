@@ -14,6 +14,7 @@ class MenuItemEditAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MenuItemEditBloc, MenuItemEditState>(
       builder: (context, state) {
+        print(state.menuItem.imageUrl);
         final Object image = !state.fileIsNull
             ? FileImage(state.file!)
             : NetworkImage(state.menuItem.imageUrl!);

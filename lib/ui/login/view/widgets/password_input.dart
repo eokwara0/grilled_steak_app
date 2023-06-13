@@ -3,9 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/login_bloc.dart';
 
-class PasswordInput extends StatelessWidget {
+class PasswordInput extends StatefulWidget {
   const PasswordInput({super.key});
 
+  @override
+  State<PasswordInput> createState() => _PasswordInputState();
+}
+
+class _PasswordInputState extends State<PasswordInput> {
+  late bool _obscureText = true;
+  late Color? _suffixIconColor = Colors.amber;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
@@ -14,14 +21,28 @@ class PasswordInput extends StatelessWidget {
       },
       builder: (context, state) {
         return TextField(
-          obscureText: true,
+          obscureText: _obscureText,
           key: const Key('loginForm_passwordInput_textField'),
           onChanged: (password) => context.read<LoginBloc>().add(
                 LoginPasswordChanged(password),
               ),
           cursorColor: Colors.amber,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(10),
+            contentPadding: const EdgeInsets.all(10),
+            suffixIconColor: _suffixIconColor,
+            suffixIcon: GestureDetector(
+              child: const Icon(Icons.remove_red_eye_rounded),
+              onTap: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                  if (_suffixIconColor == Colors.amber) {
+                    _suffixIconColor = Colors.grey[400];
+                  } else {
+                    _suffixIconColor = Colors.amber;
+                  }
+                });
+              },
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),

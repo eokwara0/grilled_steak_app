@@ -188,7 +188,7 @@ class LongCard extends StatelessWidget {
         children: [
           Ink(
             width: double.infinity,
-            height: 250,
+            height: 210,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -206,8 +206,12 @@ class LongCard extends StatelessWidget {
               },
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -215,7 +219,7 @@ class LongCard extends StatelessWidget {
                   item.item!.title!,
                   style: TextStyle(
                     color: Colors.grey.shade600,
-                    fontSize: 12,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

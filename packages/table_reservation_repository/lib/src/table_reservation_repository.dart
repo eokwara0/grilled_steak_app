@@ -15,7 +15,7 @@ class ReservationRepository {
   Future<List<TableReservation>?> getAllTable() async {
     List<TableReservation> tables = [];
     final response = await client.get(
-      Uri.parse('http://localhost:3000/table'),
+      Uri.parse('http://192.168.0.252:3000/table'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -46,7 +46,7 @@ class ReservationRepository {
     List<TableReservation> tables = [];
 
     final response = await client.get(
-      Uri.parse('http://localhost:3000/table/available'),
+      Uri.parse('http://192.168.0.252:3000/table/available'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -77,7 +77,7 @@ class ReservationRepository {
     List<TableReservation> tables = [];
 
     final response = await client.get(
-      Uri.parse('http://localhost:3000/table/reserved'),
+      Uri.parse('http://192.168.0.252:3000/table/reserved'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -106,7 +106,7 @@ class ReservationRepository {
 
   Future<bool> updateReservation(String id, TableReservation table) async {
     final response = await client.post(
-      Uri.parse('http://localhost:3000/table/reservation/${id}'),
+      Uri.parse('http://192.168.0.252:3000/table/reservation/${id}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',

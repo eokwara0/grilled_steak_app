@@ -66,6 +66,7 @@ class ChefHomePageCubit extends Cubit<ChefHomePageState> {
           menuOrderItems: items,
         ),
       );
+      emit(ChefHomePageLoaded(orders: orders, menuOrderItems: items));
     } else {
       return emit(
         const ChefHomePageError(
@@ -91,6 +92,8 @@ class ChefHomePageCubit extends Cubit<ChefHomePageState> {
           menuOrderItems: items,
         ),
       );
+
+      emit(ChefHomePageLoaded(orders: orders, menuOrderItems: items));
     } else {
       return emit(
         ChefHomePageError(

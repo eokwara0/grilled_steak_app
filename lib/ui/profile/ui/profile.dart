@@ -21,10 +21,17 @@ class ProfilePage extends StatelessWidget {
             leading: TextButton(
               style: TextButton.styleFrom(foregroundColor: Colors.amber),
               onPressed: () {
-                context.go('/');
+                if (BlocProvider.of<AuthenticationBloc>(context)
+                    .state
+                    .user
+                    .isChef) {
+                  context.go('/chefPage');
+                } else {
+                  context.go('/');
+                }
               },
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   SizedBox(
                     width: 10,
                   ),

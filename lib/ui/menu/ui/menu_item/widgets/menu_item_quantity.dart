@@ -15,7 +15,7 @@ class MenuItemQuantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
           Column(
@@ -57,7 +57,7 @@ class MenuItemQuantity extends StatelessWidget {
 
           // price end
           const Padding(
-            padding: EdgeInsets.only(right: 60),
+            padding: EdgeInsets.only(right: 40),
           ),
 
           // quantity Icons start
@@ -72,18 +72,26 @@ class MenuItemQuantity extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                IconButton(
-                  splashRadius: 1,
-                  enableFeedback: true,
-                  visualDensity: VisualDensity.compact,
-                  padding: EdgeInsets.zero,
-                  icon: const Icon(
-                    Icons.remove_circle,
-                    size: 35,
-                    color: Colors.grey,
-                  ),
-                  onPressed: () {
-                    if (quantity > 1) callback(quantity - 1);
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    print(constraints.maxHeight);
+                    print(constraints.smallest);
+                    print(
+                        "${(constraints.maxHeight * constraints.maxWidth) / 3}");
+                    return IconButton(
+                      splashRadius: 1,
+                      enableFeedback: true,
+                      visualDensity: VisualDensity.compact,
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(
+                        Icons.remove_circle,
+                        size: 35,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        if (quantity > 1) callback(quantity - 1);
+                      },
+                    );
                   },
                 ),
                 Text('${quantity.abs()}'),

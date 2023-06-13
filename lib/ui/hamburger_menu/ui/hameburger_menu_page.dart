@@ -22,10 +22,6 @@ class _HamBurgerMenuPageState extends State<HamBurgerMenuPage>
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 600), vsync: this);
-    animation = Tween<double>(begin: 0, end: 1).animate(controller);
-    controller.forward();
   }
 
   @override

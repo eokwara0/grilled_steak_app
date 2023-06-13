@@ -38,7 +38,7 @@ class UserRepository {
   // username
   Future<dynamic> makeRequest() async {
     final response = await client.get(
-      Uri.parse('http://localhost:3000/auth/profile'),
+      Uri.parse('http://192.168.0.252:3000/auth/profile'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -50,7 +50,7 @@ class UserRepository {
 
   Future<bool> addUser(User user) async {
     final response = await client.post(
-      Uri.parse('http://localhost:3000/user'),
+      Uri.parse('http://192.168.0.252:3000/user'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -66,7 +66,7 @@ class UserRepository {
 
   Future<User?> getUserById(String userId) async {
     final response = await client.get(
-      Uri.parse('http://localhost:3000/user/$userId'),
+      Uri.parse('http://192.168.0.252:3000/user/$userId'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -81,7 +81,7 @@ class UserRepository {
 
   Future<bool> grantAccess(String userId) async {
     final response = await client.put(
-      Uri.parse('http://localhost:3000/user/grant/${userId}'),
+      Uri.parse('http://192.168.0.252:3000/user/grant/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -96,7 +96,7 @@ class UserRepository {
 
   Future<bool> revokeAccess(String userId) async {
     final response = await client.put(
-      Uri.parse('http://localhost:3000/user/revoke/${userId}'),
+      Uri.parse('http://192.168.0.252:3000/user/revoke/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -112,7 +112,7 @@ class UserRepository {
   Future<List<User>?> getAllUsers() async {
     List<User> users = [];
     final response = await client.get(
-      Uri.parse('http://localhost:3000/user'),
+      Uri.parse('http://192.168.0.252:3000/user'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -136,7 +136,7 @@ class UserRepository {
 
   Future<bool> changePassword(String userId, String password) async {
     final response = await client.put(
-      Uri.parse('http://localhost:3000/user/change/password/${userId}'),
+      Uri.parse('http://192.168.0.252:3000/user/change/password/${userId}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',

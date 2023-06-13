@@ -30,6 +30,7 @@ class CheckOutPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 width: double.infinity,
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -41,172 +42,189 @@ class CheckOutPage extends StatelessWidget {
                         color: Colors.amber,
                       ),
                     ),
-                    FilledButton(
-                      style: FilledButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.amber,
-                      ),
-                      onPressed: () {
-                        if (state.orderItems.isNotEmpty) {
-                          showDialog(
-                            barrierDismissible: true,
-                            context: context,
-                            builder: (context) {
-                              return Dialog(
-                                child: BlocBuilder<CartCubit, CartState>(
-                                  builder: (context, state) {
-                                    return Container(
-                                      padding: const EdgeInsets.all(20),
-                                      width: 400,
-                                      height: 350,
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(
-                                            child: Text(
-                                              'CustomerDetails',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          EditTextField(
-                                            errorText: state.username!.invalid
-                                                ? 'Enter a valid name'
-                                                : null,
-                                            label: 'CustomerName',
-                                            hint: state.username!.value,
-                                            maxLines: 1,
-                                            onChanged: (p0) {
-                                              context
-                                                  .read<CartCubit>()
-                                                  .onNameChanged(p0);
-                                            },
-                                          ),
-                                          EditTextField(
-                                            errorText: state.email!.invalid
-                                                ? "Enter a valid email"
-                                                : null,
-                                            label: 'CustomerEmail',
-                                            hint: state.email!.value,
-                                            maxLines: 1,
-                                            onChanged: (p0) {
-                                              context
-                                                  .read<CartCubit>()
-                                                  .onEmailChanged(p0);
-                                            },
-                                          ),
-                                          SizedBox(
-                                            width: 300,
-                                            child: FilledButton(
-                                              style: FilledButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: MediaQuery.of(context).size.height / 18,
+                          child: FilledButton(
+                            style: FilledButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.amber,
+                            ),
+                            onPressed: () {
+                              if (state.orderItems.isNotEmpty) {
+                                showDialog(
+                                  barrierDismissible: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return Dialog(
+                                      child: BlocBuilder<CartCubit, CartState>(
+                                        builder: (context, state) {
+                                          return Container(
+                                            padding: const EdgeInsets.all(20),
+                                            width: 400,
+                                            height: 350,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  child: Text(
+                                                    'CustomerDetails',
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
                                                 ),
-                                                backgroundColor: Colors.amber,
-                                              ),
-                                              onPressed: () {
-                                                if (state.email!.valid &&
-                                                    state.username!.valid) {
-                                                  context
-                                                      .read<CartCubit>()
-                                                      .checkOut(
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                EditTextField(
+                                                  errorText:
+                                                      state.username!.invalid
+                                                          ? 'Enter a valid name'
+                                                          : null,
+                                                  label: 'CustomerName',
+                                                  hint: state.username!.value,
+                                                  maxLines: 1,
+                                                  onChanged: (p0) {
+                                                    context
+                                                        .read<CartCubit>()
+                                                        .onNameChanged(p0);
+                                                  },
+                                                ),
+                                                EditTextField(
+                                                  errorText: state
+                                                          .email!.invalid
+                                                      ? "Enter a valid email"
+                                                      : null,
+                                                  label: 'CustomerEmail',
+                                                  hint: state.email!.value,
+                                                  maxLines: 1,
+                                                  onChanged: (p0) {
+                                                    context
+                                                        .read<CartCubit>()
+                                                        .onEmailChanged(p0);
+                                                  },
+                                                ),
+                                                SizedBox(
+                                                  width: 300,
+                                                  child: FilledButton(
+                                                    style:
+                                                        FilledButton.styleFrom(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      backgroundColor:
+                                                          Colors.amber,
+                                                    ),
+                                                    onPressed: () {
+                                                      if (state.email!.valid &&
+                                                          state.username!
+                                                              .valid) {
                                                         context
-                                                            .read<
-                                                                AuthenticationBloc>()
-                                                            .state
-                                                            .user
-                                                            .id!,
-                                                      );
-                                                }
-                                              },
-                                              child: const Text('Submit'),
+                                                            .read<CartCubit>()
+                                                            .checkOut(
+                                                              context
+                                                                  .read<
+                                                                      AuthenticationBloc>()
+                                                                  .state
+                                                                  .user
+                                                                  .id!,
+                                                            );
+                                                      }
+                                                    },
+                                                    child: const Text('Submit'),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
+                                          );
+                                        },
                                       ),
                                     );
                                   },
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Dialog(
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: 400,
-                                  height: 300,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.centerRight,
-                                        width: double.infinity,
-                                        height: 40,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            context.go('/');
-                                          },
-                                          icon: Row(
-                                            children: const [
-                                              Icon(
-                                                Icons.cancel_outlined,
-                                                color: Colors.grey,
-                                                size: 30,
+                                );
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return Dialog(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: 400,
+                                        height: 300,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              alignment: Alignment.centerRight,
+                                              width: double.infinity,
+                                              height: 40,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  context.go('/');
+                                                },
+                                                icon: Row(
+                                                  children: const [
+                                                    Icon(
+                                                      Icons.cancel_outlined,
+                                                      color: Colors.grey,
+                                                      size: 30,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                            const SizedBox(
+                                              height: 40,
+                                            ),
+                                            Icon(
+                                              Icons
+                                                  .integration_instructions_outlined,
+                                              size: 100,
+                                              color: Colors.red[400],
+                                            ),
+                                            Text(
+                                              'No Items to Checkout',
+                                              style: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 40,
-                                      ),
-                                      Icon(
-                                        Icons.integration_instructions_outlined,
-                                        size: 100,
-                                        color: Colors.red[400],
-                                      ),
-                                      Text(
-                                        'No Items to Checkout',
-                                        style: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
+                                    );
+                                  },
+                                );
+                              }
                             },
-                          );
-                        }
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 40,
-                        width: 200,
-                        child: const Text(
-                          'Checkout',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 40,
+                              width: 200,
+                              child: const Text(
+                                'Checkout',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),

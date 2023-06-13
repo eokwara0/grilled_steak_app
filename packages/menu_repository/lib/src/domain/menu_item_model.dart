@@ -56,7 +56,7 @@ class MenuItem extends Equatable {
 
   static empty(String? userId, String? menuId) {
     bool active = true;
-    String imageUrl = "http://localhost:3000/items/ph/placeholder.avif";
+    String imageUrl = "http://192.168.0.252:3000/items/ph/gsb.webp";
     Item item_ = Item.empty();
 
     return MenuItem(

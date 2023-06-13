@@ -11,7 +11,7 @@ class MenuRepository {
   Future<List<Menu>?> getMenus() async {
     List<Menu> result = [];
     final response = await http.get(
-      Uri.parse('http://localhost:3000/menu'),
+      Uri.parse('http://192.168.0.252:3000/menu'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -38,7 +38,7 @@ class MenuRepository {
 
   Future<Menu?> getMenuByTitle(String title) async {
     final response = await http.get(
-      Uri.parse('http://localhost:3000/menu/${title}'),
+      Uri.parse('http://192.168.0.252:3000/menu/${title}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -61,7 +61,7 @@ class MenuRepository {
 
   Future<bool> deleteMenuById(String id) async {
     final response = await http.delete(
-      Uri.parse('http://localhost:3000/menu/delete/${id}'),
+      Uri.parse('http://192.168.0.252:3000/menu/delete/${id}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -76,7 +76,7 @@ class MenuRepository {
 
   Future<Menu?> getMenuIdByTitle(String title) async {
     final response = await http.get(
-      Uri.parse('http://localhost:3000/menu/id/${title}'),
+      Uri.parse('http://192.168.0.252:3000/menu/id/${title}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -90,7 +90,7 @@ class MenuRepository {
 
   Future<Menu?> getMenuById(String id) async {
     final response = await http.get(
-      Uri.parse('http://localhost:3000/menu/menu/${id}'),
+      Uri.parse('http://192.168.0.252:3000/menu/menu/${id}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -104,7 +104,7 @@ class MenuRepository {
 
   Future<bool> addMenu(Menu menu) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/menu'),
+      Uri.parse('http://192.168.0.252:3000/menu'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -125,7 +125,7 @@ class MenuRepository {
     final request = http.MultipartRequest(
       'POST',
       Uri.parse(
-        'http://localhost:3000/menu/upload/icon',
+        'http://192.168.0.252:3000/menu/upload/icon',
       ),
     )
       ..fields['image'] = 'image'
@@ -144,7 +144,7 @@ class MenuRepository {
   }
 
   String extracturl(String url) {
-    String newData = url.replaceFirst('public', 'http://localhost:3000');
+    String newData = url.replaceFirst('public', 'http://192.168.0.252:3000');
     return newData;
   }
 }

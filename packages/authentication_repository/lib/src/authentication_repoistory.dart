@@ -22,7 +22,7 @@ class AuthenticationRepository {
     required String password,
   }) async {
     final request = Post(
-      uri: Uri.parse('http://localhost:3000/auth/login'),
+      uri: Uri.parse('http://192.168.0.252:3000/auth/login'),
       headers: {},
       body: {
         "username": username,
@@ -59,7 +59,7 @@ class AuthenticationRepository {
     required String email,
   }) async {
     Request request = Post(
-      uri: Uri.parse('http://localhost:3000/auth/forgot/${email}'),
+      uri: Uri.parse('http://192.168.0.252:3000/auth/forgot/${email}'),
       headers: {},
       body: {},
     );

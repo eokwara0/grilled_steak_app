@@ -15,7 +15,7 @@ class BillingRepository {
 
   Future<bool> addBill(Bill bill) async {
     final response = await client.post(
-      Uri.parse('http://localhost:3000/billing'),
+      Uri.parse('http://192.168.0.252:3000/billing'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -32,7 +32,7 @@ class BillingRepository {
   Future<List<Bill>?> getBills() async {
     List<Bill> billList = [];
     final response = await client.get(
-      Uri.parse('http://localhost:3000/billing'),
+      Uri.parse('http://192.168.0.252:3000/billing'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',

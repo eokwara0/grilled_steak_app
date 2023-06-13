@@ -29,7 +29,7 @@
 //     test('userBlocInitialize', () async {
 //       final users = List.generate(2, (index) => User.empty);
 //       final client = MockClient((request) async {
-//         if (request.url == 'http://localhost:3000/user') {
+//         if (request.url == 'http://192.168.0.252:3000/user') {
 //           return http.Response(
 //             jsonEncode(users.map((e) => e.toJson()).toList()),
 //             200,

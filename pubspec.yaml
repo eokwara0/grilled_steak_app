@@ -95,7 +95,6 @@ flutter:
 
   assets:
     - images/
-    - images/icons/
   # To add assets to your apxplication, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

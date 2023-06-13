@@ -13,7 +13,7 @@ class MenuItemRepository {
   /// gets a menu item by its id
   Future<MenuItem?> getMenuItemById(String? id) async {
     final response = await client.get(
-      Uri.parse('http://localhost:3000/menuItem/item/${id}'),
+      Uri.parse('http://192.168.0.252:3000/menuItem/item/${id}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -35,7 +35,7 @@ class MenuItemRepository {
   /// deletes menu item by it's Id
   Future<bool?> deleteItemById(String id) async {
     final response = await client.delete(
-      Uri.parse('http://localhost:3000/menuItem/${id}'),
+      Uri.parse('http://192.168.0.252:3000/menuItem/${id}'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -54,7 +54,7 @@ class MenuItemRepository {
     List<MenuItem> items = [];
     final response = await client.get(
       Uri.parse(
-        'http://localhost:3000/menuItem/search/${regex}',
+        'http://192.168.0.252:3000/menuItem/search/${regex}',
       ),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -82,7 +82,7 @@ class MenuItemRepository {
     List<MenuItem> items = [];
 
     final response = await client.get(
-      Uri.parse('http://localhost:3000/menuItem/recommended'),
+      Uri.parse('http://192.168.0.252:3000/menuItem/recommended'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -108,7 +108,7 @@ class MenuItemRepository {
     List<MenuItem> items = [];
     final response = await client.get(
       Uri.parse(
-        'http://localhost:3000/menuItem/menuId/${id}',
+        'http://192.168.0.252:3000/menuItem/menuId/${id}',
       ),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
@@ -134,7 +134,7 @@ class MenuItemRepository {
 
   Future<bool> createMenuItem(MenuItem item) async {
     final response =
-        await client.post(Uri.parse('http://localhost:3000/menuItem/add'),
+        await client.post(Uri.parse('http://192.168.0.252:3000/menuItem/add'),
             headers: {
               "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
               "Content-Type": 'application/json',
@@ -149,7 +149,7 @@ class MenuItemRepository {
 
   Future<bool> replaceMenuItem(MenuItem item) async {
     final response = await client.post(
-        Uri.parse('http://localhost:3000/menuItem/replace/${item.id}'),
+        Uri.parse('http://192.168.0.252:3000/menuItem/replace/${item.id}'),
         headers: {
           "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
           "Content-Type": 'application/json',
@@ -170,7 +170,7 @@ class MenuItemRepository {
     final request = http.MultipartRequest(
       'POST',
       Uri.parse(
-        'http://localhost:3000/menuItem/upload/image/$dir',
+        'http://192.168.0.252:3000/menuItem/upload/image/$dir',
       ),
     )
       ..fields['image'] = 'image'
@@ -189,7 +189,7 @@ class MenuItemRepository {
   }
 
   String extracturl(String url) {
-    String newData = url.replaceFirst('public', 'http://localhost:3000');
+    String newData = url.replaceFirst('public', 'http://192.168.0.252:3000');
     return newData;
   }
 }

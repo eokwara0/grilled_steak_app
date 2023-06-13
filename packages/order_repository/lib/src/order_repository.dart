@@ -14,12 +14,13 @@ class OrderRepository {
   OrderRepository({http.Client? cli}) : client = cli ?? http.Client();
 
   Future<bool> placeOrder(Order order) async {
-    final response = await client.post(Uri.parse('http://localhost:3000/order'),
-        headers: {
-          "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
-          "Content-Type": 'application/json',
-        },
-        body: jsonEncode(order.toJson()));
+    final response =
+        await client.post(Uri.parse('http://192.168.0.252:3000/order'),
+            headers: {
+              "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
+              "Content-Type": 'application/json',
+            },
+            body: jsonEncode(order.toJson()));
 
     if (response.statusCode == HttpStatus.created) return true;
     return false;
@@ -29,7 +30,7 @@ class OrderRepository {
     List<Order> orders = [];
 
     final response = await client.get(
-      Uri.parse('http://localhost:3000/order/orders/$id'),
+      Uri.parse('http://192.168.0.252:3000/order/orders/$id'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -48,7 +49,7 @@ class OrderRepository {
 
   Future<Order?> getOrderById(String id) async {
     final response = await client.get(
-      Uri.parse('http://localhost:3000/order/$id'),
+      Uri.parse('http://192.168.0.252:3000/order/$id'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -63,7 +64,7 @@ class OrderRepository {
 
   Future<bool> readyOrder(String id) async {
     final response = await client.put(
-      Uri.parse('http://localhost:3000/order/ready/$id'),
+      Uri.parse('http://192.168.0.252:3000/order/ready/$id'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -78,7 +79,7 @@ class OrderRepository {
 
   Future<bool> closeId(String id) async {
     final response = await client.put(
-      Uri.parse('http://localhost:3000/order/close/$id'),
+      Uri.parse('http://192.168.0.252:3000/order/close/$id'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -93,7 +94,7 @@ class OrderRepository {
 
   Future<bool> cancelId(String id) async {
     final response = await client.put(
-      Uri.parse('http://localhost:3000/order/cancel/$id'),
+      Uri.parse('http://192.168.0.252:3000/order/cancel/$id'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',
@@ -110,7 +111,7 @@ class OrderRepository {
     List<Order> orders = [];
 
     final response = await client.get(
-      Uri.parse('http://localhost:3000/order/preparing'),
+      Uri.parse('http://192.168.0.252:3000/order/preparing'),
       headers: {
         "Authorization": 'Bearer ${await _ss.readKey('access_token')}',
         "Content-Type": 'application/json',

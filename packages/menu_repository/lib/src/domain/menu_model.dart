@@ -29,7 +29,7 @@ class Menu extends Equatable {
         title: 'Title',
         summary: 'Summary',
         content: 'content',
-        imageUrl: 'http://localhost:3000/items/ph/hot-pot.png');
+        imageUrl: 'http://192.168.0.252:3000/items/ph/hot-pot.png');
   }
 
   copyWith({
