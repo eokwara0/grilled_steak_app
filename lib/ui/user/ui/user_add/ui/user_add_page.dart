@@ -111,6 +111,11 @@ class _UserAddPageState extends State<UserAddPage> {
                                     onTap: () {},
                                     child: const Text('Cashier'),
                                   ),
+                                  DropdownMenuItem<String>(
+                                    value: 'Chef',
+                                    onTap: () {},
+                                    child: const Text('Chef'),
+                                  ),
                                 ],
                                 onChanged: (value) {
                                   setState(() {

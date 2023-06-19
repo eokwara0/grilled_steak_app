@@ -60,11 +60,11 @@ class Menu extends Equatable {
   static fromJson(Map<dynamic, dynamic> data) {
     return Menu(
       id: '${data['_id']}',
-      userId: '${data['_userId']}',
-      title: '${data['_title']}',
-      summary: '${data['_summary']}',
-      content: '${data['_content']}',
-      imageUrl: '${data['_imageUrl']}',
+      userId: '${data['userId']}',
+      title: '${data['title']}',
+      summary: '${data['summary']}',
+      content: '${data['content']}',
+      imageUrl: '${data['imageUrl']}',
     );
   }
 

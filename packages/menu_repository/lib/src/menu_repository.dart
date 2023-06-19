@@ -20,6 +20,7 @@ class MenuRepository {
 
     if (response.statusCode == 200) {
       try {
+        print(response.body);
         List<dynamic> _decoded = List.of(
           jsonDecode(response.body),
         );

@@ -210,8 +210,7 @@ class LongCard extends StatelessWidget {
             height: 10,
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
